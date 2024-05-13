@@ -12,7 +12,6 @@ import (
 	utils "room/Utils"
 	"strconv"
 
-	cat "roomCategory/Models"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )
@@ -25,7 +24,7 @@ func init() {
 	}
 }
 
-func getRoomCategoryByID(categoryID int) (*cat.RoomCategory, error) {
+func getRoomCategoryByID(categoryID int) (*entity.RoomCategory, error) {
 	resp, err := http.Get(fmt.Sprintf("http://127.0.0.1:8081/roomCategory/%d", categoryID)) // Perbaikan: Menggunakan %d untuk format integer
 	if err != nil {
 		return nil, fmt.Errorf("failed to make HTTP request: %v", err)
@@ -36,7 +35,7 @@ func getRoomCategoryByID(categoryID int) (*cat.RoomCategory, error) {
 		return nil, fmt.Errorf("HTTP request failed with status code: %d", resp.StatusCode)
 	}
 
-	var categoryKamar cat.RoomCategory
+	var categoryKamar entity.RoomCategory
 	if err := json.NewDecoder(resp.Body).Decode(&categoryKamar); err != nil {
 		return nil, fmt.Errorf("failed to decode JSON response: %v", err)
 	}

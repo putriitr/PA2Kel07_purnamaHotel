@@ -7,7 +7,7 @@ import (
 )
 
 func Routing(app *fiber.App) {
-	kamar := app.Group("Kamar")
+	kamar := app.Group("Room")
 	kamar.Get("/", controllers.GetAllRoom)
 	kamar.Post("/create", controllers.CreateRoom)
 	kamar.Get("/:id", controllers.GetRoomByID)
