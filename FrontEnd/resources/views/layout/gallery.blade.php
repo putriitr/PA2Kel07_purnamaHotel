@@ -195,7 +195,7 @@
                 <div class="row g-4">
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/about-1.jpg') }}"
+                            <img class="img-fluid square-img" src="{{ asset('/web/img/spa.webp') }}"
                                 alt="">
                         </div>
                     </div>
@@ -227,7 +227,7 @@
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h5 class="section-title ff-secondary text-center text-primary fw-normal">Hotel Photos</h5>
-                    <h1 class="mb-5">Sport</h1>
+                    <h1 class="mb-5">Sports</h1>
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">

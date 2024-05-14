@@ -22,7 +22,7 @@
                             <h2 class="display-3 text-white animated slideInLeft">Hotel<br>Purnama Balige</h2>
                             <p class="text-white animated slideInLeft mb-4 pb-2">Bersantai dengan pemandangan indah Danau
                                 Toba dan nikmati fasilitas Hotel Purnama Balige yang lengkap dan menarik</p>
-                            <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A
+                            <a href="/book" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A
                                 Room</a>
                         </div>
                         <div class="col-lg-6 text-center text-lg-end overflow-hidden">
@@ -258,7 +258,7 @@
                         data-wow-delay="0.1s">
                         <img class="img-fluid square-img" src="{{ asset('/web/img/kolam.webp') }}" alt="">
                         <br />
-                        <h5 class="mb-0">Outdoor</h5>
+                        <h5 class="mb-0">Umum</h5>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
                         data-wow-delay="0.3s">
@@ -276,15 +276,15 @@
                 <div class="row g-4 justify-content-center">
                     <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
                         data-wow-delay="0.7s">
-                        <img class="img-fluid" src="{{ asset('/web/img/lobi.webp') }}" alt="">
+                        <img class="img-fluid" src="{{ asset('/web/img/bank.jpeg') }}" alt="">
                         <br />
-                        <h5 class="mb-0">Lobby</h5>
+                        <h5 class="mb-0">Fasilitas Terdekat</h5>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
-                        data-wow-delay="0.1s">
-                        <img class="img-fluid" src="{{ asset('/web/img/resto2.jpg') }}" alt="">
+                        data-wow-delay="0.9s">
+                        <img class="img-fluid" src="{{ asset('/web/img/lake2.jpg') }}" alt="">
                         <br />
-                        <h5 class="mb-0">Restaurant</h5>
+                        <h5 class="mb-0">Fasilitas Kamar</h5>
                     </div>
                 </div>
             </div>

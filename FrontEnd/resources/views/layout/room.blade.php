@@ -518,31 +518,17 @@
 
     <script>
         $(document).ready(function() {
-            // Array of image sources
             var images = [
-                "{{ asset('/web/img/single-room/single1.jpg') }}",
-                "{{ asset('/web/img/single-room/single2.jpg') }}",
-                "{{ asset('/web/img/single-room/single3.jpg') }}",
-                "{{ asset('/web/img/single-room/singlee4.jpg') }}"
+                "{{ asset('/web/img/single1.jpg') }}",
+                "{{ asset('/web/img/single2.jpg') }}",
+                "{{ asset('/web/img/single3.jpg') }}",
+                "{{ asset('/web/img/single4.jpg') }}"
             ];
             var currentIndex = 0;
-            var totalImages = images.length;
 
-            // Function to update the displayed image
-            function updateImage() {
-                $("#slideImg").attr("src", images[currentIndex]);
-            }
-
-            // Click event for previous button
-            $("#prevBtn").on("click", function() {
-                currentIndex = (currentIndex - 1 + totalImages) % totalImages;
-                updateImage();
-            });
-
-            // Click event for next button
             $("#nextBtn").on("click", function() {
-                currentIndex = (currentIndex + 1) % totalImages;
-                updateImage();
+                currentIndex = (currentIndex + 1) % images.length;
+                $("#slideImg").attr("src", images[currentIndex]);
             });
         });
     </script>

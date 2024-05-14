@@ -38,11 +38,7 @@ Route::get('/contact', function () {
 });
 
 Route::get('/book', function () {
-    return view('layout.login');
-});
-
-Route::get('/register', function () {
-    return view('layout.register');
+    return view('layout.autentikasi');
 });
 
 Route::get('/adminHome', function () {

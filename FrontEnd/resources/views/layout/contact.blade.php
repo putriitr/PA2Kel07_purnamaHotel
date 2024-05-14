@@ -82,11 +82,16 @@
                                     <div class="col-12">
                                         <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
                                     </div>
-                                    <div class="d-flex justify-content-center justify-content-md-start pt-2">
-                                        <a class="btn btn-outline-blue btn-social me-2" href="https://web.facebook.com/people/Purnama-Balige-Hotel-Restaurant/100090303502245/?_rdc=1&_rdr#_=_"><i class="fab fa-facebook-f fa-3x" style="color: blue;"></i></a>
-                                        <a class="btn btn-outline-red btn-social me-2" href="https://www.instagram.com/purnamabaligehotel/"><i class="fab fa-instagram fa-3x" style="color: purple;"></i></a>
-                                        <a class="btn btn-outline-green btn-social me-2" href="https://wa.me/6281376438471?text=Halo%20saya%20ingin%20booking"><i class="fab fa-whatsapp fa-3x" style="color: green;"></i></a>
-                                        <a class="btn btn-outline-red btn-social me-2" href="https://youtube.com/@purnamabaligehotel?si=pVZjhbgzbSWoDURc"><i class="fab fa-youtube fa-3x" style="color: red;"></i></a>
+                                    <div class="d-flex justify-content-center pt-2">
+                                        <a class="btn btn-outline-blue btn-social me-2" href="https://web.facebook.com/people/Purnama-Balige-Hotel-Restaurant/100090303502245/?_rdc=1&_rdr#_=_">
+                                            <i class="fab fa-facebook-f fa-3x" style="color: blue;"></i>
+                                        </a>
+                                        <a class="btn btn-outline-red btn-social me-2" href="https://www.instagram.com/purnamabaligehotel/">
+                                            <i class="fab fa-instagram fa-3x" style="color: purple;"></i>
+                                        </a>
+                                        <a class="btn btn-outline-green btn-social" href="https://wa.me/6281376438471?text=Halo%20saya%20ingin%20booking">
+                                            <i class="fab fa-whatsapp fa-3x" style="color: green;"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </form>

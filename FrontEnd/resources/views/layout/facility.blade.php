@@ -28,7 +28,7 @@
                         data-wow-delay="0.1s">
                         <img class="img-fluid square-img" src="{{ asset('/web/img/kolam.webp') }}" alt="">
                         <br />
-                        <h5 class="mb-0">Outdoor</h5>
+                        <h5 class="mb-0">Umum</h5>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
                         data-wow-delay="0.3s">
@@ -46,15 +46,15 @@
                 <div class="row g-4 justify-content-center">
                     <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
                         data-wow-delay="0.7s">
-                        <img class="img-fluid" src="{{ asset('/web/img/lobi.webp') }}" alt="">
+                        <img class="img-fluid" src="{{ asset('/web/img/bank.jpeg') }}" alt="">
                         <br />
-                        <h5 class="mb-0">Lobby</h5>
+                        <h5 class="mb-0">Fasilitas Terdekat</h5>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
                         data-wow-delay="0.1s">
-                        <img class="img-fluid" src="{{ asset('/web/img/resto2.jpg') }}" alt="">
+                        <img class="img-fluid" src="{{ asset('/web/img/lake2.jpg') }}" alt="">
                         <br />
-                        <h5 class="mb-0">Restaurant</h5>
+                        <h5 class="mb-0">Fasilitas Kamar</h5>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
-                                <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
+                                <i class="fa fa-3x fa-swimming-pool text-primary mb-4"></i>
                                 <h5>Umum</h5>
                                 <p class="mb-4">
                                     <ul>
@@ -83,7 +83,7 @@
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
-                                <i class="fa fa-3x fa-utensils text-primary mb-4"></i>
+                                <i class="fa fa-3x fa-spa text-primary mb-4"></i>
                                 <h5>Spa & Sauna</h5>
                                 <p class="mb-4">
                                     <ul>
@@ -100,7 +100,7 @@
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
-                                <i class="fa fa-3x fa-cart-plus text-primary mb-4"></i>
+                                <i class="fa fa-3x fa-dumbbell text-primary mb-4"></i>
                                 <h5>Sports</h5>
                                 <p class="mb-4">
                                     <ul>
@@ -117,15 +117,15 @@
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
-                                <i class="fa fa-3x fa-headset text-primary mb-4"></i>
+                                <i class="fa fa-3x fa-store text-primary mb-4"></i>
                                 <h5>Fasilitas Terdekat</h5>
                                 <p class="mb-4">
                                     <ul>
                                         <li>Bank dan ATM</li>
                                         <li>Minimarket</li>
                                         <li>Pasar</li>
-                                        <li>...</li>
-                                        <li>...</li>
+                                        <li>Rumah Sakit</li>
+                                        <li>Tempat Ibadah</li>
                                     </ul>
                                 </p>
                             </div>
@@ -134,7 +134,7 @@
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
-                                <i class="fa fa-3x fa-bed text-primary mb-4"></i>
+                                <i class="fa fa-3x fa-tv text-primary mb-4"></i>
                                 <h5>Fasilitas Kamar</h5>
                                 <p class="mb-4">
                                     <ul>
@@ -151,7 +151,7 @@
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
-                                <i class="fa fa-3x fa-headset text-primary mb-4"></i>
+                                <i class="fa fa-3x fa-tshirt text-primary mb-4"></i>
                                 <h5>Servis Hotel</h5>
                                 <p class="mb-4">
                                     <ul>
@@ -168,14 +168,13 @@
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
-                                <i class="fa fa-3x fa-headset text-primary mb-4"></i>
+                                <i class="fa fa-3x fa-briefcase text-primary mb-4"></i>
                                 <h5>Bisnis</h5>
                                 <p class="mb-4">
                                     <ul>
                                         <li>Ruang Rapat</li>
                                         <li>Layanan Sekretarial</li>
                                         <li>Antar-jemput</li>
-                                        <li>Sewa Mobil</li>
                                         <li>Makanan</li>
                                     </ul>
                                 </p>
@@ -185,15 +184,13 @@
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
-                                <i class="fa fa-3x fa-headset text-primary mb-4"></i>
+                                <i class="fa fa-3x fa-shuttle-van text-primary mb-4"></i>
                                 <h5>Jasa Hotel</h5>
                                 <p class="mb-4">
                                     <ul>
-                                        <li>Antar-jemput bandara-hotel</li>
+                                        <li>Antar-jemput bandara berbiaya</li>
                                         <li>Sewa Mobil</li>
-                                        <li>....</li>
-                                        <li>....</li>
-                                        <li>....</li>
+                                        <li>Area Parkir</li><br/>
                                     </ul>
                                 </p>
                             </div>

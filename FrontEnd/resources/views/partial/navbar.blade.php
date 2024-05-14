@@ -1,6 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
-    <a href="" class="navbar-brand p-0">
-        <h1 class="text-primary m-0"><i class="fa fa-building me-3"></i>Purnama</h1>
+    <a href="" class="navbar-brand p-0 d-flex align-items-center">
+        <img src="{{ asset('/web/img/logo1.png') }}" alt="Purnama Balige" style="width: 60px; height: 60px; margin-right: 10px;">
+        <div>
+            <h3 class="text-primary m-0">Purnama Balige</h3>
+            <small>Hotel & Restaurant</small>
+        </div>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="fa fa-bars"></span>
