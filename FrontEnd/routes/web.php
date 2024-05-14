@@ -44,3 +44,7 @@ Route::get('/book', function () {
 Route::get('/register', function () {
     return view('layout.register');
 });
+
+Route::get('/adminHome', function () {
+    return view('admin.home');
+});
