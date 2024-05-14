@@ -40,7 +40,3 @@ Route::get('/contact', function () {
 Route::get('/book', function () {
     return view('layout.autentikasi');
 });
-
-Route::get('/adminHome', function () {
-    return view('admin.home');
-});
