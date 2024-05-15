@@ -10,7 +10,7 @@ func Routes(app *fiber.App) {
 	routes := app.Group("Announcement")
 	routes.Get("/", controllers.Announcement)
 	routes.Post("/create", controllers.CreateAnnouncement)
-	routes.Get("/:title", controllers.GetAnnouncementByTitle)
-	routes.Put("/update/:title", controllers.UpdateAnnouncement)
-	routes.Delete("/delete/:title", controllers.DeleteAnnouncement)
+	routes.Get("/:id", controllers.GetAnnouncementByID)
+	routes.Put("/update/:id", controllers.UpdateAnnouncement)
+	routes.Delete("/delete/:id", controllers.DeleteAnnouncement)
 }

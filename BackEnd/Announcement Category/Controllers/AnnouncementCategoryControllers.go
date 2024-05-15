@@ -50,8 +50,8 @@ func CreateAnnouncementCategory(c *fiber.Ctx) error {
 	}
 
 	announcementCategory := entity.AnnouncementCategory{
-		Id:   input.Id,
-		Name: input.Name,
+		Name:        input.Name,
+		Description: input.Description,
 	}
 
 	err := database.DB.Create(&announcementCategory).Error
@@ -71,20 +71,19 @@ func CreateAnnouncementCategory(c *fiber.Ctx) error {
 func GetAnnouncementCategoryById(c *fiber.Ctx) error {
 	id := c.Params("id")
 
-	var announcementCategory entity.AnnouncementCategory
+	var announcementCategories entity.AnnouncementCategory
 
-	err := database.DB.Where("id = ?", id).First(&announcementCategory).Error
-
+	err := database.DB.Where("id = ?", id).First(&announcementCategories).Error
 	if err != nil {
 		return c.Status(404).JSON(fiber.Map{
-			"status":  "Failed",
-			"message": "Not Found",
+			"status":  "succes",
+			"message": "Not found",
 		})
 	}
 
 	return c.Status(200).JSON(fiber.Map{
-		"status":  "success",
-		"message": announcementCategory,
+		"status":  "succes",
+		"message": announcementCategories,
 	})
 }
 
@@ -107,8 +106,8 @@ func UpdateAnnouncementCategory(c *fiber.Ctx) error {
 		})
 	}
 
-	if input.Id != 0 {
-		announcementCategory.Id = input.Id
+	if input.Description != "" {
+		announcementCategory.Description = input.Description
 	}
 
 	if input.Name != "" {

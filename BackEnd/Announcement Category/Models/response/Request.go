@@ -1,11 +1,11 @@
 package response
 
 type RequestCreateAnnouncementCategory struct{
-	Id        uint   `json:"id"`
-	Name      string `json:"name" gorm:"type:varchar(100)" validate:"required,min=10"`
+	Name      string    `json:"name" gorm:"type:varchar(50)" validate:"required"`
+	Description string    `json:"description" gorm:"type:varchar(250)" validate:"required"`
 }
 
 type RequestUpdateAnnouncementCategory struct {
-	Id        uint   `json:"id"`
-	Name      string `json:"name" gorm:"type:varchar(100)" validate:"required,min=10"`
+	Name      string    `json:"name" gorm:"type:varchar(50)" validate:"required"`
+	Description string    `json:"description" gorm:"type:varchar(250)" validate:"required"`
 }
