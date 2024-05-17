@@ -7,11 +7,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func Routing(app *fiber.App){
+func Routing(app *fiber.App) {
 	user := app.Group("user")
 	user.Post("/register", controllers.UserRegister)
 	user.Post("/login", controllers.UserLogin)
 	user.Use(middleware.Middleware())
-	user.Get("/profile", controllers.GetProfileUser)
+	user.Get("/profile/:id", controllers.GetProfileUser)
 	user.Post("/logout", controllers.UserLogout)
 }

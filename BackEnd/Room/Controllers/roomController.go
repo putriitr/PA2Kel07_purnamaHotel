@@ -187,7 +187,7 @@ func UpdateRoom(c *fiber.Ctx) error {
 	if input.Capacity != 0 {
 		rooms.Capacity = input.Capacity
 	}
-	if input.Price != "" {
+	if input.Price != 0 {
 		rooms.Price = input.Price
 	}
 

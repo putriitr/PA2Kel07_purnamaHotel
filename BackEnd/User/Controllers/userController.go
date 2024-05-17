@@ -13,7 +13,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func UserRegister(c *fiber.Ctx) error{
+func UserRegister(c *fiber.Ctx) error {
 	input := new(request.RequestUserRegister)
 
 	if err := c.BodyParser(input); err != nil {
@@ -41,7 +41,7 @@ func UserRegister(c *fiber.Ctx) error{
 	users := entity.User{
 		Name:     input.Name,
 		Phone:    input.Phone,
-		Email: input.Email,
+		Email:    input.Email,
 		Username: input.Username,
 		Password: password,
 	}
@@ -59,7 +59,7 @@ func UserRegister(c *fiber.Ctx) error{
 	})
 }
 
-func UserLogin(c *fiber.Ctx) error  {
+func UserLogin(c *fiber.Ctx) error {
 	input := new(request.RequestUserLogin)
 
 	if err := c.BodyParser(input); err != nil {
@@ -122,8 +122,17 @@ func UserLogin(c *fiber.Ctx) error  {
 }
 
 func GetProfileUser(c *fiber.Ctx) error {
+	id := c.Params("id")
 	user := c.Locals("user").(entity.User)
-	return c.JSON(fiber.Map{
+
+	err := database.DB.First(&user, "id= ?", id).Error
+	if err != nil {
+		return c.Status(500).JSON(fiber.Map{
+			"status":  "failed",
+			"message": err.Error(),
+		})
+	}
+	return c.Status(200).JSON(fiber.Map{
 		"status":  "success",
 		"message": user,
 	})
