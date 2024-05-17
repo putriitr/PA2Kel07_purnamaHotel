@@ -2,7 +2,7 @@
     <a href="" class="navbar-brand p-0 d-flex align-items-center">
         <img src="{{ asset('/web/img/logo1.png') }}" alt="Purnama Balige" style="width: 60px; height: 60px; margin-right: 10px;">
         <div>
-            <h3 class="text-primary m-0">Purnama Balige</h3>
+            <h4 class="text-primary m-0">Purnama Balige</h4>
             <small>Hotel & Restaurant</small>
         </div>
     </a>
@@ -14,7 +14,7 @@
             <a href="/" class="nav-item nav-link active">Home</a>
             <a href="/facility" class="nav-item nav-link">Facility</a>
             <a href="/gallery" class="nav-item nav-link">Gallery</a>
-            <a href="/event" class="nav-item nav-link">Event</a>
+            <a href="/event" class="nav-item nav-link">Announcement</a>
             <a href="/room" class="nav-item nav-link">Room n Suite</a>
             <a href="/contact" class="nav-item nav-link">Contact</a>
         </div>

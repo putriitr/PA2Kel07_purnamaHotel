@@ -40,3 +40,7 @@ Route::get('/contact', function () {
 Route::get('/book', function () {
     return view('layout.autentikasi');
 });
+
+Route::get('/form', function () {
+    return view('layout.booking');
+});

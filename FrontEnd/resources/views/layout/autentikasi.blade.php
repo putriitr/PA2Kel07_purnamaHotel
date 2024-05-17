@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="utf-8">
     <title>Login Page</title>
@@ -70,4 +67,3 @@
     </div>
     <script src="{{asset ('/web/js/script.js')}}"></script>
 </body>
-</html>

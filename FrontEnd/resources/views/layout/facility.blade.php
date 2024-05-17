@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     @include('partial.head')
 </head>
@@ -31,13 +28,13 @@
                         <h5 class="mb-0">Umum</h5>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
-                        data-wow-delay="0.3s">
+                        data-wow-delay="0.1s">
                         <img class="img-fluid" src="{{ asset('/web/img/spa.webp') }}" alt="">
                         <br />
                         <h5 class="mb-0">Spa & Sauna</h5>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
-                        data-wow-delay="0.5s">
+                        data-wow-delay="0.1s">
                         <img class="img-fluid" src="{{ asset('/web/img/sport2.jpg') }}" alt="">
                         <br />
                         <h5 class="mb-0">Sports</h5>
@@ -45,7 +42,7 @@
                 </div><br/><br/>
                 <div class="row g-4 justify-content-center">
                     <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
-                        data-wow-delay="0.7s">
+                        data-wow-delay="0.1s">
                         <img class="img-fluid" src="{{ asset('/web/img/bank.jpeg') }}" alt="">
                         <br />
                         <h5 class="mb-0">Fasilitas Terdekat</h5>
@@ -114,7 +111,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
                                 <i class="fa fa-3x fa-store text-primary mb-4"></i>
@@ -131,7 +128,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
                                 <i class="fa fa-3x fa-tv text-primary mb-4"></i>
@@ -148,7 +145,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
                                 <i class="fa fa-3x fa-tshirt text-primary mb-4"></i>
@@ -165,7 +162,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
                                 <i class="fa fa-3x fa-briefcase text-primary mb-4"></i>
@@ -181,7 +178,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="service-item rounded pt-3">
                             <div class="p-4">
                                 <i class="fa fa-3x fa-shuttle-van text-primary mb-4"></i>
@@ -207,5 +204,3 @@
 
     @include('partial.js')
 </body>
-
-</html>
