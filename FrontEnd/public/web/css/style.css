@@ -150,6 +150,78 @@
     }
 }
 
+body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .form-all {
+            text-align: left;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .header-logo {
+            margin-bottom: 20px;
+        }
+
+        .header-text h1 {
+            text-align: center;
+            margin: 0;
+            font-size: 40px;
+        }
+
+        .header-text h3 {
+            text-align: center;
+            margin: 0;
+            font-size: 20px;
+        }
+        .header-text .form-subHeader {
+            margin: 0;
+            font-size: 16px;
+            color: gray;
+        }
+
+        .form-line {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            margin-bottom: 20px;
+        }
+
+        .form-line-column {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+        }
+
+        .form-line-column input,
+        .form-line-column select,
+        .form-line-column textarea {
+            width: calc(50% - 10px);
+            margin: 5px;
+        }
+
+        .form-buttons-wrapper {
+            text-align: left;
+        }
+
+        .form-buttons-wrapper button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .always-hidden {
+            display: none;
+        }
 
 .hero-header {
     background: linear-gradient(rgba(15, 23, 43, .9), rgba(15, 23, 43, .9)), url(../img/about-1.jpg);
@@ -343,6 +415,50 @@
     background: #000000;
     opacity: 1;
 }
+
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 10%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.lightbox-content {
+    position: relative;
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+.lightbox-content img {
+    width: 100%;
+    height: auto;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 
 
 /*** Team ***/

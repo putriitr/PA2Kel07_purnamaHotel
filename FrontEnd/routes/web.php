@@ -41,6 +41,7 @@ Route::get('/book', function () {
     return view('layout.autentikasi');
 });
 
+<<<<<<< HEAD
 Route::get('/admin', function () {
     return view('admin.home');
 });
@@ -114,4 +115,8 @@ Route::prefix('admin')->namespace('App\Http\Controllers')->group(function () {
         // Route::post('surat/{id}', [DashboardController::class, 'suratapprove'])->name('aprovesurat');
 
     });
+=======
+Route::get('/form', function () {
+    return view('layout.booking');
+>>>>>>> origin/main
 });

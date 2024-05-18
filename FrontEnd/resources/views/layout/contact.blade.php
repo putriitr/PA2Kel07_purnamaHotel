@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     @include('partial.head')
 </head>
@@ -32,7 +29,7 @@
                         <div class="row gy-4">
                             <div class="col-md-4">
                                 <h5 class="section-title ff-secondary fw-normal text-start text-primary">Booking</h5>
-                                <p><i class="fa fa-envelope-open text-primary me-2"></i>purnamabooking@gmail.com</p>
+                                <p><i class="fa fa-envelope-open text-primary me-2"></i>purnamabook@gmail.com</p>
                             </div>
                             <div class="col-md-4">
                                 <h5 class="section-title ff-secondary fw-normal text-start text-primary">Service</h5>
@@ -80,7 +77,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
+                                        <a href="/form" button class="btn btn-primary w-100 py-3" type="submit">Send Message</a>
                                     </div>
                                     <div class="d-flex justify-content-center pt-2">
                                         <a class="btn btn-outline-blue btn-social me-2" href="https://web.facebook.com/people/Purnama-Balige-Hotel-Restaurant/100090303502245/?_rdc=1&_rdr#_=_">
@@ -115,5 +112,3 @@
     <!-- JavaScript Libraries -->
     @include('partial.js')
 </body>
-
-</html>

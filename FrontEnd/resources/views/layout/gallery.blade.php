@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     @include('partial.head')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 </head>
 
 <body>
@@ -80,6 +79,10 @@
         </div>
         <!-- Menu End -->
 
+        <div id="lightbox" class="lightbox">
+            <span class="close" onclick="document.getElementById('lightbox').style.display='none'">&times;</span>
+            <img class="lightbox-content" id="lightbox-img">
+        </div>
 
         <!-- Team Start -->
         <div class="container-xxl pt-5 pb-3">
@@ -89,25 +92,36 @@
                     <h1 class="mb-5">Building Views</h1>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/background.jpg') }}"
-                                alt="">
+                            <a href="{{ asset('/web/img/background.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/background.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/about-1.jpg') }}" alt="">
+                            <a href="{{ asset('/web/img/about-1.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-1.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/about-5.jpg') }}" alt="">
+                            <a href="{{ asset('/web/img/about-5.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-5.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/about-6.jpg') }}" alt="">
+                            <a href="{{ asset('/web/img/about-6.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-6.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -123,25 +137,36 @@
                     <h1 class="mb-5">Restaurant</h1>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/about-3.jpg') }}" alt="">
+                            <a href="{{ asset('/web/img/about-3.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-3.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/resto2.jpg') }}" alt="">
+                            <a href="{{ asset('/web/img/resto2.jpg.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/resto2.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/resto.jpg') }}" alt="">
+                            <a href="{{ asset('/web/img/resto.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/resto.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/about-4.jpg') }}"
-                                alt="">
+                            <a href="{{ asset('/web/img/about-4.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-4.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -157,27 +182,36 @@
                     <h1 class="mb-5">Outdoor</h1>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/sport2.jpg') }}"
-                                alt="">
+                            <a href="{{ asset('/web/img/sport2.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/sport2.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/kolam1.jpg') }}"
-                                alt="">
+                            <a href="{{ asset('/web/img/kolam1.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/kolam1.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/view.jpg') }}" alt="">
+                            <a href="{{ asset('/web/img/view.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/view.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/about-7.jpg') }}"
-                                alt="">
+                            <a href="{{ asset('/web/img/about-7.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-7.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -193,28 +227,36 @@
                     <h1 class="mb-5">Spa & Sauna</h1>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/spa.webp') }}"
-                                alt="">
+                            <a href="{{ asset('/web/img/spa.webp') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/spa.webp') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/about-5.jpg') }}"
-                                alt="">
+                            <a href="{{ asset('/web/img/about-5.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-5.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/about-6.jpg') }}"
-                                alt="">
+                            <a href="{{ asset('/web/img/about-6.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-6.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/about-7.jpg') }}"
-                                alt="">
+                            <a href="{{ asset('/web/img/about-7.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-7.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -230,28 +272,36 @@
                     <h1 class="mb-5">Sports</h1>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/sport.jpg') }}"
-                                alt="">
+                            <a href="{{ asset('/web/img/sport.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/sport.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/sport2.jpg') }}"
-                                alt="">
+                            <a href="{{ asset('/web/img/sport2.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/sport2.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/sport3.jpg') }}"
-                                alt="">
+                            <a href="{{ asset('/web/img/sport3.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/sport3.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
                         <div class="overflow-hidden m-10">
-                            <img class="img-fluid square-img" src="{{ asset('/web/img/sport4.jpg') }}"
-                                alt="">
+                            <a href="{{ asset('/web/img/sport4.jpg') }}" data-lightbox="hotel-photos">
+                                <img class="img-fluid square-img" src="{{ asset('/web/img/sport4.jpg') }}"
+                                    alt="">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -259,26 +309,23 @@
         </div><br /><br />
         <!-- Team End -->
 
+
         <div id="myModal" class="modal">
             <span class="close" onclick="closeModal()">&times;</span>
             <img class="modal-content" id="img01">
         </div>
 
-        <!-- Footer Start -->
+        <script>
+            function openLightbox(src) {
+                document.getElementById('lightbox').style.display = 'block';
+                document.getElementById('lightbox-img').src = src;
+            }
+        </script>
         @include('partial.footer')
-        <!-- Footer End -->
-
-
-        <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
-
-    <!-- JavaScript Libraries -->
     @include('partial.js')
 </body>
-
-</html>
-
 <style>
     .square-img {
         width: 450px;

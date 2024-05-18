@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     @include('partial.head')
 </head>
@@ -110,7 +107,7 @@
                             <div class="row g-4">
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src="img/menu-1.jpg" alt=""
+                                        <img class="flex-shrink-0 img-fluid rounded" src="/web/img/single-room/single1.jpg" alt=""
                                             style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
@@ -123,11 +120,11 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src="img/menu-3.jpg" alt=""
+                                        <img class="flex-shrink-0 img-fluid rounded" src="/web/img/deluxe-room/deluxe1.jpg" alt=""
                                             style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
-                                                <span>Deluxe Balcony</span>
+                                                <span>Deluxe Balcony Room</span>
                                                 <span class="text-primary">Rp 702.479</span>
                                             </h5>
                                             <small class="fst-italic">Kamar dengan queen bed dan balkon</small>
@@ -136,7 +133,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src="img/menu-2.jpg" alt=""
+                                        <img class="flex-shrink-0 img-fluid rounded" src="/web/img/twin-room/twin1.jpg" alt=""
                                             style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
@@ -153,7 +150,7 @@
                             <div class="row g-4">
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src="img/menu-1.jpg"
+                                        <img class="flex-shrink-0 img-fluid rounded" src="/web/img/suite-room/suite1.jpg"
                                             alt="" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
@@ -166,7 +163,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src="img/menu-2.jpg"
+                                        <img class="flex-shrink-0 img-fluid rounded" src="/web/img/suite-view/lake3.jpg"
                                             alt="" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
@@ -291,6 +288,74 @@
         </div>
         <!-- Team End -->
 
+         <!-- Team Start -->
+         <div class="container-xxl pt-5 pb-3">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h5 class="section-title ff-secondary text-center text-primary fw-normal">Team Members</h5>
+                    <h1 class="mb-5">Hotel Staffs</h1>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item text-center rounded overflow-hidden">
+                            <div class="rounded-circle overflow-hidden m-4">
+                                <img class="img-fluid" src="{{asset ('/web/img/hasan.jpg')}}" alt="">
+                            </div>
+                            <h5 class="mb-0">Full Name</h5>
+                            <small>Designation</small>
+                            <div class="d-flex justify-content-center mt-3">
+                                <a class="btn btn-square btn-primary mx-1" href="https://web.facebook.com/people/Purnama-Balige-Hotel-Restaurant/100090303502245/?_rdc=1&_rdr#_=_"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href="https://www.instagram.com/purnamabaligehotel/"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href="https://wa.me/6281376438471?text=Halo%20saya%20ingin%20booking"><i class="fab fa-whatsapp"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="team-item text-center rounded overflow-hidden">
+                            <div class="rounded-circle overflow-hidden m-4">
+                                <img class="img-fluid" src="{{asset ('/web/img/hasan.jpg')}}" alt="">
+                            </div>
+                            <h5 class="mb-0">Full Name</h5>
+                            <small>Designation</small>
+                            <div class="d-flex justify-content-center mt-3">
+                                <a class="btn btn-square btn-primary mx-1" href="https://web.facebook.com/people/Purnama-Balige-Hotel-Restaurant/100090303502245/?_rdc=1&_rdr#_=_"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href="https://www.instagram.com/purnamabaligehotel/"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href="https://wa.me/6281376438471?text=Halo%20saya%20ingin%20booking"><i class="fab fa-whatsapp"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="team-item text-center rounded overflow-hidden">
+                            <div class="rounded-circle overflow-hidden m-4">
+                                <img class="img-fluid" src="{{asset ('/web/img/hasan.jpg')}}" alt="">
+                            </div>
+                            <h5 class="mb-0">Full Name</h5>
+                            <small>Designation</small>
+                            <div class="d-flex justify-content-center mt-3">
+                                <a class="btn btn-square btn-primary mx-1" href="https://web.facebook.com/people/Purnama-Balige-Hotel-Restaurant/100090303502245/?_rdc=1&_rdr#_=_"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href="https://www.instagram.com/purnamabaligehotel/"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href="https://wa.me/6281376438471?text=Halo%20saya%20ingin%20booking"><i class="fab fa-whatsapp"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                        <div class="team-item text-center rounded overflow-hidden">
+                            <div class="rounded-circle overflow-hidden m-4">
+                                <img class="img-fluid" src="{{asset ('/web/img/hasan.jpg')}}" alt="">
+                            </div>
+                            <h5 class="mb-0">Full Name</h5>
+                            <small>Designation</small>
+                            <div class="d-flex justify-content-center mt-3">
+                                <a class="btn btn-square btn-primary mx-1" href="https://web.facebook.com/people/Purnama-Balige-Hotel-Restaurant/100090303502245/?_rdc=1&_rdr#_=_"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href="https://www.instagram.com/purnamabaligehotel/"><i class="fab fa-instagram"></i></a>
+                                <a class="btn btn-square btn-primary mx-1" href="https://wa.me/6281376438471?text=Halo%20saya%20ingin%20booking"><i class="fab fa-whatsapp"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Team End -->
 
         <!-- Testimonial Start -->
         <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -370,5 +435,3 @@
     <!-- JavaScript Libraries -->
     @include('partial.js')
 </body>
-
-</html>

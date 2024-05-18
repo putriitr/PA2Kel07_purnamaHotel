@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
     @include('partial.head')
 </head>
@@ -56,11 +53,13 @@
                                             <div class="col-lg-6">
                                                 <div class="position-relative">
                                                     <img id="slideImg" class="img-fluid rounded w-100 wow zoomIn"
-                                                        data-wow-delay="0.1s" src="{{ asset('/web/img/single1.jpg') }}">
-                                                    <button id="nextBtn"
-                                                        class="btn btn-primary position-absolute top-50 end-0 translate-middle-y">
-                                                        <i class="fas fa-chevron-right"></i>
-                                                    </button>
+                                                        data-wow-delay="0.1s" src="{{ asset('/web/img/single-room/single1.jpg') }}">
+                                                        <button id="prevBtn-1" class="btn btn-primary position-absolute top-50 start-0 translate-middle-y">
+                                                            <i class="fas fa-chevron-left"></i>
+                                                        </button>
+                                                        <button id="nextBtn-1" class="btn btn-primary position-absolute top-50 end-0 translate-middle-y">
+                                                            <i class="fas fa-chevron-right"></i>
+                                                        </button>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
@@ -142,7 +141,7 @@
                                             <div class="col-lg-6">
                                                 <div class="position-relative">
                                                     <img id="slideImg" class="img-fluid rounded w-100 wow zoomIn"
-                                                        data-wow-delay="0.1s" src="{{ asset('/web/img/twin1.jpg') }}">
+                                                        data-wow-delay="0.1s" src="{{ asset('/web/img/twin-room/twin1.jpg') }}">
                                                     <button id="nextBtn"
                                                         class="btn btn-primary position-absolute top-50 end-0 translate-middle-y">
                                                         <i class="fas fa-chevron-right"></i>
@@ -224,10 +223,10 @@
                                     <div class="container">
                                         <div class="row g-5 align-items-center">
                                             <div class="col-lg-6">
-                                                <div class="position-relative">
+                                                <div clnass="position-relative">
                                                     <img id="slideImg" class="img-fluid rounded w-100 wow zoomIn"
                                                         data-wow-delay="0.1s"
-                                                        src="{{ asset('/web/img/deluxe1.jpg') }}">
+                                                        src="{{ asset('/web/img/deluxe-room/deluxe1.jpg') }}">
                                                     <button id="nextBtn"
                                                         class="btn btn-primary position-absolute top-50 end-0 translate-middle-y">
                                                         <i class="fas fa-chevron-right"></i>
@@ -241,7 +240,7 @@
                                                         Booking a room
                                                     </h5>
                                                 </div>
-                                                <h1 class="mb-4 text-start">Deluxe Room</h1>
+                                                <h1 class="mb-4 text-start">Deluxe Balcony Room</h1>
                                                 <div class="mb-4 text-start d-flex align-items-center">
                                                     <i class="fa fa-bed fa-x text-secondary me-3"></i>
                                                     <p class="mb-0"><strong>Room :</strong> Size 17 m²</p>
@@ -331,7 +330,7 @@
                                                 <div class="position-relative">
                                                     <img id="slideImg" class="img-fluid rounded w-100 wow zoomIn"
                                                         data-wow-delay="0.1s"
-                                                        src="{{ asset('/web/img/suite1.jpg') }}">
+                                                        src="{{ asset('/web/img/single-room/suite1.jpg') }}">
                                                     <button id="nextBtn"
                                                         class="btn btn-primary position-absolute top-50 end-0 translate-middle-y">
                                                         <i class="fas fa-chevron-right"></i>
@@ -414,18 +413,18 @@
                                         <div class="row g-5 align-items-center">
                                             <div class="col-lg-6">
                                                 <div class="position-relative">
-                                                    <img id="slideImg" class="img-fluid rounded w-100 wow zoomIn"
-                                                        data-wow-delay="0.1s" src="{{ asset('/web/img/view.jpg') }}">
-                                                    <button id="nextBtn"
-                                                        class="btn btn-primary position-absolute top-50 end-0 translate-middle-y">
+                                                    <img id="slideImg" class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s" src="{{ asset('/web/img/single-room/single1.jpg') }}">
+                                                    <button id="prevBtn" class="btn btn-primary position-absolute top-50 start-0 translate-middle-y">
+                                                        <i class="fas fa-chevron-left"></i>
+                                                    </button>
+                                                    <button id="nextBtn" class="btn btn-primary position-absolute top-50 end-0 translate-middle-y">
                                                         <i class="fas fa-chevron-right"></i>
                                                     </button>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="d-flex align-items-center mb-4">
-                                                    <h5
-                                                        class="section-title ff-secondary text-start text-primary fw-normal text-left">
+                                                    <h5 class="section-title ff-secondary text-start text-primary fw-normal text-left">
                                                         Booking a room
                                                     </h5>
                                                 </div>
@@ -512,28 +511,71 @@
         <!-- Menu End -->
 
         @include('partial.footer')
-
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <script>
-        $(document).ready(function() {
-            var images = [
-                "{{ asset('/web/img/single1.jpg') }}",
-                "{{ asset('/web/img/single2.jpg') }}",
-                "{{ asset('/web/img/single3.jpg') }}",
-                "{{ asset('/web/img/single4.jpg') }}"
-            ];
-            var currentIndex = 0;
+    const tabContents = document.querySelectorAll('.tab-pane');
+    const tabImages = [
+        [
+            "/web/img/single-room/single1.jpg",
+            "/web/img/single-room/single2.jpg",
+            "/web/img/single-room/single3.jpg",
+            "/web/img/single-room/single4.jpg"
+        ],
+        [
+            "/web/img/single-room/single1.jpg",
+            "/web/img/single-room/single2.jpg",
+            "/web/img/single-room/single3.jpg",
+            "/web/img/single-room/single4.jpg"
+        ],
+        [
+            "/web/img/single-room/single1.jpg",
+            "/web/img/single-room/single2.jpg",
+            "/web/img/single-room/single3.jpg",
+            "/web/img/single-room/single4.jpg"
+        ],
+        [
+            "/web/img/single-room/single1.jpg",
+            "/web/img/single-room/single2.jpg",
+            "/web/img/single-room/single3.jpg",
+            "/web/img/single-room/single4.jpg"
+        ],
+        [
+            "/web/img/single-room/single1.jpg",
+            "/web/img/single-room/single2.jpg",
+            "/web/img/single-room/single3.jpg",
+            "/web/img/single-room/single4.jpg"
+        ],
+    ];
+    function showImage(tabIndex, imageIndex) {
+        const slideImg = document.getElementById(`slideImg-${tabIndex}`);
+        slideImg.src = tabImages[tabIndex][imageIndex];
+    }
+    tabContents.forEach((tabContent, index) => {
+        const prevBtn = document.getElementById(`prevBtn-${index+1}`);
+        const nextBtn = document.getElementById(`nextBtn-${index+1}`);
 
-            $("#nextBtn").on("click", function() {
-                currentIndex = (currentIndex + 1) % images.length;
-                $("#slideImg").attr("src", images[currentIndex]);
-            });
+        let currentImageIndex = 0;
+        prevBtn.addEventListener("click", function () {
+            currentImageIndex = (currentImageIndex - 1 + tabImages[index].length) % tabImages[index].length;
+            showImage(index, currentImageIndex);
         });
+
+        nextBtn.addEventListener("click", function () {
+            currentImageIndex = (currentImageIndex + 1) % tabImages[index].length;
+            showImage(index, currentImageIndex);
+        });
+
+        tabContent.addEventListener('click', function () {
+            showImage(index, 0);
+        });
+    });
+
+    tabImages.forEach((images, index) => {
+        showImage(index, 0);
+    });
     </script>
 
     @include('partial.js')
 </body>
-
-</html>
