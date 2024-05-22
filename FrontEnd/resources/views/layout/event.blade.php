@@ -18,114 +18,35 @@
         </div>
         <!-- Navbar & Hero End -->
 
-
         <!-- About Start -->
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h1 class="mb-5">E V E N T</h1>
+                    <h1 class="mb-5">A N N O U N C E M E N T S</h1>
                 </div>
-                <div class="row g-5 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="row g-3">
-                            <div class="col-6 text-start">
-                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s"
-                                    src="{{asset('/web/img/event/powerboat-1.jpeg')}}">
-                            </div>
-                            <div class="col-6 text-start">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.3s"
-                                    src="{{asset('/web/img/event/powerboat-2.jpeg')}}" style="margin-top: 25%;">
-                            </div>
-                            <div class="col-6 text-end">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.5s"
-                                    src="{{asset('/web/img/event/powerboat-3.jpg')}}">
-                            </div>
-                            <div class="col-6 text-end">
-                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.7s"
-                                    src="{{asset('/web/img/event/powerboat-4.webp')}}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <h5 class="section-title ff-secondary text-start text-primary fw-normal">Watching from Hotel</h5>
-                        <h1 class="mb-4">F1H2O Powerboat<i class="fa fa-ship text-primary me-2"></i><br/>24 - 26 Februari 2023</h1>
-                        <p class="mb-4">Kejuaraan dunia, balap Formula 1 Powerboat atau F1H2O kembali digelar untuk kedua kalinya di Danau Toba pada tanggal 24 - 26 Februari 2023.</p>
-                        <p class="mb-4">Untuk dapat menyaksikan pertandingan balap F1H2O, Hotel Purnama Balige menyediakan tempat untuk menonton dengan nyaman dan seru. Dengan melakukan booking kursi untuk menonton, pelanggan akan mendapatkan tempat yang nyaman dan makan siang serta snack.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- About End -->
+                <!-- Button to show all announcements -->
+                <div class="text-center">
+                    <button class="btn btn-primary mb-3" onclick="showAllAnnouncements()">Show All</button>
 
-        <!-- About Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
-                <div class="row g-5 align-items-center">
-                    <div class="col-lg-6 order-lg-last">
-                        <div class="row g-3">
-                            <div class="col-6 text-start">
-                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s"
-                                    src="{{asset('/web/img/event/birthday.jpg')}}">
-                            </div>
-                            <div class="col-6 text-start">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.3s"
-                                    src="{{asset('/web/img/event/birthday2.webp')}}" style="margin-top: 25%;">
-                            </div>
-                            <div class="col-6 text-end">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.5s"
-                                    src="{{asset('/web/img/event/birthday3.jpg')}}">
-                            </div>
-                            <div class="col-6 text-end">
-                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.7s"
-                                    src="{{asset('/web/img/event/birthday4.jpg')}}">
+                    <!-- Button to show announcements by category -->
+                    @foreach ($announcementCategories as $category)
+                        <button class="btn btn-primary mb-3 ms-3" onclick="showAnnouncementsByCategory({{ $category->id }})">{{ $category->name }}</button>
+                    @endforeach
+                </div>
+                <div class="row g-5 align-items-center" id="announcementContainer">
+                    @foreach ($announcements as $announcement)
+                        <div class="col-lg-12 announcement mb-4" data-category="{{ $announcement->category_id }}">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-4 text-center">
+                                    <img class="img-fluid rounded wow zoomIn announcement-image" data-wow-delay="0.1s" src="{{ asset('images/announcement/' . $announcement->image) }}" alt="{{ $announcement->title }}">
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="section-title ff-secondary text-start text-primary fw-normal mb-3" style="margin-top: 0;">{{ $announcement->title }}</h5>
+                                    <p>{{ $announcement->content }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6 order-lg-first">
-                        <h5 class="section-title ff-secondary text-start text-primary fw-normal">Birthday Party</h5>
-                        <h1 class="mb-4">Birthday Celebration<i class="fa fa-birthday-cake text-primary me-2"></i>Person / Company</h1>
-                        <p class="mb-4">Perayaan ulang tahun merupakan hal yang tidak boleh terlupakan. Untuk itu, Hotel Purnama Balige menyediakan booking ruangan untuk perayaan ulang tahun baik itu ulang tahun perorangan ataupun perusahaan.</p>
-                        <p class="mb-4">Hotel akan menyediakan ruangan indoor maupun outdoor bagi para pelanggan yang ingin melakukan perayaan ulang tahun. Hotel juga menyediakan fasilitas-fasilitas yang akan menambah semarak perayaan ulang tahun tersebut.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- About End -->
-
-        <!-- About Start -->
-        <div class="container-xxl py-5">
-            <div class="container">
-                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h1 class="mb-5">D I S C O U N T</h1>
-                </div>
-                <div class="row g-5 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="row g-3">
-                            <div class="col-6 text-start">
-                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s"
-                                    src="{{asset('/web/img/event/powerboat-1.jpeg')}}">
-                            </div>
-                            <div class="col-6 text-start">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.3s"
-                                    src="{{asset('/web/img/event/powerboat-2.jpeg')}}" style="margin-top: 25%;">
-                            </div>
-                            <div class="col-6 text-end">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.5s"
-                                    src="{{asset('/web/img/event/powerboat-3.jpg')}}">
-                            </div>
-                            <div class="col-6 text-end">
-                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.7s"
-                                    src="{{asset('/web/img/event/powerboat-4.webp')}}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <h5 class="section-title ff-secondary text-start text-primary fw-normal">Watching from Hotel</h5>
-                        <h1 class="mb-4">F1H2O Powerboat<i class="fa fa-ship text-primary me-2"></i><br/>24 - 26 Februari 2023</h1>
-                        <p class="mb-4">Kejuaraan dunia, balap Formula 1 Powerboat atau F1H2O kembali digelar untuk kedua kalinya di Danau Toba pada tanggal 24 - 26 Februari 2023.</p>
-                        <p class="mb-4">Untuk dapat menyaksikan pertandingan balap F1H2O, Hotel Purnama Balige menyediakan tempat untuk menonton dengan nyaman dan seru. Dengan melakukan booking kursi untuk menonton, pelanggan akan mendapatkan tempat yang nyaman dan makan siang serta snack.</p>
-                        <a href="/book" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A Chair</a>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -142,3 +63,34 @@
     <!-- JavaScript Libraries -->
     @include('partial.js')
 </body>
+
+<style>
+    .announcement-image {
+        max-width: 70%;
+        width: auto;
+        height: auto;
+    }
+</style>
+
+<script>
+    function showAllAnnouncements() {
+        // Show all announcements
+        document.querySelectorAll('#announcementContainer .col-lg-12').forEach(function (el) {
+            el.style.display = 'flex';
+        });
+    }
+
+    function showAnnouncementsByCategory(categoryId) {
+        // Hide all announcements
+        document.querySelectorAll('#announcementContainer .col-lg-12').forEach(function (el) {
+            el.style.display = 'none';
+        });
+
+        // Show announcements based on category
+        document.querySelectorAll('#announcementContainer .col-lg-12').forEach(function (el) {
+            if (el.dataset.category == categoryId) {
+                el.style.display = 'flex';
+            }
+        });
+    }
+</script>

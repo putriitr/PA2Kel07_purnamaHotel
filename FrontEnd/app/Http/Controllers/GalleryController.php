@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\GalleryCategory;
 use File;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
@@ -12,16 +13,18 @@ class GalleryController extends Controller
     */
     public function index()
     {
-        $galeries = Gallery::All();
-        return view('admin.gallery.index')->with('galeries', $galeries);
+        $galeries = Gallery::all();
+        return view('admin.gallery.index', ['galeries' => $galeries]);
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('admin.gallery.create');
+        $categories = GalleryCategory::all();
+        return view('admin.gallery.create', compact('categories'));
     }
 
     /**
@@ -31,11 +34,13 @@ class GalleryController extends Controller
     {
         $alert = [
             'name' => 'required|string|max:255',
+            'category_id' => 'required|exists:gallerycategories,id',
             'description' => 'required',
             'image' => 'required|image|mimes:jpg,png,jpeg',
         ];
         $message = [
             'name.required' => 'Kolom Nama Tidak Boleh Kosong',
+            'category_id.required' => 'Kategori Harus Di Pilih',
             'description.required' => 'description Harus Di Pilih',
             'image.required' => 'Image Harus Di Isi',
             'image.mimes' => 'Harus Berupa JPG,PNG,JPEG',
@@ -47,6 +52,7 @@ class GalleryController extends Controller
         $galeries = new Gallery;
 
         $galeries->name = $request->name;
+        $galeries->category_id = $request->category_id;
         $galeries->description = $request->description;
         $galeries->image = $file;
 
@@ -68,9 +74,9 @@ class GalleryController extends Controller
      */
     public function edit(string $id)
     {
-        return view('admin.gallery.edit')->with([
-            'galeries' => Gallery::find($id),
-        ]);
+        $galeries = Gallery::find($id);
+        $categories = GalleryCategory::all(); // Use the correct model
+        return view('admin.gallery.edit', compact('galeries', 'categories'));
     }
 
     /**
@@ -80,6 +86,7 @@ class GalleryController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'category_id' => 'required|exists:gallerycategories,id',
             'description' => 'required',
             'image' => 'required',
         ]);
@@ -98,6 +105,7 @@ class GalleryController extends Controller
 
         $galeries->name = $request['name'];
         $galeries->description = $request['description'];
+        $galeries->category_id = $request['category_id'];
         $galeries->update();
 
         return redirect()->route('gallery.index')->with('success', 'Data Berhasil Diubah');

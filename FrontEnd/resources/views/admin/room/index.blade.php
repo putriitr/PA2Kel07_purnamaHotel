@@ -25,29 +25,26 @@
                 </tr>
             </thead>
             <tbody>
-                <tbody>
-                    @foreach ($rooms as $room)
-                        <tr>
-                            <td>{{ $room->name }}</td>
-                            <td>{{  $room->room_category_id }}</td>
-                            <td>
-                                <img src="{{ asset('images/rooms/' . $room->image) }}" alt="Room Image" width="100">
-                            </td>
-                            <td>{{ $room->price }}</td>
-                            <td>{{ $room->capacity }}</td>
-                            <td>{{ $room->facility }}</td>
-                            <td>
-                                <a href="{{ route('room.edit', $room->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                <form action="{{ route('room.destroy', $room->id) }}" method="POST" style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-
+                @foreach ($rooms as $room)
+                    <tr>
+                        <td>{{ $room->name }}</td>
+                        <td>{{ $room->category->name ?? 'No Category' }}</td>
+                        <td>
+                            <img src="{{ asset('images/rooms/' . $room->image) }}" alt="Room Image" width="100">
+                        </td>
+                        <td>{{ $room->price }}</td>
+                        <td>{{ $room->capacity }}</td>
+                        <td>{{ $room->facility }}</td>
+                        <td>
+                            <a href="{{ route('room.edit', $room->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <form action="{{ route('room.destroy', $room->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

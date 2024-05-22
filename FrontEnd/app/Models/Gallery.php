@@ -9,5 +9,10 @@ class Gallery extends Model
 {
     use HasFactory;
     protected $table = 'galeries';
-    protected $guarded = ['id'];
+    protected $fillable = ['name', 'description', 'category_id', 'image'];
+
+    public function galleryCategory()
+    {
+        return $this->belongsTo(GalleryCategory::class, 'category_id');
+    }
 }

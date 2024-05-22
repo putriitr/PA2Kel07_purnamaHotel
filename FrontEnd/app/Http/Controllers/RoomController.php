@@ -21,7 +21,6 @@ class RoomController extends Controller
         return view('admin.room.create', compact('categories'));
     }
 
-
     public function store(Request $request)
     {
         $request->validate([
@@ -42,6 +41,7 @@ class RoomController extends Controller
         $room->facility = $request->facility;
         $room->capacity = $request->capacity;
         $room->room_category_id = $request->room_category_id;
+        $room->image = $file;
         $room->save();
 
         return redirect()->route('room.index')->with('success', 'Room created successfully.');

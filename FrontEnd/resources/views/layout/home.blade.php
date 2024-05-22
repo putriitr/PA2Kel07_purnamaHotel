@@ -16,6 +16,7 @@
                 <div class="container my-5 py-5">
                     <div class="row align-items-center g-5">
                         <div class="col-lg-6 text-center text-lg-start">
+                            <h3 class="display-10 text-white animated slideInLeft">Selamat Datang @if (Auth::guard('customer')->check()) {{ Auth::guard('customer')->user()->name }} @endif di</h3>
                             <h2 class="display-3 text-white animated slideInLeft">Hotel<br>Purnama Balige</h2>
                             <p class="text-white animated slideInLeft mb-4 pb-2">Bersantai dengan pemandangan indah Danau
                                 Toba dan nikmati fasilitas Hotel Purnama Balige yang lengkap dan menarik</p>
@@ -30,6 +31,7 @@
                 </div>
             </div>
         </div>
+
 
 
         <!-- About Start -->
@@ -107,8 +109,8 @@
                             <div class="row g-4">
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src="/web/img/single-room/single1.jpg" alt=""
-                                            style="width: 80px;">
+                                        <img class="flex-shrink-0 img-fluid rounded"
+                                            src="/web/img/single-room/single1.jpg" alt="" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                 <span>Standard Single Bed</span>
@@ -120,8 +122,8 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src="/web/img/deluxe-room/deluxe1.jpg" alt=""
-                                            style="width: 80px;">
+                                        <img class="flex-shrink-0 img-fluid rounded"
+                                            src="/web/img/deluxe-room/deluxe1.jpg" alt="" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                 <span>Deluxe Balcony Room</span>
@@ -133,8 +135,8 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src="/web/img/twin-room/twin1.jpg" alt=""
-                                            style="width: 80px;">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="/web/img/twin-room/twin1.jpg"
+                                            alt="" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                 <span>Standard Twin Bed</span>
@@ -150,8 +152,8 @@
                             <div class="row g-4">
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src="/web/img/suite-room/suite1.jpg"
-                                            alt="" style="width: 80px;">
+                                        <img class="flex-shrink-0 img-fluid rounded"
+                                            src="/web/img/suite-room/suite1.jpg" alt="" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                 <span>Suite</span>
@@ -163,8 +165,8 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src="/web/img/suite-view/lake3.jpg"
-                                            alt="" style="width: 80px;">
+                                        <img class="flex-shrink-0 img-fluid rounded"
+                                            src="/web/img/suite-view/lake3.jpg" alt="" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                 <span>Executive Suite Lake View</span>
@@ -269,7 +271,7 @@
                         <br />
                         <h5 class="mb-0">Sports</h5>
                     </div>
-                </div><br/><br/>
+                </div><br /><br />
                 <div class="row g-4 justify-content-center">
                     <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
                         data-wow-delay="0.7s">
@@ -288,73 +290,32 @@
         </div>
         <!-- Team End -->
 
-         <!-- Team Start -->
-         <div class="container-xxl pt-5 pb-3">
+        <!-- Team Start -->
+        {{-- <div class="container-xxl pt-5 pb-3">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h5 class="section-title ff-secondary text-center text-primary fw-normal">Team Members</h5>
                     <h1 class="mb-5">Hotel Staffs</h1>
                 </div>
                 <div class="row g-4">
+                    @foreach ($staffs as $staff)
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="team-item text-center rounded overflow-hidden">
                             <div class="rounded-circle overflow-hidden m-4">
-                                <img class="img-fluid" src="{{asset ('/web/img/hasan.jpg')}}" alt="">
+                                <img class="img-fluid" src="{{ asset($staff->image) }}" alt="{{ $staff->name }}">
                             </div>
-                            <h5 class="mb-0">Full Name</h5>
-                            <small>Designation</small>
-                            <div class="d-flex justify-content-center mt-3">
-                                <a class="btn btn-square btn-primary mx-1" href="https://web.facebook.com/people/Purnama-Balige-Hotel-Restaurant/100090303502245/?_rdc=1&_rdr#_=_"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href="https://www.instagram.com/purnamabaligehotel/"><i class="fab fa-instagram"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href="https://wa.me/6281376438471?text=Halo%20saya%20ingin%20booking"><i class="fab fa-whatsapp"></i></a>
+                            <h5 class="mb-0">{{ $staff->name }}</h5>
+                            <small>{{ $staff->role }}</small>
+                            <div class="mt-3">
+                                <p>{{ $staff->last_education }}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="team-item text-center rounded overflow-hidden">
-                            <div class="rounded-circle overflow-hidden m-4">
-                                <img class="img-fluid" src="{{asset ('/web/img/hasan.jpg')}}" alt="">
-                            </div>
-                            <h5 class="mb-0">Full Name</h5>
-                            <small>Designation</small>
-                            <div class="d-flex justify-content-center mt-3">
-                                <a class="btn btn-square btn-primary mx-1" href="https://web.facebook.com/people/Purnama-Balige-Hotel-Restaurant/100090303502245/?_rdc=1&_rdr#_=_"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href="https://www.instagram.com/purnamabaligehotel/"><i class="fab fa-instagram"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href="https://wa.me/6281376438471?text=Halo%20saya%20ingin%20booking"><i class="fab fa-whatsapp"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                        <div class="team-item text-center rounded overflow-hidden">
-                            <div class="rounded-circle overflow-hidden m-4">
-                                <img class="img-fluid" src="{{asset ('/web/img/hasan.jpg')}}" alt="">
-                            </div>
-                            <h5 class="mb-0">Full Name</h5>
-                            <small>Designation</small>
-                            <div class="d-flex justify-content-center mt-3">
-                                <a class="btn btn-square btn-primary mx-1" href="https://web.facebook.com/people/Purnama-Balige-Hotel-Restaurant/100090303502245/?_rdc=1&_rdr#_=_"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href="https://www.instagram.com/purnamabaligehotel/"><i class="fab fa-instagram"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href="https://wa.me/6281376438471?text=Halo%20saya%20ingin%20booking"><i class="fab fa-whatsapp"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <div class="team-item text-center rounded overflow-hidden">
-                            <div class="rounded-circle overflow-hidden m-4">
-                                <img class="img-fluid" src="{{asset ('/web/img/hasan.jpg')}}" alt="">
-                            </div>
-                            <h5 class="mb-0">Full Name</h5>
-                            <small>Designation</small>
-                            <div class="d-flex justify-content-center mt-3">
-                                <a class="btn btn-square btn-primary mx-1" href="https://web.facebook.com/people/Purnama-Balige-Hotel-Restaurant/100090303502245/?_rdc=1&_rdr#_=_"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href="https://www.instagram.com/purnamabaligehotel/"><i class="fab fa-instagram"></i></a>
-                                <a class="btn btn-square btn-primary mx-1" href="https://wa.me/6281376438471?text=Halo%20saya%20ingin%20booking"><i class="fab fa-whatsapp"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-        </div>
+        </div> --}}
+
         <!-- Team End -->
 
         <!-- Testimonial Start -->
@@ -368,7 +329,9 @@
                     <div class="testimonial-item bg-transparent border rounded p-4">
                         <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
                         <br /><small>- 1 November 2023 -</small>
-                        <p>Spektakuler, satu hari menginap tanggal 27 Oktober - 28 Oktober dan memesan untuk dua kamar dan kemudian mendapat kejutan bahwa kami dapat menaiki speedboat secara gratis di sekitar Danau Toba.</p>
+                        <p>Spektakuler, satu hari menginap tanggal 27 Oktober - 28 Oktober dan memesan untuk dua kamar
+                            dan kemudian mendapat kejutan bahwa kami dapat menaiki speedboat secara gratis di sekitar
+                            Danau Toba.</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded-circle" src="{{ asset('/web/img/ID.png') }}"
                                 style="width: 50px; height: 50px;">
@@ -381,7 +344,8 @@
                     <div class="testimonial-item bg-transparent border rounded p-4">
                         <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
                         <br /><small>- 23 Juli 2023 -</small>
-                        <p>Lokasi yang bagus, pemandangan yang bagus dan staf yang ramah. Kamar akan lebih indah dan pemandangannya lebih spektakuler jika pintu kaca ke teras yang bersih.</p>
+                        <p>Lokasi yang bagus, pemandangan yang bagus dan staf yang ramah. Kamar akan lebih indah dan
+                            pemandangannya lebih spektakuler jika pintu kaca ke teras yang bersih.</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded-circle" src="{{ asset('/web/img/Nz.png') }}"
                                 style="width: 50px; height: 50px;">
@@ -394,7 +358,9 @@
                     <div class="testimonial-item bg-transparent border rounded p-4">
                         <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
                         <br /><small>- 17 September 2023</small>
-                        <p>Salah satu hotel terbaik di daerah Balige dengan pemandangan Danau Toba yang indah dari dermaga, dekat ke Bandara Silangit, dan kapal yang lebih besar untuk berlayar mengelilingi Danau Toba di hari minggu.</p>
+                        <p>Salah satu hotel terbaik di daerah Balige dengan pemandangan Danau Toba yang indah dari
+                            dermaga, dekat ke Bandara Silangit, dan kapal yang lebih besar untuk berlayar mengelilingi
+                            Danau Toba di hari minggu.</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded-circle" src="{{ asset('/web/img/ID.png') }}"
                                 style="width: 50px; height: 50px;">
@@ -407,7 +373,9 @@
                     <div class="testimonial-item bg-transparent border rounded p-4">
                         <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
                         <br /><small>- 28 Desember 2023</small>
-                        <p>Dapat melihat pemandangan Danau Toba secara langsung yang sangat indah dan sarapan yang disediakan lezat. Hotel ini menyediakan makanan lokal, tapi tidak banyak. Tidak terlalu banyak protein, kebanyakan karbohidrat.</p>
+                        <p>Dapat melihat pemandangan Danau Toba secara langsung yang sangat indah dan sarapan yang
+                            disediakan lezat. Hotel ini menyediakan makanan lokal, tapi tidak banyak. Tidak terlalu
+                            banyak protein, kebanyakan karbohidrat.</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded-circle" src="{{ asset('/web/img/UK.png') }}"
                                 style="width: 50px; height: 50px;">

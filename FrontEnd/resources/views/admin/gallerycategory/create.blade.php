@@ -1,26 +1,19 @@
 @extends('admin.master')
 
 @section('title')
-    Announcement Category
+    Gallery Category
 @endsection
 
 @section('content')
 <div class="card">
     <div class="card-body">
-        <form action="{{ route('announcementcategory.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('gallerycategory.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <label>Nama</label>
             <input type="text" name="name" id="name" class="form-control">
             @error('name')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
-
-            <label>Deskripsi</label>
-            <textarea name="description" id="editor" class="form-control" cols="30" rows="10"></textarea>
-            @error('description')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-
             <input type="submit" value="Save" class="btn btn-success mt-3">
         </form>
     </div>

@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @section('title')
-    Fasilitas
+    Galery
 @endsection
 
 @section('content')
@@ -15,6 +15,17 @@
                 @error('name')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
+                <div class="form-group">
+                    <label for="category_id">Category</label>
+                    <select name="category_id" id="category_id" class="form-control" required>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('category_id')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
                 <label for="description">Deskripsi</label>
                 <input type="text" name="description" id="description" class="form-control"></br>
                 @error('description')

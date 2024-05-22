@@ -103,6 +103,15 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{route('gallerycategory.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-list"></i>
+                        <p>
+                            Kategori Galery
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="{{route('gallery.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-image"></i>
                         <p>

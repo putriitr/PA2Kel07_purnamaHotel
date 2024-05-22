@@ -52,6 +52,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Kategori</th>
                     <th>Description</th>
                     <th>Image</th>
                     <th>Actions</th>
@@ -61,6 +62,7 @@
                 @foreach($galeries as $item)
                 <tr>
                     <td>{{ $item->name }}</td>
+                    <td>{{ $item->category_id }}</td>
                     <td>{{ $item->description }}</td>
                     <td><img src="{{ asset('images/gallery/'.$item->image) }}" alt="{{ $item->name }}" height="100px"></td>
                     <td>

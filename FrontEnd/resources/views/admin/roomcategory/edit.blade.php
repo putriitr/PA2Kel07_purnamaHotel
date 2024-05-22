@@ -5,17 +5,17 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('roomcategory.update', $announcementcategory->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('roomcategory.update', $roomcategories->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <label for="name">Judul</label><br>
-                <input type="text" name="name" id="name" value="{{ old('name', $announcementcategory->name) }}" class="form-control"><br>
+                <input type="text" name="name" id="name" value="{{ old('name', $roomcategories->name) }}" class="form-control"><br>
                 @error('name')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
 
                 <label for="description">Isi</label><br>
-                <textarea name="description" id="editor" class="form-control" cols="30" rows="10">{{ old('description', $announcementcategory->description) }}</textarea><br>
+                <textarea name="description" id="editor" class="form-control" cols="30" rows="10">{{ old('description', $roomcategories->description) }}</textarea><br>
                 @error('description')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror

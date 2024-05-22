@@ -21,38 +21,13 @@
                     <h1 class="mb-5">Enjoy all the facilities</h1>
                 </div>
                 <div class="row g-4 justify-content-center">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
-                        data-wow-delay="0.1s">
-                        <img class="img-fluid square-img" src="{{ asset('/web/img/kolam.webp') }}" alt="">
+                    @foreach ($facilities as $facility)
+                    <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center" data-wow-delay="0.1s">
+                        <img class="img-fluid square-img" src="{{ asset('images/facility/' . $facility->image) }}" alt="">
                         <br />
-                        <h5 class="mb-0">Umum</h5>
+                        <h5 class="mb-0">{{ $facility->name }}</h5>
                     </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
-                        data-wow-delay="0.1s">
-                        <img class="img-fluid" src="{{ asset('/web/img/spa.webp') }}" alt="">
-                        <br />
-                        <h5 class="mb-0">Spa & Sauna</h5>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
-                        data-wow-delay="0.1s">
-                        <img class="img-fluid" src="{{ asset('/web/img/sport2.jpg') }}" alt="">
-                        <br />
-                        <h5 class="mb-0">Sports</h5>
-                    </div>
-                </div><br/><br/>
-                <div class="row g-4 justify-content-center">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
-                        data-wow-delay="0.1s">
-                        <img class="img-fluid" src="{{ asset('/web/img/bank.jpeg') }}" alt="">
-                        <br />
-                        <h5 class="mb-0">Fasilitas Terdekat</h5>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp d-flex flex-column align-items-center"
-                        data-wow-delay="0.1s">
-                        <img class="img-fluid" src="{{ asset('/web/img/lake2.jpg') }}" alt="">
-                        <br />
-                        <h5 class="mb-0">Fasilitas Kamar</h5>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

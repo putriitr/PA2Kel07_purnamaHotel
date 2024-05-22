@@ -1,11 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     @include('partial.head')
+    <style>
+        .room-card {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .room-card img {
+            max-width: 30%;
+            max-height: 300px;
+            object-fit: cover;
+            margin-right: 20px;
+            margin-left: 50px;
+        }
+
+        .room-card .details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+            /* Ubah margin kanan sesuai kebutuhan */
+        }
+
+        .room-card .right-details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: -10px;
+            /* Atur margin atas jika perlu */
+            margin-left: auto;
+            max-width: 40%;
+        }
+
+        .room-card .right-details p {
+            margin-bottom: 5px;
+        }
+
+        .room-card .icon {
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .nav-item a.active {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container-xxl bg-white p-0">
+        <!-- Navbar & Hero Start -->
         <div class="container-xxl position-relative p-0">
-            @include('partial.navbar')
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+                @include('partial.navbar')
+            </nav>
 
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
                 <div class="container text-center my-5 pt-5 pb-4">
@@ -13,569 +66,132 @@
                 </div>
             </div>
         </div>
+        <!-- Navbar & Hero End -->
 
-        <div class="container-xxl py-5">
-            <div class="container">
-                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h5 class="section-title ff-secondary text-center text-primary fw-normal">Room Booking</h5>
-                    <h1 class="mb-5">Room N Suite</h1>
-                </div>
-                <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill"
-                                href="#tab-1">
-                                <i class="fa fa-bed fa-3x text-primary"></i>
-                                <div class="ps-3">
-                                    <strong><small class="text-body">Cozy</small></strong>
-                                    <h3 class="mt-n1 mb-0">Bed</h3>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
-                                href="#tab-4">
-                                <i class="fa fa-home fa-3x text-primary"></i>
-                                <div class="ps-3">
-                                    <strong><small class="text-body">Executive</small></strong>
-                                    <h3 class="mt-n1 mb-0">Suite</h3>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
+        <!-- Room Booking Start -->
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Room Booking</h5>
+            <h1 class="mb-5">Room N Suite</h1>
+        </div>
+        <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+            <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
+                <li class="nav-item">
+                    <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-category="all">
+                        <i class="fa fa-bed fa-3x text-primary"></i>
+                        <div class="ps-3">
+                            <strong><small class="text-body">All</small></strong>
+                            <h3 class="mt-n1 mb-0">Rooms</h3>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3" data-category="1">
+                        <i class="fa fa-home fa-3x text-primary"></i>
+                        <div class="ps-3">
+                            <strong><small class="text-body">Executive</small></strong>
+                            <h3 class="mt-n1 mb-0">Suite</h3>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-category="2">
+                        <i class="fa fa-bed fa-3x text-primary"></i>
+                        <div class="ps-3">
+                            <strong><small class="text-body">Cozy</small></strong>
+                            <h3 class="mt-n1 mb-0">Bed</h3>
+                        </div>
+                    </a>
+                </li>
+            </ul>
 
-                    <div class="tab-content">
-                        <div id="tab-1" class="tab-pane fade show p-0 active">
-                            <div class="row g-4">
-                                <div class="container-xxl py-5">
-                                    <div class="container">
-                                        <div class="row g-5 align-items-center">
-                                            <div class="col-lg-6">
-                                                <div class="position-relative">
-                                                    <img id="slideImg" class="img-fluid rounded w-100 wow zoomIn"
-                                                        data-wow-delay="0.1s" src="{{ asset('/web/img/single-room/single1.jpg') }}">
-                                                        <button id="prevBtn-1" class="btn btn-primary position-absolute top-50 start-0 translate-middle-y">
-                                                            <i class="fas fa-chevron-left"></i>
-                                                        </button>
-                                                        <button id="nextBtn-1" class="btn btn-primary position-absolute top-50 end-0 translate-middle-y">
-                                                            <i class="fas fa-chevron-right"></i>
-                                                        </button>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="d-flex align-items-center mb-4">
-                                                    <h5
-                                                        class="section-title ff-secondary text-start text-primary fw-normal text-left">
-                                                        Booking a room
-                                                    </h5>
-                                                </div>
-                                                <h1 class="mb-4 text-start">Single Room</h1>
-                                                <div class="mb-4 text-start d-flex align-items-center">
-                                                    <i class="fa fa-bed fa-x text-secondary me-3"></i>
-                                                    <p class="mb-0"><strong>Room :</strong> Size 16 m²</p>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-bath fa-x text-secondary me-3 mt-1"></i>
-                                                    <div>
-                                                        <p><strong>In your private bathroom :</strong></p>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Free Toiletries</li>
-                                                                    <li>Shower</li>
-                                                                    <li>Bidet</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Toilet</li>
-                                                                    <li>Toilet paper</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-tv fa-x text-secondary me-3 mt-1"></i>
-                                                    <div>
-                                                        <p><strong>Room Facilities :</strong></p>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>TV</li>
-                                                                    <li>Linens</li>
-                                                                    <li>Towel</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Wake-Up service</li>
-                                                                    <li>Air conditioning</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-smoking fa-x text-secondary me-3 mt-1"></i>
-                                                    <p><strong>Smoking :</strong> No smoking</p>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-money-bill fa-x text-secondary me-3 mt-1"></i>
-                                                    <p><strong>Price :</strong> Rp 421.488 / night</p>
-                                                </div>
-                                                <a href="/book"
-                                                    class="btn btn-primary py-sm-2 px-sm-4 me-2 animated slideInLeft">Book</a>
-                                            </div>
-                                        </div>
+            <div class="tab-content">
+                <div id="room-list" class="row g-4">
+                    @foreach ($rooms as $room)
+                        <div class="col-md-12 room-card" data-category="{{ $room->category_id }}">
+                            <img id="slideImg-{{ $loop->index }}" class="img-fluid rounded wow zoomIn"
+                                data-wow-delay="0.1s" src="{{ asset('images/rooms/' . $room->image) }}">
+                            <div class="details">
+                                <h5 class="section-title ff-secondary text-start text-primary fw-normal">Booking a room
+                                </h5>
+                                <h1 class="mb-4 text-start">{{ $room->name }}</h1>
+                                <div class="text-start d-flex align-items-center">
+                                    <i class="fa fa-bed icon text-secondary"></i>
+                                    <p class="mb-0"><strong>Room :</strong> Size 16 m²</p>
+                                </div>
+                                <div class="text-start d-flex align-items-start">
+                                    <i class="fa fa-tv icon text-secondary mt-1"></i>
+                                    <div>
+                                        <p><strong>Room Facilities :</strong></p>
+                                        <ul>
+                                            <li>TV</li>
+                                            <li>Linens</li>
+                                            <li>Towel</li>
+                                            <li>Wake-Up service</li>
+                                            <li>Air conditioning</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="text-start d-flex align-items-start">
+                                    <i class="fa fa-bath icon text-secondary mt-1"></i>
+                                    <div>
+                                        <p><strong>In your private bathroom :</strong></p>
+                                        <ul>
+                                            <li>Free Toiletries</li>
+                                            <li>Shower</li>
+                                            <li>Bidet</li>
+                                            <li>Toilet</li>
+                                            <li>Toilet paper</li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div id="tab-2" class="tab-pane fade show p-0 active">
-                            <div class="row g-4">
-                                <div class="container-xxl py-5">
-                                    <div class="container">
-                                        <div class="row g-5 align-items-center">
-                                            <div class="col-lg-6">
-                                                <div class="position-relative">
-                                                    <img id="slideImg" class="img-fluid rounded w-100 wow zoomIn"
-                                                        data-wow-delay="0.1s" src="{{ asset('/web/img/twin-room/twin1.jpg') }}">
-                                                    <button id="nextBtn"
-                                                        class="btn btn-primary position-absolute top-50 end-0 translate-middle-y">
-                                                        <i class="fas fa-chevron-right"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="d-flex align-items-center mb-4">
-                                                    <h5
-                                                        class="section-title ff-secondary text-start text-primary fw-normal text-left">
-                                                        Booking a room
-                                                    </h5>
-                                                </div>
-                                                <h1 class="mb-4 text-start">Standard Twin Room</h1>
-                                                <div class="mb-4 text-start d-flex align-items-center">
-                                                    <i class="fa fa-bed fa-x text-secondary me-3"></i>
-                                                    <p class="mb-0"><strong>Room :</strong> Size 16 m²</p>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-bath fa-x text-secondary me-3 mt-1"></i>
-                                                    <div>
-                                                        <p><strong>In your private bathroom :</strong></p>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Free Toiletries</li>
-                                                                    <li>Shower</li>
-                                                                    <li>Bidet</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Toilet</li>
-                                                                    <li>Toilet paper</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-tv fa-x text-secondary me-3 mt-1"></i>
-                                                    <div>
-                                                        <p><strong>Room Facilities :</strong></p>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>TV</li>
-                                                                    <li>Linens</li>
-                                                                    <li>Towel</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Wake-Up service</li>
-                                                                    <li>Air conditioning</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-smoking fa-x text-secondary me-3 mt-1"></i>
-                                                    <p><strong>Smoking :</strong> No smoking</p>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-money-bill fa-x text-secondary me-3 mt-1"></i>
-                                                    <p><strong>Price :</strong> Rp 636.364 / night</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="right-details">
+                                <div class="text-start d-flex align-items-start">
+                                    <i class="fa fa-smoking icon text-secondary mt-1"></i>
+                                    <p><strong>Smoking :</strong> No smoking</p>
                                 </div>
+                                <div class="text-start d-flex align-items-start">
+                                    <i class="fa fa-money-bill icon text-secondary mt-1"></i>
+                                    <p><strong>Price :</strong> Rp {{ number_format($room->price, 0, ',', '.') }} /
+                                        night</p>
+                                </div>
+                                <a href="{{ route('book.room', ['roomId' => $room->id]) }}"
+                                    class="btn btn-primary py-sm-2 px-sm-4 me-2 animated slideInLeft">Book</a>
                             </div>
                         </div>
-
-                        <div id="tab-3" class="tab-pane fade show p-0 active">
-                            <div class="row g-4">
-                                <div class="container-xxl py-5">
-                                    <div class="container">
-                                        <div class="row g-5 align-items-center">
-                                            <div class="col-lg-6">
-                                                <div clnass="position-relative">
-                                                    <img id="slideImg" class="img-fluid rounded w-100 wow zoomIn"
-                                                        data-wow-delay="0.1s"
-                                                        src="{{ asset('/web/img/deluxe-room/deluxe1.jpg') }}">
-                                                    <button id="nextBtn"
-                                                        class="btn btn-primary position-absolute top-50 end-0 translate-middle-y">
-                                                        <i class="fas fa-chevron-right"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="d-flex align-items-center mb-4">
-                                                    <h5
-                                                        class="section-title ff-secondary text-start text-primary fw-normal text-left">
-                                                        Booking a room
-                                                    </h5>
-                                                </div>
-                                                <h1 class="mb-4 text-start">Deluxe Balcony Room</h1>
-                                                <div class="mb-4 text-start d-flex align-items-center">
-                                                    <i class="fa fa-bed fa-x text-secondary me-3"></i>
-                                                    <p class="mb-0"><strong>Room :</strong> Size 17 m²</p>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-bath fa-x text-secondary me-3 mt-1"></i>
-                                                    <div>
-                                                        <p><strong>In your private bathroom :</strong></p>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Free Toiletries</li>
-                                                                    <li>Shower</li>
-                                                                    <li>Bidet</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Toilet</li>
-                                                                    <li>Toilet paper</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-sun fa-x text-secondary me-3 mt-1"></i>
-                                                    <div>
-                                                        <p><strong>Your View :</strong></p>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Balcony</li>
-                                                                    <li>Terrace</li>
-                                                                    <li>Lake View</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-tv fa-x text-secondary me-3 mt-1"></i>
-                                                    <div>
-                                                        <p><strong>Room Facilities :</strong></p>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>TV</li>
-                                                                    <li>Linens</li>
-                                                                    <li>Towel</li>
-                                                                    <li>Flat-screen TV</li>
-                                                                    <li>Sitting Area</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Wardrobe or closet</li>
-                                                                    <li>Electric Kettle</li>
-                                                                    <li>Wake-Up service</li>
-                                                                    <li>Air conditioning</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-smoking fa-x text-secondary me-3 mt-1"></i>
-                                                    <p><strong>Smoking :</strong> No smoking</p>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-money-bill fa-x text-secondary me-3 mt-1"></i>
-                                                    <p><strong>Price :</strong> Rp 702.479 / night</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="tab-4" class="tab-pane fade show p-0">
-                            <div class="row g-4">
-                                <div class="container-xxl py-5">
-                                    <div class="container">
-                                        <div class="row g-5 align-items-center">
-                                            <div class="col-lg-6">
-                                                <div class="position-relative">
-                                                    <img id="slideImg" class="img-fluid rounded w-100 wow zoomIn"
-                                                        data-wow-delay="0.1s"
-                                                        src="{{ asset('/web/img/single-room/suite1.jpg') }}">
-                                                    <button id="nextBtn"
-                                                        class="btn btn-primary position-absolute top-50 end-0 translate-middle-y">
-                                                        <i class="fas fa-chevron-right"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="d-flex align-items-center mb-4">
-                                                    <h5
-                                                        class="section-title ff-secondary text-start text-primary fw-normal text-left">
-                                                        Booking a room
-                                                    </h5>
-                                                </div>
-                                                <h1 class="mb-4 text-start">Suite</h1>
-                                                <div class="mb-4 text-start d-flex align-items-center">
-                                                    <i class="fa fa-bed fa-x text-secondary me-3"></i>
-                                                    <p class="mb-0"><strong>Room :</strong> Size 20 m²</p>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-bath fa-x text-secondary me-3 mt-1"></i>
-                                                    <div>
-                                                        <p><strong>In your private bathroom :</strong></p>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Free Toiletries</li>
-                                                                    <li>Shower</li>
-                                                                    <li>Bidet</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Toilet</li>
-                                                                    <li>Toilet paper</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-tv fa-x text-secondary me-3 mt-1"></i>
-                                                    <div>
-                                                        <p><strong>Room Facilities :</strong></p>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>TV</li>
-                                                                    <li>Linens</li>
-                                                                    <li>Towel</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Wake-Up service</li>
-                                                                    <li>Air conditioning</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-smoking fa-x text-secondary me-3 mt-1"></i>
-                                                    <p><strong>Smoking :</strong> No smoking</p>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-money-bill fa-x text-secondary me-3 mt-1"></i>
-                                                    <p><strong>Price :</strong> Rp 933.884 / night</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="tab-5" class="tab-pane fade show p-0 active">
-                            <div class="row g-4">
-                                <div class="container-xxl py-5">
-                                    <div class="container">
-                                        <div class="row g-5 align-items-center">
-                                            <div class="col-lg-6">
-                                                <div class="position-relative">
-                                                    <img id="slideImg" class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s" src="{{ asset('/web/img/single-room/single1.jpg') }}">
-                                                    <button id="prevBtn" class="btn btn-primary position-absolute top-50 start-0 translate-middle-y">
-                                                        <i class="fas fa-chevron-left"></i>
-                                                    </button>
-                                                    <button id="nextBtn" class="btn btn-primary position-absolute top-50 end-0 translate-middle-y">
-                                                        <i class="fas fa-chevron-right"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="d-flex align-items-center mb-4">
-                                                    <h5 class="section-title ff-secondary text-start text-primary fw-normal text-left">
-                                                        Booking a room
-                                                    </h5>
-                                                </div>
-                                                <h1 class="mb-4 text-start">Suite with Lake View</h1>
-                                                <div class="mb-4 text-start d-flex align-items-center">
-                                                    <i class="fa fa-bed fa-x text-secondary me-3"></i>
-                                                    <p class="mb-0"><strong>Room :</strong> Size 16 m²</p>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-bath fa-x text-secondary me-3 mt-1"></i>
-                                                    <div>
-                                                        <p><strong>In your private bathroom :</strong></p>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Free Toiletries</li>
-                                                                    <li>Shower</li>
-                                                                    <li>Bidet</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Toilet</li>
-                                                                    <li>Toilet paper</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-sun fa-x text-secondary me-3 mt-1"></i>
-                                                    <div>
-                                                        <p><strong>Your View :</strong></p>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Balcony</li>
-                                                                    <li>Terrace</li>
-                                                                    <li>Lake View</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-tv fa-x text-secondary me-3 mt-1"></i>
-                                                    <div>
-                                                        <p><strong>Room Facilities :</strong></p>
-                                                        <div class="row">
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>TV</li>
-                                                                    <li>Linens</li>
-                                                                    <li>Towel</li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <ul>
-                                                                    <li>Wake-Up service</li>
-                                                                    <li>Air conditioning</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-smoking fa-x text-secondary me-3 mt-1"></i>
-                                                    <p><strong>Smoking :</strong> No smoking</p>
-                                                </div>
-                                                <div class="mb-4 text-start d-flex align-items-start">
-                                                    <i class="fa fa-money-bill fa-x text-secondary me-3 mt-1"></i>
-                                                    <p><strong>Price :</strong> Rp 1.107.438 / night</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
-        <!-- Menu End -->
+        <!-- Room Booking End -->
 
+        <!-- Footer Start -->
         @include('partial.footer')
+
+        <!-- Footer End -->
+
+        <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
-    <script>
-    const tabContents = document.querySelectorAll('.tab-pane');
-    const tabImages = [
-        [
-            "/web/img/single-room/single1.jpg",
-            "/web/img/single-room/single2.jpg",
-            "/web/img/single-room/single3.jpg",
-            "/web/img/single-room/single4.jpg"
-        ],
-        [
-            "/web/img/single-room/single1.jpg",
-            "/web/img/single-room/single2.jpg",
-            "/web/img/single-room/single3.jpg",
-            "/web/img/single-room/single4.jpg"
-        ],
-        [
-            "/web/img/single-room/single1.jpg",
-            "/web/img/single-room/single2.jpg",
-            "/web/img/single-room/single3.jpg",
-            "/web/img/single-room/single4.jpg"
-        ],
-        [
-            "/web/img/single-room/single1.jpg",
-            "/web/img/single-room/single2.jpg",
-            "/web/img/single-room/single3.jpg",
-            "/web/img/single-room/single4.jpg"
-        ],
-        [
-            "/web/img/single-room/single1.jpg",
-            "/web/img/single-room/single2.jpg",
-            "/web/img/single-room/single3.jpg",
-            "/web/img/single-room/single4.jpg"
-        ],
-    ];
-    function showImage(tabIndex, imageIndex) {
-        const slideImg = document.getElementById(`slideImg-${tabIndex}`);
-        slideImg.src = tabImages[tabIndex][imageIndex];
-    }
-    tabContents.forEach((tabContent, index) => {
-        const prevBtn = document.getElementById(`prevBtn-${index+1}`);
-        const nextBtn = document.getElementById(`nextBtn-${index+1}`);
-
-        let currentImageIndex = 0;
-        prevBtn.addEventListener("click", function () {
-            currentImageIndex = (currentImageIndex - 1 + tabImages[index].length) % tabImages[index].length;
-            showImage(index, currentImageIndex);
-        });
-
-        nextBtn.addEventListener("click", function () {
-            currentImageIndex = (currentImageIndex + 1) % tabImages[index].length;
-            showImage(index, currentImageIndex);
-        });
-
-        tabContent.addEventListener('click', function () {
-            showImage(index, 0);
-        });
-    });
-
-    tabImages.forEach((images, index) => {
-        showImage(index, 0);
-    });
-    </script>
-
+    <!-- JavaScript Libraries -->
     @include('partial.js')
+    <script>
+        document.querySelectorAll('.nav-item a').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                document.querySelectorAll('.room-card').forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                document.querySelectorAll('.nav-item a').forEach(tab => tab.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
 </body>
+
+</html>

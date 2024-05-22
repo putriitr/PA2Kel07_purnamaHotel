@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\FrontController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,24 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [FrontController::class, 'dashboard'])->name('home');
+
+Route::get('/gallery', [FrontController::class, 'gallery'])->name('gallery');
+
+Route::get('/facility', [FrontController::class, 'facility'])->name('facility');
+
+Route::get('/announcement', [FrontController::class, 'announcement'])->name('announcement');
+
+Route::get('/room', [FrontController::class, 'room'])->name('room');
+
 Route::get('/', function () {
     return view('layout.home');
-});
-
-Route::get('/facility', function () {
-    return view('layout.facility');
-});
-
-Route::get('/gallery', function () {
-    return view('layout.gallery');
-});
-
-Route::get('/event', function () {
-    return view('layout.event');
-});
-
-Route::get('/room', function () {
-    return view('layout.room');
 });
 
 Route::get('/contact', function () {
@@ -41,22 +37,17 @@ Route::get('/book', function () {
     return view('layout.autentikasi');
 });
 
-<<<<<<< HEAD
 Route::get('/admin', function () {
     return view('admin.home');
 });
 
 Route::prefix('admin')->namespace('App\Http\Controllers')->group(function () {
-    // Route login
     Route::match(['get', 'post'], 'login', 'AdminController@login');
 
     Route::middleware(['Admin'])->group(function () {
-        // Route dashboard
         Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
-        // Route logout
         Route::get('logout', 'AdminController@logout');
 
-        // Route resource for 'announcement category'
         Route::get('announcementcategory', 'AnnouncementCategoryController@index')->name('announcementcategory.index');
         Route::get('announcementcategory/create', 'AnnouncementCategoryController@create')->name('announcementcategory.create');
         Route::post('announcementcategory/create', 'AnnouncementCategoryController@store')->name('announcementcategory.store');
@@ -85,6 +76,13 @@ Route::prefix('admin')->namespace('App\Http\Controllers')->group(function () {
         Route::put('facility/{id}', 'FacilityController@update')->name('facility.update');
         Route::delete('facility/{id}', 'FacilityController@destroy')->name('facility.destroy');
 
+        Route::get('gallerycategory', 'GalleryCategoryController@index')->name('gallerycategory.index');
+        Route::get('gallerycategory/create', 'GalleryCategoryController@create')->name('gallerycategory.create');
+        Route::post('gallerycategory/create', 'GalleryCategoryController@store')->name('gallerycategory.store');
+        Route::get('gallerycategory/{id}/edit', 'GalleryCategoryController@edit')->name('gallerycategory.edit');
+        Route::put('gallerycategory/{id}', 'GalleryCategoryController@update')->name('gallerycategory.update');
+        Route::delete('gallerycategory/{id}', 'GalleryCategoryController@destroy')->name('gallerycategory.destroy');
+
         Route::get('gallery', 'GalleryController@index')->name('gallery.index');
         Route::get('gallery/create', 'GalleryController@create')->name('gallery.create');
         Route::post('gallery/create', 'GalleryController@store')->name('gallery.store');
@@ -106,17 +104,42 @@ Route::prefix('admin')->namespace('App\Http\Controllers')->group(function () {
         Route::put('room/{id}', 'RoomController@update')->name('room.update');
         Route::delete('room/{id}', 'RoomController@destroy')->name('room.destroy');
 
-        // Route::get('saran', [DashboardController::class, 'saran'])->name('admin.saran');
+    });
+});
 
-        // Route::get('surat', [DashboardController::class, 'surat'])->name('admin.surat');
 
-        // Route::get('surat/{id}', [DashboardController::class, 'viewSurat'])->name('viewSurat');
+Route::prefix('customer')->namespace('App\Http\Controllers')->group(function () {
+    Route::match(['get', 'post'], 'login', [CustomerController::class, 'login'])->name('customer.login');
 
-        // Route::post('surat/{id}', [DashboardController::class, 'suratapprove'])->name('aprovesurat');
+    Route::match(['get', 'post'], 'register', [CustomerController::class, 'register'])->name('customer.register');
+
+    Route::middleware(['Customer'])->group(function () {
+        Route::get('logout', [CustomerController::class, 'logout'])->name('customer.logout');
+
+        // Define the home route within the middleware group
+        Route::get('home', [CustomerController::class, 'home'])->name('customer.home');
+
+        Route::get('book/{roomId}', 'CustomerController@booking')->name('book.room');
 
     });
-=======
-Route::get('/form', function () {
-    return view('layout.booking');
->>>>>>> origin/main
 });
+
+
+
+
+        // Route::get('saran', [FronController::class, 'saran'])->name('saran');
+
+        // Route::post('saran', [FronController::class, 'saranStore'])->name('saranStore');
+
+        // Route::delete('saran/{id}', [FronController::class, 'saranDelete'])->name('saranDelete');
+
+        // Route::get('saran/{id}', [FronController::class, 'saranEdite'])->name('saranEdite');
+
+        // Route::post('saran/{id}', [FronController::class, 'saranUpdate'])->name('saranUpdate');
+
+        // Route::get('surat/all', [FronController::class, 'surat'])->name('surat.all');
+
+        // Route::get('cetakSurat/{id}', [FronController::class, 'cetak'])->name('cetak');
+
+        // Route::post('surat/simpan', [FronController::class, 'suratStore'])->name('suratStore');
+

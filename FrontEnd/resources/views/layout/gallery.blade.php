@@ -84,7 +84,7 @@
             <img class="lightbox-content" id="lightbox-img">
         </div>
 
-        <!-- Team Start -->
+        <!-- Building Views Section -->
         <div class="container-xxl pt-5 pb-3">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -92,44 +92,21 @@
                     <h1 class="mb-5">Building Views</h1>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/background.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/background.jpg') }}"
-                                    alt="">
-                            </a>
+                    @foreach ($buildingViews as $gallery)
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                            <div class="overflow-hidden m-10">
+                                <a href="{{ asset('images/gallery/' . $gallery->image) }}" data-lightbox="hotel-photos">
+                                    <img class="img-fluid square-img" src="{{ asset('images/gallery/' . $gallery->image) }}"
+                                        alt="">
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/about-1.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-1.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/about-5.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-5.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/about-6.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-6.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-        </div><br /><br />
-        <!-- Team End -->
+        </div>
 
-        <!-- Team Start -->
+        <!-- Restaurant Section -->
         <div class="container-xxl pt-5 pb-3">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -137,44 +114,21 @@
                     <h1 class="mb-5">Restaurant</h1>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/about-3.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-3.jpg') }}"
-                                    alt="">
-                            </a>
+                    @foreach ($restaurant as $gallery)
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                            <div class="overflow-hidden m-10">
+                                <a href="{{ asset('images/gallery/' . $gallery->image) }}" data-lightbox="hotel-photos">
+                                    <img class="img-fluid square-img" src="{{ asset('images/gallery/' . $gallery->image) }}"
+                                        alt="">
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/resto2.jpg.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/resto2.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/resto.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/resto.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/about-4.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-4.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-        </div><br /><br />
-        <!-- Team End -->
+        </div>
 
-        <!-- Team Start -->
+        <!-- Outdoor Section -->
         <div class="container-xxl pt-5 pb-3">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -182,44 +136,21 @@
                     <h1 class="mb-5">Outdoor</h1>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/sport2.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/sport2.jpg') }}"
-                                    alt="">
-                            </a>
+                    @foreach ($outdoor as $gallery)
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                            <div class="overflow-hidden m-10">
+                                <a href="{{ asset('images/gallery/' . $gallery->image) }}" data-lightbox="hotel-photos">
+                                    <img class="img-fluid square-img" src="{{ asset('images/gallery/' . $gallery->image) }}"
+                                        alt="">
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/kolam1.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/kolam1.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/view.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/view.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/about-7.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-7.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-        </div><br /><br />
-        <!-- Team End -->
+        </div>
 
-        <!-- Team Start -->
+        <!-- Spa & Sauna Section -->
         <div class="container-xxl pt-5 pb-3">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -227,44 +158,21 @@
                     <h1 class="mb-5">Spa & Sauna</h1>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/spa.webp') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/spa.webp') }}"
-                                    alt="">
-                            </a>
+                    @foreach ($spaAndSauna as $gallery)
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                            <div class="overflow-hidden m-10">
+                                <a href="{{ asset('images/gallery/' . $gallery->image) }}" data-lightbox="hotel-photos">
+                                    <img class="img-fluid square-img" src="{{ asset('images/gallery/' . $gallery->image) }}"
+                                        alt="">
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/about-5.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-5.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/about-6.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-6.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/about-7.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/about-7.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-        </div><br /><br />
-        <!-- Team End -->
+        </div>
 
-        <!-- Team Start -->
+        <!-- Sports Section -->
         <div class="container-xxl pt-5 pb-3">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -272,42 +180,20 @@
                     <h1 class="mb-5">Sports</h1>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/sport.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/sport.jpg') }}"
-                                    alt="">
-                            </a>
+                    @foreach ($sports as $gallery)
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                            <div class="overflow-hidden m-10">
+                                <a href="{{ asset('images/gallery/' . $gallery->image) }}" data-lightbox="hotel-photos">
+                                    <img class="img-fluid square-img" src="{{ asset('images/gallery/' . $gallery->image) }}"
+                                        alt="">
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/sport2.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/sport2.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/sport3.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/sport3.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
-                        <div class="overflow-hidden m-10">
-                            <a href="{{ asset('/web/img/sport4.jpg') }}" data-lightbox="hotel-photos">
-                                <img class="img-fluid square-img" src="{{ asset('/web/img/sport4.jpg') }}"
-                                    alt="">
-                            </a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-        </div><br /><br />
-        <!-- Team End -->
+        </div>
+
 
 
         <div id="myModal" class="modal">
