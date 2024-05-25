@@ -30,9 +30,6 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-
                 <li class="nav-item">
                     <a href="{{ Route('dashboard') }}" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -42,7 +39,23 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('announcementcategory.index')}}" class="nav-link">
+                    <a href="{{ Route('message') }}" class="nav-link">
+                        <i class="nav-icon fas fa-envelope"></i>
+                        <p>
+                            Message
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ Route('admin.payments') }}" class="nav-link">
+                        <i class="nav-icon fas fa-envelope"></i>
+                        <p>
+                            Pemesanan
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('announcementcategory.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-list"></i>
                         <p>
                             Kategori Pengumuman
@@ -51,7 +64,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{route('announcement.index')}}" class="nav-link">
+                    <a href="{{ route('announcement.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-bullhorn"></i>
                         <p>
                             Pengumuman
@@ -60,7 +73,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{route('roomcategory.index')}}" class="nav-link">
+                    <a href="{{ route('roomcategory.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-list"></i>
                         <p>
                             Kategori Kamar
@@ -78,13 +91,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('room.index')}}" class="nav-link">
+                            <a href="{{ route('room.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data Kamar</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('room.create')}}" class="nav-link">
+                            <a href="{{ route('room.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add Kamar</p>
                             </a>
@@ -94,7 +107,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{route('facility.index')}}" class="nav-link">
+                    <a href="{{ route('facility.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-envelope"></i>
                         <p>
                             Fasilitas
@@ -103,7 +116,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{route('gallerycategory.index')}}" class="nav-link">
+                    <a href="{{ route('gallerycategory.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-list"></i>
                         <p>
                             Kategori Galery
@@ -112,7 +125,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{route('gallery.index')}}" class="nav-link">
+                    <a href="{{ route('gallery.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-image"></i>
                         <p>
                             Galeri
@@ -122,7 +135,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{route('staff.index')}}" class="nav-link">
+                    <a href="{{ route('staff.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Staff Hotel
@@ -132,7 +145,7 @@
                 </li>
 
                 <li class="nav-item bg-white">
-                    <a href="{{url('admin/logout')}}" class="nav-link">
+                    <a href="{{ url('admin/logout') }}" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
                         Logout
                     </a>

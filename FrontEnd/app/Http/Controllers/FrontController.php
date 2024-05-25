@@ -20,23 +20,23 @@ class FrontController extends Controller
     }
     public function gallery()
     {
-        $buildingViews = Gallery::where('category_id', 3)
+        $buildingViews = Gallery::where('category_id', 1)
             ->orderBy('created_at', 'desc')
             ->paginate(4);
 
-        $restaurant = Gallery::where('category_id', 4)
+        $restaurant = Gallery::where('category_id', 2)
             ->orderBy('created_at', 'desc')
             ->paginate(4);
 
-        $outdoor = Gallery::where('category_id', 5)
+        $outdoor = Gallery::where('category_id', 3)
             ->orderBy('created_at', 'desc')
             ->paginate(4);
 
-        $spaAndSauna = Gallery::where('category_id', 6)
+        $spaAndSauna = Gallery::where('category_id', 4)
             ->orderBy('created_at', 'desc')
             ->paginate(4);
 
-        $sports = Gallery::where('category_id', 7)
+        $sports = Gallery::where('category_id', 5)
             ->orderBy('created_at', 'desc')
             ->paginate(4);
 

@@ -26,7 +26,7 @@ class CustomerController extends Controller
             ];
             $this->validate($request, $rules, $messages);
 
-            if (Auth::guard('customer')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
+            if (Auth::guard('customers')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
                 return redirect()->route('customer.home');
             } else {
                 return redirect()->back()->with('error', 'Email atau Password tidak sesuai');
@@ -67,7 +67,7 @@ class CustomerController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('customer')->logout();
+        Auth::guard('customers')->logout();
         return redirect('/');
     }
 

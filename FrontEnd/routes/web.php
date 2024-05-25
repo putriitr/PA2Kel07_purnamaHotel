@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\PaymentController;
+use App\Models\Room;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 
@@ -25,9 +30,6 @@ Route::get('/announcement', [FrontController::class, 'announcement'])->name('ann
 
 Route::get('/room', [FrontController::class, 'room'])->name('room');
 
-Route::get('/', function () {
-    return view('layout.home');
-});
 
 Route::get('/contact', function () {
     return view('layout.contact');
@@ -42,7 +44,7 @@ Route::get('/admin', function () {
 });
 
 Route::prefix('admin')->namespace('App\Http\Controllers')->group(function () {
-    Route::match(['get', 'post'], 'login', 'AdminController@login');
+    Route::match (['get', 'post'], 'login', 'AdminController@login');
 
     Route::middleware(['Admin'])->group(function () {
         Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
@@ -104,22 +106,39 @@ Route::prefix('admin')->namespace('App\Http\Controllers')->group(function () {
         Route::put('room/{id}', 'RoomController@update')->name('room.update');
         Route::delete('room/{id}', 'RoomController@destroy')->name('room.destroy');
 
+        Route::get('message', 'ContactController@showMessage')->name('message');
+
+        Route::post('/messages/{id}/reply', [ContactController::class, 'reply'])->name('messages.reply');
+
+        Route::get('/admin/payments', [AdminController::class, 'showPayments'])->name('admin.payments');
+
+        Route::patch('/payments/{id}/approve', 'PaymentController@approve')->name('payments.approve');
+
+        Route::patch('/payments/{id}/reject', 'PaymentController@reject')->name('payments.reject');
+
     });
 });
 
 
 Route::prefix('customer')->namespace('App\Http\Controllers')->group(function () {
-    Route::match(['get', 'post'], 'login', [CustomerController::class, 'login'])->name('customer.login');
+    Route::match (['get', 'post'], 'login', [CustomerController::class, 'login'])->name('customer.login');
 
-    Route::match(['get', 'post'], 'register', [CustomerController::class, 'register'])->name('customer.register');
+    Route::match (['get', 'post'], 'register', [CustomerController::class, 'register'])->name('customer.register');
 
     Route::middleware(['Customer'])->group(function () {
         Route::get('logout', [CustomerController::class, 'logout'])->name('customer.logout');
 
-        // Define the home route within the middleware group
-        Route::get('home', [CustomerController::class, 'home'])->name('customer.home');
+        Route::get('/customer/home', [CustomerController::class, 'home'])->name('customer.home');
 
         Route::get('book/{roomId}', 'CustomerController@booking')->name('book.room');
+
+        Route::resource('contacts', ContactController::class)->except(['edit', 'update', 'destroy', 'show']);
+
+        Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+
+        Route::get('/payment/{bookingId}', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
+
+        Route::post('/payment/process', [PaymentController::class, 'processPayment'])->name('payment.process');
 
     });
 });
@@ -127,19 +146,19 @@ Route::prefix('customer')->namespace('App\Http\Controllers')->group(function () 
 
 
 
-        // Route::get('saran', [FronController::class, 'saran'])->name('saran');
+// Route::get('saran', [FronController::class, 'saran'])->name('saran');
 
-        // Route::post('saran', [FronController::class, 'saranStore'])->name('saranStore');
+// Route::post('saran', [FronController::class, 'saranStore'])->name('saranStore');
 
-        // Route::delete('saran/{id}', [FronController::class, 'saranDelete'])->name('saranDelete');
+// Route::delete('saran/{id}', [FronController::class, 'saranDelete'])->name('saranDelete');
 
-        // Route::get('saran/{id}', [FronController::class, 'saranEdite'])->name('saranEdite');
+// Route::get('saran/{id}', [FronController::class, 'saranEdite'])->name('saranEdite');
 
-        // Route::post('saran/{id}', [FronController::class, 'saranUpdate'])->name('saranUpdate');
+// Route::post('saran/{id}', [FronController::class, 'saranUpdate'])->name('saranUpdate');
 
-        // Route::get('surat/all', [FronController::class, 'surat'])->name('surat.all');
+// Route::get('surat/all', [FronController::class, 'surat'])->name('surat.all');
 
-        // Route::get('cetakSurat/{id}', [FronController::class, 'cetak'])->name('cetak');
+// Route::get('cetakSurat/{id}', [FronController::class, 'cetak'])->name('cetak');
 
-        // Route::post('surat/simpan', [FronController::class, 'suratStore'])->name('suratStore');
+// Route::post('surat/simpan', [FronController::class, 'suratStore'])->name('suratStore');
 

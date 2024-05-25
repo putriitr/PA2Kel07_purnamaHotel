@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use App\Models\RoomCategory;
 use Illuminate\Http\Request;
-use File;
+use Illuminate\Support\Facades\File;
 
 class RoomController extends Controller
 {
@@ -25,11 +25,13 @@ class RoomController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'price' => 'required',
-            'facility' => 'required',
-            'capacity' => 'required',
+            'price' => 'required|numeric',
+            'facility' => 'required|string',
+            'capacity' => 'required|integer',
+            'available' => 'required|integer',
+            'size' => 'required|integer',
             'room_category_id' => 'required|exists:roomcategories,id',
-            'image' => 'required|image|mimes:jpg,png,jpeg',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
         ]);
 
         $file = time() . '.' . $request->image->extension();
@@ -40,6 +42,8 @@ class RoomController extends Controller
         $room->price = $request->price;
         $room->facility = $request->facility;
         $room->capacity = $request->capacity;
+        $room->available = $request->available;
+        $room->size = $request->size;
         $room->room_category_id = $request->room_category_id;
         $room->image = $file;
         $room->save();
@@ -58,22 +62,24 @@ class RoomController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'price' => 'required',
-            'facility' => 'required',
-            'capacity' => 'required',
+            'price' => 'required|numeric',
+            'facility' => 'required|string',
+            'capacity' => 'required|integer',
+            'available' => 'required|integer',
+            'size' => 'required|integer',
             'room_category_id' => 'required|exists:roomcategories,id',
-            'image' => 'sometimes|image|mimes:jpg,png,jpeg',
+            'image' => 'sometimes|image|mimes:jpg,png,jpeg|max:2048',
         ]);
 
         $room = Room::find($id);
 
         if ($request->hasFile('image')) {
-            $path = 'images/rooms/';
+            $path = public_path('images/rooms/');
             if (File::exists($path . $room->image)) {
                 File::delete($path . $room->image);
             }
             $file = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images/rooms'), $file);
+            $request->image->move($path, $file);
             $room->image = $file;
         }
 
@@ -81,6 +87,8 @@ class RoomController extends Controller
         $room->price = $request->price;
         $room->facility = $request->facility;
         $room->capacity = $request->capacity;
+        $room->available = $request->available;
+        $room->size = $request->size;
         $room->room_category_id = $request->room_category_id;
         $room->save();
 
@@ -90,7 +98,7 @@ class RoomController extends Controller
     public function destroy($id)
     {
         $room = Room::find($id);
-        $path = 'images/rooms/';
+        $path = public_path('images/rooms/');
         if (File::exists($path . $room->image)) {
             File::delete($path . $room->image);
         }

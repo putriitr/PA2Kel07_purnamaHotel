@@ -16,7 +16,7 @@ class Customer
      */
     public function handle(Request $request, Closure $next)
     {
-        if (! Auth::guard('customer')->check()) {
+        if (! Auth::guard('customers')->check()) {
             return redirect('/layout/authentikasi');
         }
         return $next($request);

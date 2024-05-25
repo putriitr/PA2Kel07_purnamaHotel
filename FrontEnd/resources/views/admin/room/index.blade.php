@@ -21,6 +21,8 @@
                     <th>Price</th>
                     <th>Capacity</th>
                     <th>Facility</th>
+                    <th>Jumlah</th>
+                    <th>Size</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -35,6 +37,8 @@
                         <td>{{ $room->price }}</td>
                         <td>{{ $room->capacity }}</td>
                         <td>{{ $room->facility }}</td>
+                        <td>{{ $room->available }}</td>
+                        <td>{{ $room->size }}</td>
                         <td>
                             <a href="{{ route('room.edit', $room->id) }}" class="btn btn-warning btn-sm">Edit</a>
                             <form action="{{ route('room.destroy', $room->id) }}" method="POST" style="display:inline-block;">

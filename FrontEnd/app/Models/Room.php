@@ -15,7 +15,9 @@ class Room extends Model
         'image',
         'price',
         'capacity',
-        'facility'
+        'size',
+        'facility',
+        'available'
     ];
 
     public function category()

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -57,6 +58,15 @@ class AdminController extends Controller
     {
         Auth::guard('admin')->logout();
         return redirect('admin/login');
+    }
+
+    public function showPayments()
+    {
+        // Ambil semua data pembayaran beserta detail booking dan kamar
+        $payments = Payment::with('booking.room')->get();
+
+        // Kirim data ke view
+        return view('admin.booking.index', compact('payments'));
     }
 }
 

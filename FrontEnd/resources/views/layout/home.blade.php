@@ -16,7 +16,7 @@
                 <div class="container my-5 py-5">
                     <div class="row align-items-center g-5">
                         <div class="col-lg-6 text-center text-lg-start">
-                            <h3 class="display-10 text-white animated slideInLeft">Selamat Datang @if (Auth::guard('customer')->check()) {{ Auth::guard('customer')->user()->name }} @endif di</h3>
+                            <h3 class="display-10 text-white animated slideInLeft">Selamat Datang @if (Auth::guard('customers')->check()) {{ Auth::guard('customers')->user()->name }} @endif di</h3>
                             <h2 class="display-3 text-white animated slideInLeft">Hotel<br>Purnama Balige</h2>
                             <p class="text-white animated slideInLeft mb-4 pb-2">Bersantai dengan pemandangan indah Danau
                                 Toba dan nikmati fasilitas Hotel Purnama Balige yang lengkap dan menarik</p>
@@ -302,7 +302,7 @@
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="team-item text-center rounded overflow-hidden">
                             <div class="rounded-circle overflow-hidden m-4">
-                                <img class="img-fluid" src="{{ asset($staff->image) }}" alt="{{ $staff->name }}">
+                                <img class="img-fluid" src="{{ asset('images/staff/' . $staff->image) }}" alt="{{ $staff->name }}">
                             </div>
                             <h5 class="mb-0">{{ $staff->name }}</h5>
                             <small>{{ $staff->role }}</small>

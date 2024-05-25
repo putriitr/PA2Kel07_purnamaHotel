@@ -29,6 +29,10 @@
                 <input type="number" name="price" class="form-control" id="price" value="{{ $room->price }}">
             </div>
             <div class="mb-3">
+                <label for="available" class="form-label">Available</label>
+                <input type="number" name="available" class="form-control" id="available" value="{{ $room->available }}">
+            </div>
+            <div class="mb-3">
                 <label for="capacity" class="form-label">Capacity</label>
                 <input type="number" name="capacity" class="form-control" id="capacity" value="{{ $room->capacity }}">
             </div>
