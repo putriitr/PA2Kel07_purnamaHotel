@@ -1,51 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     @include('partial.head')
     <style>
-        .room-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-            margin-left: 20px;
-            max-width: 300px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.3s ease;
+        .container-xxl {
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .room-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .room-card img {
-            max-width: 100%;
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-
-        .room-card .details {
-            width: 100%;
-            text-align: left;
-        }
-
-        .room-card .icon {
-            font-size: 16px;
-            margin-right: 10px;
-        }
-
-        .nav-item a.active {
-            font-weight: bold;
+        .row.g-4 {
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
-
 <body>
     <div class="container bg-white p-0">
         <!-- Navbar & Hero Start -->
@@ -62,43 +30,64 @@
         </div>
         <!-- Navbar & Hero End -->
 
-        <!-- Room Booking Start -->
-        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Room Booking</h5>
-            <h1 class="mb-5">Room N Suite</h1>
+        <!-- Room Categories Start -->
+        <div class="text-center">
+            <button class="btn btn-primary mb-3" onclick="showAllRooms()">Show All</button>
+            <!-- Buttons to filter rooms by category -->
+            @foreach ($roomCategories as $category)
+                <button class="btn btn-primary mb-3 ms-3" onclick="showRoomsByCategory({{ $category->id }})">{{ $category->name }}</button>
+            @endforeach
         </div>
-        <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
-            <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
-                <li class="nav-item">
-                    <a class="nav-link active" data-category="all">All Rooms</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-category="1">Executive Suite</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-category="2">Cozy Bed</a>
-                </li>
-            </ul>
+        <!-- Room Categories End -->
 
-            <div class="tab-content">
-                <div id="room-list" class="row g-4">
+        <!-- Room Booking Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="section-title text-center text-primary text-uppercase">Our Rooms</h6>
+                    <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Rooms</span></h1>
+                </div>
+                <div class="row g-4 justify-content-center" id="roomList">
                     @foreach ($rooms as $room)
-                        <div class="col-md-4">
-                            <div class="room-card">
-                                <img src="{{ asset('images/rooms/' . $room->image) }}" alt="{{ $room->name }}">
-                                <div class="details">
-                                    <h2>{{ $room->name }}</h2>
-                                    <p><strong>Room Size:</strong> {{ $room->size }} m²</p>
-                                    <p><strong>Room Facilities:</strong></p>
-                                    <ul>
-                                        @foreach (explode(',', $room->facility) as $facility)
-                                            <li>{{ $facility }}</li>
-                                        @endforeach
-                                    </ul>
-                                    <p><strong>Available:</strong> {{ $room->available }}</p>
-                                    <p><strong>Smoking:</strong> No smoking</p>
-                                    <p><strong>Price:</strong> Rp {{ number_format($room->price, 0, ',', '.') }} / night</p>
-                                    <a href="{{ route('book.room', ['roomId' => $room->id]) }}" class="btn btn-primary">Book</a>
+                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" data-category="{{ $room->category_id }}">
+                            <div class="room-item shadow rounded overflow-hidden">
+                                <div class="position-relative">
+                                    <img class="img-fluid" src="{{ asset('images/rooms/' . $room->image) }}" alt="{{ $room->name }}">
+                                    <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
+                                        Rp {{ number_format($room->price, 0, ',', '.') }} / Night
+                                    </small>
+                                </div>
+                                <div class="p-4 mt-2">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h5 class="mb-0">{{ $room->name }}</h5>
+                                        <div class="ps-2">
+                                            @for ($i = 0; $i < 5; $i++)
+                                                @if ($i < $room->rating)
+                                                    <small class="fa fa-star text-primary"></small>
+                                                @else
+                                                    <small class="fa fa-star text-secondary"></small>
+                                                @endif
+                                            @endfor
+                                        </div>
+                                    </div>
+                                    <div class="d-flex mb-3">
+                                        <small class="border-end me-3 pe-3">
+                                            <i class="fa fa-bed text-primary me-2"></i>{{ $room->beds }} Bed
+                                        </small>
+                                        <small class="border-end me-3 pe-3">
+                                            <i class="fa fa-bath text-primary me-2"></i>{{ $room->baths }} Bath
+                                        </small>
+                                        <small>
+                                            <i class="fa fa-wifi text-primary me-2"></i>Wifi
+                                        </small>
+                                    </div>
+                                    <p class="text-body mb-3">{{ $room->description }}</p>
+                                    <div class="d-flex justify-content-between">
+                                        <a class="btn btn-sm btn-primary rounded py-2 px-4" href="{{ route('room.show', $room->id) }}">View Detail</a>
+                                        <a class="btn btn-sm btn-dark rounded py-2 px-4" href="{{ route('book.room', ['roomId' => $room->id]) }}">
+                                            Book Now
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -119,21 +108,23 @@
     <!-- JavaScript Libraries -->
     @include('partial.js')
     <script>
-        document.querySelectorAll('.nav-item a').forEach(tab => {
-            tab.addEventListener('click', function() {
-                const category = this.getAttribute('data-category');
-                document.querySelectorAll('.room-card').forEach(card => {
-                    if (category === 'all' || card.getAttribute('data-category') === category) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-                document.querySelectorAll('.nav-item a').forEach(tab => tab.classList.remove('active'));
-                this.classList.add('active');
+        function showAllRooms() {
+            document.querySelectorAll('.room-item').forEach(card => {
+                card.style.display = 'block';
             });
-        });
+        }
+
+        function showRoomsByCategory(categoryId) {
+            document.querySelectorAll('.room-item').forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                if (categoryId === 'all' || cardCategory === categoryId.toString()) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
-
 </html>
+

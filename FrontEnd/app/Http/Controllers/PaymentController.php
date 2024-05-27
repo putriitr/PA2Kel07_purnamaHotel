@@ -48,7 +48,7 @@ class PaymentController extends Controller
         ]);
 
         // Redirect kembali ke halaman pembayaran dengan pesan sukses
-        return redirect()->route('payment.form', ['bookingId' => $request->booking_id])->with('success', 'Payment processed successfully!');
+        return redirect()->route('user.bookings', ['bookingId' => $request->booking_id])->with('success', 'Payment processed successfully!');
     }
 
     public function approve($paymentId)
@@ -62,24 +62,7 @@ class PaymentController extends Controller
         $booking->status = 'confirmed';
         $booking->save();
 
-        // Decrease room availability
-        $room = $booking->room;
-        if ($room->available > 0) {
-            $room->available -= 1;
-            $room->save();
-        }
-
-        // Schedule a job to increase availability after checkout
-        $checkoutDate = Carbon::parse($booking->checkout_date);
-        $this->scheduleRoomAvailabilityUpdate($room, $checkoutDate);
-
-        return redirect()->route('admin.payments.index')->with('success', 'Payment and booking approved successfully.');
-    }
-
-    private function scheduleRoomAvailabilityUpdate(Room $room, Carbon $checkoutDate)
-    {
-        // Use Laravel's job scheduling to update room availability after checkout
-        RoomAvailabilityUpdateJob::dispatch($room->id)->delay($checkoutDate->addDay());
+        return redirect()->route('admin.payments')->with('success', 'Payment and booking approved successfully.');
     }
 
     public function reject($paymentId)
@@ -88,7 +71,7 @@ class PaymentController extends Controller
         $payment->status = 'rejected';
         $payment->save();
 
-        return redirect()->route('admin.payments.index')->with('success', 'Payment rejected successfully.');
+        return redirect()->route('admin.payments')->with('success', 'Payment rejected successfully.');
     }
 }
 

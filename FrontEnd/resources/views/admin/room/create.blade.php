@@ -46,9 +46,9 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="available" class="form-label">Available</label>
-                <input type="number" name="available" class="form-control" id="available" value="{{ old('available') }}">
-                @error('available')
+                <label for="room_number" class="form-label">Room number</label>
+                <input type="string" name="room_number" class="form-control" id="room_number" value="{{ old('room_number') }}">
+                @error('room_number')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>

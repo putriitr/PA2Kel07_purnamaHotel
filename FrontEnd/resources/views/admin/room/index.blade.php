@@ -37,7 +37,7 @@
                         <td>{{ $room->price }}</td>
                         <td>{{ $room->capacity }}</td>
                         <td>{{ $room->facility }}</td>
-                        <td>{{ $room->available }}</td>
+                        <td>{{ $room->room_number }}</td>
                         <td>{{ $room->size }}</td>
                         <td>
                             <a href="{{ route('room.edit', $room->id) }}" class="btn btn-warning btn-sm">Edit</a>

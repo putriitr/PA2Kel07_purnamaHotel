@@ -47,17 +47,12 @@
                         </ul>
                     </div>
                 @endif
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
             </form>
         </div>
 
         <!-- Sign In Form -->
         <div class="form-container sign-in">
-            <form action="{{ route('customer.login') }}" method="POST">
+            <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <h1>Sign In</h1>
                 <div class="social-icons">
@@ -69,6 +64,11 @@
                 <span>or use your email account</span>
                 <input type="email" name="email" placeholder="Email" value="{{ old('email') }}">
                 <input type="password" name="password" placeholder="Password">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <a href="#">Forgot Your Password?</a>
                 <button type="submit">Sign In</button>
                 @if ($errors->any())

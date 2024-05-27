@@ -17,6 +17,7 @@
             <a href="{{ route('gallery') }}" class="nav-item nav-link {{ request()->routeIs('gallery') ? 'active' : '' }}">Gallery</a>
             <a href="{{ route('announcement') }}" class="nav-item nav-link {{ request()->routeIs('announcement') ? 'active' : '' }}">Announcement</a>
             <a href="{{ route('room') }}" class="nav-item nav-link {{ request()->routeIs('room') ? 'active' : '' }}">Room n Suite</a>
+            <a href="{{ route('staff') }}" class="nav-item nav-link {{ request()->routeIs('staff') ? 'active' : '' }}">Our Team</a>
             <a href="/contact" class="nav-item nav-link {{ request()->is('contact') ? 'active' : '' }}">Contact</a>
         </div>
 
@@ -34,7 +35,7 @@
                 </ul>
             </div>
         @else
-            <a href="{{ route('customer.login') }}" class="btn btn-primary py-2 px-4">Login</a>
+            <a href="{{ route('login') }}" class="btn btn-primary py-2 px-4">Login</a>
         @endif
     </div>
 

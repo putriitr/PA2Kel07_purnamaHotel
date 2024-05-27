@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     @include('partial.head')
 </head>
@@ -18,17 +21,16 @@
         </div>
         <!-- Navbar & Hero End -->
 
-        <!-- About Start -->
+        <!-- Announcements Start -->
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h1 class="mb-5">A N N O U N C E M E N T S</h1>
+                    <h1 class="mb-5">Announcements</h1>
                 </div>
-                <!-- Button to show all announcements -->
+                <!-- Buttons to filter announcements -->
                 <div class="text-center">
                     <button class="btn btn-primary mb-3" onclick="showAllAnnouncements()">Show All</button>
-
-                    <!-- Button to show announcements by category -->
+                    <!-- Buttons to filter announcements by category -->
                     @foreach ($announcementCategories as $category)
                         <button class="btn btn-primary mb-3 ms-3" onclick="showAnnouncementsByCategory({{ $category->id }})">{{ $category->name }}</button>
                     @endforeach
@@ -41,8 +43,11 @@
                                     <img class="img-fluid rounded wow zoomIn announcement-image" data-wow-delay="0.1s" src="{{ asset('images/announcement/' . $announcement->image) }}" alt="{{ $announcement->title }}">
                                 </div>
                                 <div class="col-md-8">
-                                    <h5 class="section-title ff-secondary text-start text-primary fw-normal mb-3" style="margin-top: 0;">{{ $announcement->title }}</h5>
-                                    <p>{{ $announcement->content }}</p>
+                                    <div>
+                                        <h5 class="section-title ff-secondary text-start text-primary fw-normal mb-3 announcement-title" style="margin-top: 0;">{{ $announcement->title }}</h5>
+                                        <p>{{ $announcement->content }}</p>
+                                        <p class="text-muted">Updated at: {{ $announcement->updated_at->format('d M Y H:i:s') }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <!-- About End -->
+        <!-- Announcements End -->
 
         <!-- Footer Start -->
         @include('partial.footer')
@@ -69,6 +74,9 @@
         max-width: 70%;
         width: auto;
         height: auto;
+    }
+    .announcement-title {
+        margin-top: 0;
     }
 </style>
 
@@ -94,3 +102,5 @@
         });
     }
 </script>
+
+</html>

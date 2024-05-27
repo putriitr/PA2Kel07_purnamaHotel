@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Models\RoomCategory;
+use Auth;
 
 class RoomCategoryController extends Controller
 {
@@ -95,4 +97,6 @@ class RoomCategoryController extends Controller
 
         return redirect('/admin/roomcategory')->with('success', 'Data Berhasil Dihapus');
     }
+
+    
 }

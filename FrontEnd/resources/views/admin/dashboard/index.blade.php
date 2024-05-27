@@ -10,87 +10,137 @@
 @section('content')
     <section class="content">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>Surat</h3>
-                            <p>Surat Pengantar KTP</p>
+            <div class="row mb-3">
+                <div class="col-12">
+                    <form method="GET" action="{{ route('dashboard') }}">
+                        <div class="form-group">
+                            <label for="period">Pilih Periode</label>
+                            <select name="period" id="period" class="form-control">
+                                <option value="day" {{ $period == 'day' ? 'selected' : '' }}>Per Hari</option>
+                                <option value="week" {{ $period == 'week' ? 'selected' : '' }}>Per Minggu</option>
+                                <option value="month" {{ $period == 'month' ? 'selected' : '' }}>Per Bulan</option>
+                                <option value="year" {{ $period == 'year' ? 'selected' : '' }}>Per Tahun</option>
+                            </select>
                         </div>
-                        <div class="icon">
-                            <i class="fa-regular fa-house fa-beat"></i>
-                        </div>
-                        {{-- <a href="{{route('admin.surat')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
-                    </div>
+                        <button type="submit" class="btn btn-primary">Tampilkan</button>
+                    </form>
                 </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>Saran</h3>
-                            <p>Saran dari Masyarakat</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
-                        </div>
-                        {{-- <a href="{{route('admin.saran')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            {{-- <h3>{{$total_berita}}</h3> --}}
-                            <p>Berita</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fa-regular fa-house fa-beat"></i>
-                        </div>
-                        {{-- <a href="{{ route('index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            {{-- <h3>{{$total_galery}}</h3> --}}
-                            <p>Galery</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
-                        </div>
-                        {{-- <a href="{{Route('galery.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            {{-- <h3>{{$total_structure}}</h3> --}}
-                            <p>Struktur Desa</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
-                        </div>
-                        {{-- <a href="{{Route('structure.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-6">
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            {{-- <h3>{{$total_pengumuman}}</h3> --}}
-                            <p>Pengumuman</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        {{-- <a href="{{Route('pengumuman.index')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
-                    </div>
-                </div>
-                <!-- ./col -->
             </div>
+            <div class="row">
+                <!-- Revenue Chart -->
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Pendapatan Per {{ ucfirst($period) }}</h3>
+                            <div class="btn-group float-right">
+                                <button onclick="exportChart('revenueChart', 'image')" class="btn btn-secondary btn-sm ml-2">Export as Image</button>
+                                <button onclick="exportChart('revenueChart', 'pdf')" class="btn btn-secondary btn-sm ml-2">Export as PDF</button>
+                                <a href="{{ route('admin.exportExcel', ['type' => 'revenue', 'period' => $period]) }}" class="btn btn-secondary btn-sm ml-2">Export to Excel</a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="revenueChart" style="height:250px; min-height:250px"></canvas>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- /.row -->
-            <!-- Main row -->
-            <!-- /.row (main row) -->
+                <!-- Bookings Chart -->
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Jumlah Booking Per {{ ucfirst($period) }}</h3>
+                            <div class="btn-group float-right">
+                                <button onclick="exportChart('bookingChart', 'image')" class="btn btn-secondary btn-sm ml-2">Export as Image</button>
+                                <button onclick="exportChart('bookingChart', 'pdf')" class="btn btn-secondary btn-sm ml-2">Export as PDF</button>
+                                <a href="{{ route('admin.exportExcel', ['type' => 'booking', 'period' => $period]) }}" class="btn btn-secondary btn-sm ml-2">Export to Excel</a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="bookingChart" style="height:250px; min-height:250px"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 @endsection
+
+@push('js')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        // Revenue Chart
+        var revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        var revenueChart = new Chart(revenueCtx, {
+            type: 'line',
+            data: {
+                labels: @json($dates),
+                datasets: [{
+                    label: 'Pendapatan Harian',
+                    data: @json($totals),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    fill: false,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Booking Chart
+        var bookingCtx = document.getElementById('bookingChart').getContext('2d');
+        var bookingChart = new Chart(bookingCtx, {
+            type: 'line',
+            data: {
+                labels: @json($dates),
+                datasets: [{
+                    label: 'Jumlah Booking Harian',
+                    data: @json($bookingCounts),
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1,
+                    fill: false,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Function to export charts as images or PDFs
+        function exportChart(chartId, format) {
+            const chartElement = document.getElementById(chartId);
+
+            html2canvas(chartElement).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+
+                if (format === 'image') {
+                    // Create a link element and trigger a download
+                    const link = document.createElement('a');
+                    link.href = imgData;
+                    link.download = `${chartId}.png`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } else if (format === 'pdf') {
+                    // Create a PDF and add the image to it
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF();
+                    pdf.addImage(imgData, 'PNG', 10, 10);
+                    pdf.save(`${chartId}.pdf`);
+                }
+            });
+        }
+    </script>
+@endpush

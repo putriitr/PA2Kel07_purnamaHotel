@@ -17,11 +17,21 @@ class Room extends Model
         'capacity',
         'size',
         'facility',
-        'available'
+        'room_number'
     ];
 
     public function category()
     {
         return $this->belongsTo(RoomCategory::class, 'room_category_id');
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

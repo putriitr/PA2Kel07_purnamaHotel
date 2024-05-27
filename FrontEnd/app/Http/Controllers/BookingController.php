@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
@@ -28,7 +28,7 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         // Validation rules
-        $alert = [
+        $rules = [
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',
@@ -40,7 +40,7 @@ class BookingController extends Controller
         ];
 
         // Custom error messages
-        $message = [
+        $messages = [
             'first_name.required' => 'Silahkan isi Kolom Nama',
             'last_name.required' => 'Silahkan isi Kolom Nama',
             'email.required' => 'Silahkan isi Kolom Email',
@@ -57,7 +57,23 @@ class BookingController extends Controller
         ];
 
         // Validate request
-        $this->validate($request, $alert, $message);
+        $request->validate($rules, $messages);
+
+        // Check if the room is already booked for the selected dates
+        $existingBooking = Booking::where('room_id', $request->room_id)
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('checkin_date', [$request->checkin_date, $request->checkout_date])
+                    ->orWhereBetween('checkout_date', [$request->checkin_date, $request->checkout_date])
+                    ->orWhere(function ($query) use ($request) {
+                        $query->where('checkin_date', '<=', $request->checkin_date)
+                            ->where('checkout_date', '>=', $request->checkout_date);
+                    });
+            })
+            ->exists();
+
+        if ($existingBooking) {
+            return redirect()->back()->withErrors(['room_id' => 'Kamar ini sudah dipesan pada tanggal yang dipilih. Silahkan pilih tanggal lain atau kamar lain.'])->withInput();
+        }
 
         // Create new booking
         $booking = new Booking;
@@ -76,8 +92,6 @@ class BookingController extends Controller
         return redirect()->route('payment.form', ['bookingId' => $booking->id]);
     }
 
-
-
     /**
      * Update the specified booking in storage.
      *
@@ -87,15 +101,16 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-        $request->validate([
+        $rules = [
             'user_id' => 'required|exists:customers,id',
             'room_id' => 'required|exists:rooms,id',
             'checkin_date' => 'required|date',
             'checkout_date' => 'required|date|after_or_equal:checkin_date',
-            'guests' => 'required|integer',
-            'available' => 'required|integer',
+            'number_of_guests' => 'required|integer|min:1',
             'status' => 'required|integer',
-        ], [
+        ];
+
+        $messages = [
             'user_id.required' => 'User ID harus diisi.',
             'user_id.exists' => 'User ID tidak valid.',
             'room_id.required' => 'Room ID harus diisi.',
@@ -105,14 +120,16 @@ class BookingController extends Controller
             'checkout_date.required' => 'Tanggal check-out harus diisi.',
             'checkout_date.date' => 'Tanggal check-out tidak valid.',
             'checkout_date.after_or_equal' => 'Tanggal check-out tidak bisa sebelum tanggal check-in.',
-            'guests.required' => 'Jumlah tamu harus diisi.',
-            'guests.integer' => 'Jumlah tamu harus berupa angka.',
-            'available.required' => 'Ketersediaan harus diisi.',
-            'available.integer' => 'Ketersediaan harus berupa angka.',
+            'number_of_guests.required' => 'Jumlah tamu harus diisi.',
+            'number_of_guests.integer' => 'Jumlah tamu harus berupa angka.',
+            'number_of_guests.min' => 'Jumlah tamu minimal 1.',
             'status.required' => 'Status harus diisi.',
             'status.integer' => 'Status harus berupa angka.',
-        ]);
+        ];
 
+        $request->validate($rules, $messages);
+
+        // Update the booking with the validated data
         $booking->update($request->all());
 
         return response()->json($booking);
@@ -129,4 +146,5 @@ class BookingController extends Controller
         $booking->delete();
         return response()->json(null, 204);
     }
+
 }

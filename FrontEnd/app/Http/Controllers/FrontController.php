@@ -4,19 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Announcement;
 use App\Models\AnnouncementCategory;
+use App\Models\Booking;
 use App\Models\Facility;
 use App\Models\Gallery;
 use App\Models\Room;
 use App\Models\RoomCategory;
 use App\Models\Staff;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Auth;
 
 class FrontController extends Controller
 {
     public function dashboard()
     {
-        $staffs = Staff::orderBy('created_at', 'desc')->get();
-        return view('layout.home', compact('staffs'));
+        return view('layout.home');
     }
     public function gallery()
     {
@@ -63,15 +65,43 @@ class FrontController extends Controller
 
     public function room(Request $request)
     {
-        $rooms = Room::all();
+        $currentDate = Carbon::now();
+
+        // Retrieve rooms and their bookings
+        $rooms = Room::with([
+            'bookings' => function ($query) use ($currentDate) {
+                $query->where('status', 'confirmed')
+                    ->where('checkout_date', '>', $currentDate);
+            }
+        ])->get();
+
+        $rooms->each(function ($room) use ($currentDate) {
+            $room->is_booked = $room->bookings->contains(function ($booking) use ($currentDate) {
+                return $booking->status == 'confirmed' && $booking->checkout_date > $currentDate;
+            });
+        });
 
         $roomCategories = RoomCategory::all();
 
         return view('layout.room', [
             'rooms' => $rooms,
-            'roomCategories' => $roomCategories,
+            'roomCategories' => $roomCategories, // Correct variable name
         ]);
     }
+
+    public function showroom($id)
+    {
+        $room = Room::with('bookings')->findOrFail($id);
+
+        // Check if the room is booked
+        $currentDate = Carbon::now();
+        $isBooked = $room->bookings->where('status', 'confirmed')
+            ->where('checkout_date', '>', $currentDate)
+            ->isNotEmpty();
+
+        return view('layout.roomdetails', compact('room', 'isBooked'));
+    }
+
     public function booking($roomId)
     {
         $room = Room::findOrFail($roomId);
@@ -80,8 +110,17 @@ class FrontController extends Controller
     }
     public function staff()
     {
-        $staffs = Staff::all();
-        return view('layout.home', compact('staffs'));
+        $staffMembers = Staff::all(); // Assuming you have a Staff model
+        return view('layout.staff', compact('staffMembers'));
+    }
+
+    public function showBookings()
+    {
+        $userId = Auth::id();
+
+        $bookings = Booking::where('user_id', $userId)->get();
+
+        return view('layout.history', compact('bookings'));
     }
 
 }

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('capacity');
             $table->integer('size');
             $table->text('facility');
-            $table->integer('available');
+            $table->text('room_number');
             $table->timestamps();
         });
 

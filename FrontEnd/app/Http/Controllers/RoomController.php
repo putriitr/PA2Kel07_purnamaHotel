@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
+use App\Models\Review;
 use App\Models\Room;
 use App\Models\RoomCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Auth;
 
 class RoomController extends Controller
 {
@@ -28,7 +31,7 @@ class RoomController extends Controller
             'price' => 'required|numeric',
             'facility' => 'required|string',
             'capacity' => 'required|integer',
-            'available' => 'required|integer',
+            'room_number' => 'required',
             'size' => 'required|integer',
             'room_category_id' => 'required|exists:roomcategories,id',
             'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
@@ -42,7 +45,7 @@ class RoomController extends Controller
         $room->price = $request->price;
         $room->facility = $request->facility;
         $room->capacity = $request->capacity;
-        $room->available = $request->available;
+        $room->room_number = $request->room_number;
         $room->size = $request->size;
         $room->room_category_id = $request->room_category_id;
         $room->image = $file;
@@ -65,7 +68,7 @@ class RoomController extends Controller
             'price' => 'required|numeric',
             'facility' => 'required|string',
             'capacity' => 'required|integer',
-            'available' => 'required|integer',
+            'room_number' => 'required',
             'size' => 'required|integer',
             'room_category_id' => 'required|exists:roomcategories,id',
             'image' => 'sometimes|image|mimes:jpg,png,jpeg|max:2048',
@@ -87,7 +90,7 @@ class RoomController extends Controller
         $room->price = $request->price;
         $room->facility = $request->facility;
         $room->capacity = $request->capacity;
-        $room->available = $request->available;
+        $room->room_number = $request->room_number;
         $room->size = $request->size;
         $room->room_category_id = $request->room_category_id;
         $room->save();
@@ -105,5 +108,51 @@ class RoomController extends Controller
         $room->delete();
 
         return redirect()->route('room.index')->with('success', 'Room deleted successfully.');
+    }
+
+    public function review(Request $request, $roomId)
+    {
+        // Validasi autentikasi
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        } elseif (Auth::check()) {
+            // Validasi data ulasan
+            $request->validate([
+                'rating' => 'required|integer|between:1,5',
+                'comment' => 'nullable|string',
+            ]);
+
+            // Mendapatkan roomId dari permintaan
+            $roomId = $request->roomId;
+
+            $booking = Auth::user()->bookings()->where('room_id', $roomId)->where('checkout_date', '>', now())->first();
+            if (!$booking) {
+                return redirect()->back()->with('error', 'You can only leave a review for a room after your stay.');
+            }
+
+            $review = new Review;
+            $review->user_id = Auth::id();
+            $review->room_id = $roomId;
+            $review->rating = $request->rating;
+            $review->comment = $request->comment;
+            $review->save();
+
+            return redirect()->back()->with('success', 'Thank you for your review!');
+        }
+
+
+    }
+
+    public function show($roomId)
+    {
+        $room = Room::findOrFail($roomId);
+        $userHasBooked = false;
+
+        if (Auth::check()) {
+            $userHasBooked = Booking::where('room_id', $roomId)
+                ->where('user_id', Auth::id())
+                ->exists();
+        }
+        return view('room.details', compact('room', 'userHasBooked'));
     }
 }

@@ -5,6 +5,8 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\RoomController;
 use App\Models\Room;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
@@ -30,6 +32,9 @@ Route::get('/announcement', [FrontController::class, 'announcement'])->name('ann
 
 Route::get('/room', [FrontController::class, 'room'])->name('room');
 
+Route::get('/room/{id}', [FrontController::class, 'showroom'])->name('room.show');
+
+Route::get('/staff', [FrontController::class, 'staff'])->name('staff');
 
 Route::get('/contact', function () {
     return view('layout.contact');
@@ -48,6 +53,9 @@ Route::prefix('admin')->namespace('App\Http\Controllers')->group(function () {
 
     Route::middleware(['Admin'])->group(function () {
         Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
+
+        Route::get('/admin/export-excel', [AdminController::class, 'exportExcel'])->name('admin.exportExcel');
+
         Route::get('logout', 'AdminController@logout');
 
         Route::get('announcementcategory', 'AnnouncementCategoryController@index')->name('announcementcategory.index');
@@ -116,12 +124,15 @@ Route::prefix('admin')->namespace('App\Http\Controllers')->group(function () {
 
         Route::patch('/payments/{id}/reject', 'PaymentController@reject')->name('payments.reject');
 
+        Route::get('/admin/notifications', [AdminController::class, 'showNotifications'])->name('showNotifications');
+        Route::get('/admin/notifications/read/{id}', [AdminController::class, 'markNotificationAsRead'])->name('markNotificationAsRead');
+
     });
 });
 
 
 Route::prefix('customer')->namespace('App\Http\Controllers')->group(function () {
-    Route::match (['get', 'post'], 'login', [CustomerController::class, 'login'])->name('customer.login');
+    Route::match (['get', 'post'], 'login', [CustomerController::class, 'login'])->name('login');
 
     Route::match (['get', 'post'], 'register', [CustomerController::class, 'register'])->name('customer.register');
 
@@ -139,6 +150,11 @@ Route::prefix('customer')->namespace('App\Http\Controllers')->group(function () 
         Route::get('/payment/{bookingId}', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
 
         Route::post('/payment/process', [PaymentController::class, 'processPayment'])->name('payment.process');
+
+        Route::post('/room/{roomId}/review', [RoomController::class, 'review'])
+            ->name('room.review.create');
+
+        Route::get('/history', [FrontController::class, 'showBookings'])->name('user.bookings');
 
     });
 });
