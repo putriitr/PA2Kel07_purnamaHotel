@@ -22,6 +22,7 @@ class ContactController extends Controller
         ]);
 
         Contact::create($request->all());
+        
 
         return redirect()->route('contacts.index')->with('success', 'Your message has been sent successfully!');
     }

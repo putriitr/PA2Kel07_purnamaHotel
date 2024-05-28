@@ -116,11 +116,12 @@ class FrontController extends Controller
 
     public function showBookings()
     {
-        $userId = Auth::id();
+        $userId = Auth::guard('customers')->user()->id;
 
         $bookings = Booking::where('user_id', $userId)->get();
 
         return view('layout.history', compact('bookings'));
     }
+
 
 }

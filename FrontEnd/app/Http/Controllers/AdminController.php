@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Customer;
 use App\Models\Payment;
+use App\Notifications\AdminNotification;
+use App\Notifications\BookingNotification;
+use App\Notifications\OffersNotification;
+use App\Notifications\PaymentNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Auth;
@@ -83,8 +88,45 @@ class AdminController extends Controller
         $bookingDates = $bookingData->pluck('date');
         $bookingCounts = $bookingData->pluck('count');
 
-        return view('admin.dashboard.index', compact('dates', 'totals', 'bookingDates', 'bookingCounts', 'period'));
+        // Fetch registration data
+        $registrationData = Customer::select(DB::raw("DATE_FORMAT(created_at, '$groupFormat') as date"), DB::raw('COUNT(*) as count'))
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        $registrationDates = $registrationData->pluck('date');
+        $registrationCounts = $registrationData->pluck('count');
+
+        $admin = Auth::guard('admin')->user();
+        $customer = Customer::get();
+        foreach ($customer as $customerItem) {
+            $saveNotifications = $admin->notifications()
+                ->where('data->customer_id', $customerItem->id)
+                ->first();
+
+            if (!$saveNotifications) {
+                $notification = new OffersNotification($customerItem);
+
+                $admin->notify($notification);
+            }
+        }
+
+        $payment = Payment::get();
+        foreach ($payment as $paymentItem) {
+            $saveNotifications = $admin->notifications()
+                ->where('data->payment_id', $paymentItem->id)
+                ->first();
+
+            if (!$saveNotifications) {
+                $notification = new PaymentNotification($paymentItem);
+
+                $admin->notify($notification);
+            }
+        }
+
+        return view('admin.dashboard.index', compact('dates', 'totals', 'bookingDates', 'bookingCounts', 'registrationDates', 'registrationCounts', 'period'));
     }
+
 
 
     public function exportExcel(Request $request)
@@ -115,9 +157,10 @@ class AdminController extends Controller
 
     public function showPayments()
     {
-        $payments = Payment::with('booking.room')->get();
+        $payments = Payment::with(['booking', 'booking.room'])
+            ->orderByDesc('created_at')
+            ->paginate(10);
 
-        // Kirim data ke view
         return view('admin.booking.index', compact('payments'));
     }
 
@@ -131,28 +174,58 @@ class AdminController extends Controller
 
     public function showNotifications()
     {
-        $user = auth()->user();
-        if (!$user) {
-            return redirect('/login');
+        // Ambil admin yang sedang login
+        $admin = auth()->guard('admin')->user();
+
+        // Pastikan admin sudah login
+        if (!$admin) {
+            return redirect('/admin/login');
         }
 
-        $notifications = $user->unreadNotifications;
-        return view('admin.dashboard.notification', compact('notifications'));
+        // Ambil notifikasi yang belum dibaca oleh admin
+        $notifications = $admin->unreadNotifications;
+
+        // Tampilkan halaman dengan notifikasi
+        return view('admin.notifications', compact('notifications'));
     }
 
     public function markNotificationAsRead($id)
     {
-        $user = auth()->user();
-        if (!$user) {
-            return redirect('/login');
+        // Ambil admin yang sedang login
+        $admin = auth()->guard('admin')->user();
+
+        // Pastikan admin sudah login
+        if (!$admin) {
+            return redirect('/admin/login');
         }
 
-        $notification = $user->notifications()->where('id', $id)->first();
+        // Temukan notifikasi berdasarkan ID
+        $notification = $admin->notifications()->where('id', $id)->first();
+
+        // Tandai notifikasi sebagai sudah dibaca jika ditemukan
         if ($notification) {
             $notification->markAsRead();
         }
 
         return redirect()->route('showNotifications');
+    }
+
+
+    public function markasread($id)
+    {
+        if ($id) {
+            Auth::guard('admin')->user()->notifications()->where('id', $id)->first()->markAsRead();
+        }
+        return redirect()->back();
+    }
+
+    public function read($id)
+    {
+        if ($id) {
+            Auth::guard('admin')->user()->notifications()->where('id', $id)->first()->markAsRead();
+        }
+
+        return redirect()->back();
     }
 }
 

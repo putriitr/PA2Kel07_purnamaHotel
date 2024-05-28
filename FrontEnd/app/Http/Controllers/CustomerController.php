@@ -35,6 +35,8 @@ class CustomerController extends Controller
             'password' => Hash::make($request->input('password')),
         ]);
 
+
+
         if ($customer) {
             // Redirect to login page with success message
             return redirect()->route('login')->with('success', 'Akun berhasil terdaftar. Silakan login.');
@@ -61,6 +63,9 @@ public function login(Request $request)
             'password.required' => 'Masukkan Password'
         ];
         $this->validate($request, $rules, $messages);
+
+
+
 
         if (Auth::guard('customers')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
             return redirect()->route('customer.home');
@@ -90,5 +95,14 @@ public function login(Request $request)
         $room = Room::findOrFail($roomId);
 
         return view('layout.booking', compact('room'));
+    }
+
+    public function markasread($id)
+    {
+        if ($id) {
+            Auth::guard('customers')->user()->notifications()->where('id', $id)->first()->markasread();
+        }
+
+        return redirect()->back();
     }
 }

@@ -37,6 +37,8 @@
             @foreach ($roomCategories as $category)
                 <button class="btn btn-primary mb-3 ms-3" onclick="showRoomsByCategory({{ $category->id }})">{{ $category->name }}</button>
             @endforeach
+            <!-- Button to view booking history -->
+            <a href="{{ route('user.bookings') }}" class="btn btn-secondary mb-3 ms-3">View Booking History</a>
         </div>
         <!-- Room Categories End -->
 
@@ -52,7 +54,7 @@
                         <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" data-category="{{ $room->category_id }}">
                             <div class="room-item shadow rounded overflow-hidden">
                                 <div class="position-relative">
-                                    <img class="img-fluid" src="{{ asset('images/rooms/' . $room->image) }}" alt="{{ $room->name }}">
+                                    <img class="img-fluid" src="{{ asset('images/rooms/' . $room->image) }}" alt="{{ $room->name }}" style="height: 250px", width="100%">
                                     <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
                                         Rp {{ number_format($room->price, 0, ',', '.') }} / Night
                                     </small>
@@ -127,4 +129,3 @@
     </script>
 </body>
 </html>
-

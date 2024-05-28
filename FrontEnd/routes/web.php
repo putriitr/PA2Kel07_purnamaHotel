@@ -40,9 +40,6 @@ Route::get('/contact', function () {
     return view('layout.contact');
 });
 
-Route::get('/book', function () {
-    return view('layout.autentikasi');
-});
 
 Route::get('/admin', function () {
     return view('admin.home');
@@ -124,8 +121,13 @@ Route::prefix('admin')->namespace('App\Http\Controllers')->group(function () {
 
         Route::patch('/payments/{id}/reject', 'PaymentController@reject')->name('payments.reject');
 
-        Route::get('/admin/notifications', [AdminController::class, 'showNotifications'])->name('showNotifications');
-        Route::get('/admin/notifications/read/{id}', [AdminController::class, 'markNotificationAsRead'])->name('markNotificationAsRead');
+        Route::middleware(['auth:admin'])->group(function () {
+            Route::get('/admin/notifications', [AdminController::class, 'showNotifications'])->name('showNotifications');
+            Route::get('/admin/notifications/read/{id}', [AdminController::class, 'markNotificationAsRead'])->name('markNotificationAsRead');
+        });
+
+        Route::get('mark/{id}', 'AdminController@read')->name('mark');
+        Route::get('markasread/{id}', 'AdminController@markasread')->name('markasread');
 
     });
 });
@@ -155,6 +157,8 @@ Route::prefix('customer')->namespace('App\Http\Controllers')->group(function () 
             ->name('room.review.create');
 
         Route::get('/history', [FrontController::class, 'showBookings'])->name('user.bookings');
+
+        Route::get('markasread/{id}', 'CustomerController@markasread')->name('markasread');
 
     });
 });

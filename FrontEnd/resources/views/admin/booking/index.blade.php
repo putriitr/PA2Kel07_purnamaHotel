@@ -110,5 +110,10 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-center mt-4">
+            {{ $payments->links() }}
+        </div>
     </div>
 @endsection

@@ -20,7 +20,7 @@
                             <h2 class="display-3 text-white animated slideInLeft">Hotel<br>Purnama Balige</h2>
                             <p class="text-white animated slideInLeft mb-4 pb-2">Bersantai dengan pemandangan indah Danau
                                 Toba dan nikmati fasilitas Hotel Purnama Balige yang lengkap dan menarik</p>
-                            <a href="/book" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A
+                            <a href="{{route('room')}}" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A
                                 Room</a>
                         </div>
                         <div class="col-lg-6 text-center text-lg-end overflow-hidden">

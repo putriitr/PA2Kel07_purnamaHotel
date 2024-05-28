@@ -96,29 +96,6 @@
                 </div>
             </div>
 
-            @if ($userHasBooked)
-            <form action="{{ route('room.review.create', ['roomId' => $room->id]) }}" method="POST">
-                @csrf
-                <input type="hidden" name="roomId" value="{{ $room->id }}">
-                <div class="mb-3">
-                    <label for="rating" class="form-label">Rating</label>
-                    <select class="form-select" name="rating" id="rating" required>
-                        <option value="">Select rating</option>
-                        <option value="1">1 Star</option>
-                        <option value="2">2 Stars</option>
-                        <option value="3">3 Stars</option>
-                        <option value="4">4 Stars</option>
-                        <option value="5">5 Stars</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="comment" class="form-label">Comment</label>
-                    <textarea class="form-control" name="comment" id="comment" rows="3" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit Review</button>
-            </form>
-            @endif
-
         </div>
         <!-- Room Detail End -->
 
