@@ -8,27 +8,44 @@
 @endsection
 
 @section('content')
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-        </ul>
-    </nav>
-
     <section class="content">
         <div class="container-fluid">
             <div class="row mb-3">
                 <div class="col-12">
-                    <form method="GET" action="{{ route('dashboard') }}">
+                    <form method="GET" action="{{ route('dashboard') }}" id="filterForm">
                         <div class="form-group">
                             <label for="period">Pilih Periode</label>
                             <select name="period" id="period" class="form-control">
-                                <option value="day" {{ $period == 'day' ? 'selected' : '' }}>Per Hari</option>
-                                <option value="week" {{ $period == 'week' ? 'selected' : '' }}>Per Minggu</option>
-                                <option value="month" {{ $period == 'month' ? 'selected' : '' }}>Per Bulan</option>
-                                <option value="year" {{ $period == 'year' ? 'selected' : '' }}>Per Tahun</option>
+                                <option value="day" {{ $period == 'day' ? 'selected' : '' }}>Harian</option>
+                                <option value="week" {{ $period == 'week' ? 'selected' : '' }}>Mingguan</option>
+                                <option value="month" {{ $period == 'month' ? 'selected' : '' }}>Bulanan</option>
+                                <option value="year" {{ $period == 'year' ? 'selected' : '' }}>Tahunan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="year">Pilih Tahun</label>
+                            <select name="year" id="year" class="form-control">
+                                @for ($i = date('Y'); $i >= date('Y') - 5; $i--)
+                                    <option value="{{ $i }}" {{ $year == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="form-group" id="monthGroup" style="{{ $period == 'month' ? 'display: block;' : 'display: none;' }}">
+                            <label for="month">Pilih Bulan</label>
+                            <select name="month" id="month" class="form-control">
+                                @foreach (range(1, 12) as $m)
+                                    <option value="{{ $m }}" {{ $month == $m ? 'selected' : '' }}>
+                                        {{ DateTime::createFromFormat('!m', $m)->format('F') }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group" id="weekGroup" style="{{ $period == 'week' ? 'display: block;' : 'display: none;' }}">
+                            <label for="week">Pilih Minggu</label>
+                            <select name="week" id="week" class="form-control">
+                                @foreach (range(1, 52) as $w)
+                                    <option value="{{ $w }}" {{ $week == $w ? 'selected' : '' }}>Minggu {{ $w }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Tampilkan</button>
@@ -75,6 +92,8 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Registration Chart -->
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header">
@@ -103,14 +122,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script>
+        document.getElementById('period').addEventListener('change', function () {
+            const period = this.value;
+            document.getElementById('monthGroup').style.display = (period === 'month') ? 'block' : 'none';
+            document.getElementById('weekGroup').style.display = (period === 'week') ? 'block' : 'none';
+        });
+
         // Revenue Chart
         var revenueCtx = document.getElementById('revenueChart').getContext('2d');
         var revenueChart = new Chart(revenueCtx, {
-            type: 'line',
+            type: 'bar', // Change to bar chart type
             data: {
                 labels: @json($dates),
                 datasets: [{
-                    label: 'Pendapatan Harian',
+                    label: 'Pendapatan Per ' + "{{ ucfirst($period) }}",
                     data: @json($totals),
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
@@ -130,11 +155,11 @@
         // Booking Chart
         var bookingCtx = document.getElementById('bookingChart').getContext('2d');
         var bookingChart = new Chart(bookingCtx, {
-            type: 'line',
+            type: 'bar', // Change to bar chart type
             data: {
-                labels: @json($dates),
+                labels: @json($bookingDates),
                 datasets: [{
-                    label: 'Jumlah Booking Harian',
+                    label: 'Jumlah Booking Per ' + "{{ ucfirst($period) }}",
                     data: @json($bookingCounts),
                     backgroundColor: 'rgba(153, 102, 255, 0.2)',
                     borderColor: 'rgba(153, 102, 255, 1)',
@@ -154,11 +179,11 @@
         // Registration Chart
         var registrationCtx = document.getElementById('registrationChart').getContext('2d');
         var registrationChart = new Chart(registrationCtx, {
-            type: 'line',
+            type: 'bar', // Change to bar chart type
             data: {
-                labels: @json($dates),
+                labels: @json($registrationDates),
                 datasets: [{
-                    label: 'Jumlah Registrasi Harian',
+                    label: 'Jumlah Registrasi Per ' + "{{ ucfirst($period) }}",
                     data: @json($registrationCounts),
                     backgroundColor: 'rgba(255, 159, 64, 0.2)',
                     borderColor: 'rgba(255, 159, 64, 1)',
@@ -201,39 +226,5 @@
                 }
             });
         }
-    </script>
-
-    <script>
-        // Function to add new notification
-        function addNotification(message) {
-            // Add new notification to the list
-            $('#notification-list').prepend('<a href="#" class="dropdown-item">' + message + '</a>');
-
-            // Update notification badge count
-            $('#notification-badge').text(parseInt($('#notification-badge').text()) + 1);
-        }
-
-        // Call addNotification function when there's a specific event
-        // Example: Notification when user registers
-        $('#registration-form').submit(function(event) {
-            event.preventDefault();
-
-            // Perform registration (e.g., using AJAX)
-            $.post('/register', $(this).serialize(), function(response) {
-                // If registration is successful, add notification
-                addNotification('New user registered: ' + response.username);
-            });
-        });
-
-        // Other examples: Notification when payment is successful
-        $('#payment-form').submit(function(event) {
-            event.preventDefault();
-
-            // Perform payment (e.g., using AJAX)
-            $.post('/pay', $(this).serialize(), function(response) {
-                // If payment is successful, add notification
-                addNotification('Payment received: ' + response.amount + ' ' + response.currency);
-            });
-        });
     </script>
 @endpush

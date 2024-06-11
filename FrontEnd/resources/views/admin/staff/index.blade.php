@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @section('title')
-    Staff
+Staff Hotel
 @endsection
 
 @push('css')

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('payment_method');
             $table->string('proof_of_payment');
             $table->decimal('amount', 10, 2);
+            $table->boolean('paid')->default(false);
             $table->string('status')->default('pending');
             $table->timestamps();
 

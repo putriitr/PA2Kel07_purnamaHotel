@@ -160,6 +160,8 @@ Route::prefix('customer')->namespace('App\Http\Controllers')->group(function () 
 
         Route::get('markasread/{id}', 'CustomerController@markasread')->name('markasread');
 
+        Route::delete('/booking/{bookingId}/cancel', 'BookingController@cancel')->name('booking.cancel');
+
     });
 });
 

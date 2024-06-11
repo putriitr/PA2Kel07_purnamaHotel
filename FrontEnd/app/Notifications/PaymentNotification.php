@@ -39,7 +39,7 @@ class PaymentNotification extends Notification
     public function toArray($notifiable): array
     {
         $booking = $this->payment->booking;
-        $customerName = $booking && $booking->customer ? $booking->customer->name : 'Unknown';
+        $customerName = $booking && $booking->customer ? $booking->customer->name : 'Customer';
 
         return [
             'name' => $customerName,

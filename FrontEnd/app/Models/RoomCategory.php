@@ -15,4 +15,13 @@ class RoomCategory extends Model
     {
         return $this->hasMany(Room::class);
     }
+    public function creator()
+    {
+        return $this->belongsTo(Admin::class, 'created_by');
+    }
+
+    public function updater()
+    {
+        return $this->belongsTo(Admin::class, 'updated_by');
+    }
 }

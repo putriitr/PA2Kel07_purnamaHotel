@@ -15,4 +15,15 @@ class Announcement extends Model
     {
         return $this->belongsTo(AnnouncementCategory::class);
     }
+    // Announcement.php
+    public function creator()
+    {
+        return $this->belongsTo(Admin::class, 'created_by');
+    }
+
+    public function updater()
+    {
+        return $this->belongsTo(Admin::class, 'updated_by');
+    }
+
 }

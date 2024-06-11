@@ -6,14 +6,18 @@ use App\Models\Announcement;
 use App\Models\AnnouncementCategory;
 use Illuminate\Http\Request;
 use File;
+use Auth;
 
 class AnnouncementController extends Controller
 {
     public function index()
     {
-        $announcements = Announcement::with('category')->get();
+        $announcements = Announcement::with('category')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return view('admin.announcement.index', compact('announcements'));
     }
+
 
     public function create()
     {
@@ -22,35 +26,48 @@ class AnnouncementController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $alert = [
-            'title' => 'required|string|max:255',
-            'content' => 'required',
-            'category_id' => 'required|exists:announcementcategories,id', // Correct table name
-            'image' => 'required|image|mimes:jpg,png,jpeg',
-        ];
-        $message = [
-            'title.required' => 'Kolom Judul Tidak Boleh Kosong',
-            'content.required' => 'Kolom Isi Pengumuman Harus Di Pilih',
-            'category_id.required' => 'Kategori Harus Di Pilih',
-            'image.required' => 'Image Harus Di Isi',
-            'image.mimes' => 'Harus Berupa JPG,PNG,JPEG',
-        ];
+{
+    // Validasi input
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required',
+        'category_id' => 'required|exists:announcementcategories,id', // Nama tabel yang benar
+        'image' => 'required|image|mimes:jpg,png,jpeg',
+    ], [
+        'title.required' => 'Kolom Judul Tidak Boleh Kosong',
+        'content.required' => 'Kolom Isi Pengumuman Harus Di Pilih',
+        'category_id.required' => 'Kategori Harus Di Pilih',
+        'image.required' => 'Image Harus Di Isi',
+        'image.mimes' => 'Harus Berupa JPG, PNG, JPEG',
+    ]);
 
-        $this->validate($request, $alert, $message);
+    // Pindahkan file gambar ke direktori publik
+    $fileName = time() . '.' . $request->image->extension();
+    $request->image->move(public_path('images/announcement'), $fileName);
 
-        $file = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images/announcement'), $file);
+    // Buat instance baru Announcement
+    $announcement = new Announcement;
+    $announcement->title = $request->title;
+    $announcement->content = $request->content;
+    $announcement->category_id = $request->category_id;
+    $announcement->image = $fileName;
 
-        $announcement = new Announcement;
-        $announcement->title = $request->title;
-        $announcement->content = $request->content;
-        $announcement->category_id = $request->category_id;
-        $announcement->image = $file;
-        $announcement->save();
-
-        return redirect()->route('announcement.index')->with('success', 'Announcement created successfully.');
+    // Mengatur admin_id, created_by, dan updated_by dengan ID admin yang sedang login
+    $adminId = Auth::guard('admin')->id();
+    if (!$adminId) {
+        return redirect()->route('announcement.index')->with('error', 'Anda harus login sebagai admin.');
     }
+    $announcement->admin_id = $adminId;
+    $announcement->created_by = $adminId;
+    $announcement->updated_by = $adminId;
+
+    // Simpan data ke database
+    $announcement->save();
+
+    // Redirect dengan pesan sukses
+    return redirect()->route('announcement.index')->with('success', 'Announcement created successfully.');
+}
+
 
     public function edit($id)
     {

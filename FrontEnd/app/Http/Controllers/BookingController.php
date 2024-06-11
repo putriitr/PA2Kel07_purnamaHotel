@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -69,10 +70,17 @@ class BookingController extends Controller
                             ->where('checkout_date', '>=', $request->checkout_date);
                     });
             })
+            ->where('status', '!=', 'cancelled') // tambahan kondisi untuk memeriksa status bukan cancel
             ->exists();
 
         if ($existingBooking) {
             return redirect()->back()->withErrors(['room_id' => 'Kamar ini sudah dipesan pada tanggal yang dipilih. Silahkan pilih tanggal lain atau kamar lain.'])->withInput();
+        }
+
+        // Check if the number of guests exceeds the room capacity
+        $room = Room::findOrFail($request->room_id);
+        if ($request->number_of_guests > $room->capacity) {
+            return redirect()->back()->withErrors(['number_of_guests' => 'Jumlah tamu melebihi kapasitas kamar yang dipilih. Kapasitas kamar adalah ' . $room->capacity . ' tamu.'])->withInput();
         }
 
         // Create new booking
@@ -92,59 +100,21 @@ class BookingController extends Controller
         return redirect()->route('payment.form', ['bookingId' => $booking->id]);
     }
 
-    /**
-     * Update the specified booking in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Booking  $booking
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Booking $booking)
+
+
+    public function cancel($bookingId)
     {
-        $rules = [
-            'user_id' => 'required|exists:customers,id',
-            'room_id' => 'required|exists:rooms,id',
-            'checkin_date' => 'required|date',
-            'checkout_date' => 'required|date|after_or_equal:checkin_date',
-            'number_of_guests' => 'required|integer|min:1',
-            'status' => 'required|integer',
-        ];
 
-        $messages = [
-            'user_id.required' => 'User ID harus diisi.',
-            'user_id.exists' => 'User ID tidak valid.',
-            'room_id.required' => 'Room ID harus diisi.',
-            'room_id.exists' => 'Room ID tidak valid.',
-            'checkin_date.required' => 'Tanggal check-in harus diisi.',
-            'checkin_date.date' => 'Tanggal check-in tidak valid.',
-            'checkout_date.required' => 'Tanggal check-out harus diisi.',
-            'checkout_date.date' => 'Tanggal check-out tidak valid.',
-            'checkout_date.after_or_equal' => 'Tanggal check-out tidak bisa sebelum tanggal check-in.',
-            'number_of_guests.required' => 'Jumlah tamu harus diisi.',
-            'number_of_guests.integer' => 'Jumlah tamu harus berupa angka.',
-            'number_of_guests.min' => 'Jumlah tamu minimal 1.',
-            'status.required' => 'Status harus diisi.',
-            'status.integer' => 'Status harus berupa angka.',
-        ];
+        $booking = Booking::find($bookingId);
 
-        $request->validate($rules, $messages);
+        if (!$booking) {
+            return redirect()->back()->with('error', 'Booking not found.');
+        }
 
-        // Update the booking with the validated data
-        $booking->update($request->all());
+        $booking->status = 'cancelled';
+        $booking->save();
 
-        return response()->json($booking);
-    }
-
-    /**
-     * Remove the specified booking from storage.
-     *
-     * @param  \App\Models\Booking  $booking
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Booking $booking)
-    {
-        $booking->delete();
-        return response()->json(null, 204);
+        return redirect()->back()->with('success', 'Booking cancelled successfully.');
     }
 
 }

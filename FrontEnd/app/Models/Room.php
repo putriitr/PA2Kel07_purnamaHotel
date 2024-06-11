@@ -17,7 +17,9 @@ class Room extends Model
         'capacity',
         'size',
         'facility',
-        'room_number'
+        'room_number',
+        'created_by',
+        'updated_by'
     ];
 
     public function category()
@@ -33,5 +35,15 @@ class Room extends Model
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(Admin::class, 'created_by');
+    }
+
+    public function updater()
+    {
+        return $this->belongsTo(Admin::class, 'updated_by');
     }
 }

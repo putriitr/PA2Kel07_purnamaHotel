@@ -15,4 +15,13 @@ class Gallery extends Model
     {
         return $this->belongsTo(GalleryCategory::class, 'category_id');
     }
+    public function creator()
+    {
+        return $this->belongsTo(Admin::class, 'created_by');
+    }
+
+    public function updater()
+    {
+        return $this->belongsTo(Admin::class, 'updated_by');
+    }
 }

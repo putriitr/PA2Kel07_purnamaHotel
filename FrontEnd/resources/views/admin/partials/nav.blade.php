@@ -10,7 +10,7 @@
 <!-- Notifications Dropdown Menu -->
 <li class="nav-item dropdown">
     <a class="nav-link" data-toggle="dropdown" href="#">
-        <i class="far fa-bell"></i>
+        <i class="fas fa-bell" style="color: black;"></i>
         <span class="badge badge-warning navbar-badge">
             {{ Auth::guard('admin')->user()->unreadNotifications->count() }}
         </span>
@@ -74,3 +74,10 @@
         @endforelse
     </div>
 </li>
+
+<style>
+    .fa-bell {
+        color: black !important;
+    }
+</style>
+

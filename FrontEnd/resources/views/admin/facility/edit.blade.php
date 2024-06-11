@@ -20,11 +20,6 @@
                 @error('description')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
-                <label>Harga Sewa</label><br>
-                <input type="text" name="rent_price" id="rent_price" value="{{ $facilities->rent_price }}" class="form-control">
-                @error('rent_price')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
                 <br>
                 <label>Gambar</label><br>
                 <input class="form-control" name="image" type="file" id="image"><br>

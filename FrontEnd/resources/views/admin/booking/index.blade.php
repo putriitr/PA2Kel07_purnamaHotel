@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', 'Bookings')
+@section('title', 'Pemesanan')
 
 @section('content')
     <div class="container mt-5">

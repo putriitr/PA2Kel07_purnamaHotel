@@ -27,6 +27,16 @@
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h1 class="mb-5">Announcements</h1>
                 </div>
+                <div class="row align-items-center justify-content-end" style="max-width: 400px;">
+                    <div class="col">
+                        <!-- Search input -->
+                        <div class="input-group" style="margin-left:880px">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Search announcements...">
+                            <button id="searchButton" class="btn btn-primary" type="button">Search</button>
+                        </div>
+                    </div>
+                </div>
+                <br>
                 <!-- Buttons to filter announcements -->
                 <div class="text-center">
                     <button class="btn btn-primary mb-3" onclick="showAllAnnouncements()">Show All</button>
@@ -35,6 +45,7 @@
                         <button class="btn btn-primary mb-3 ms-3" onclick="showAnnouncementsByCategory({{ $category->id }})">{{ $category->name }}</button>
                     @endforeach
                 </div>
+                <br><br>
                 <div class="row g-5 align-items-center" id="announcementContainer">
                     @foreach ($announcements as $announcement)
                         <div class="col-lg-12 announcement mb-4" data-category="{{ $announcement->category_id }}">
@@ -47,12 +58,15 @@
                                         <h5 class="section-title ff-secondary text-start text-primary fw-normal mb-3 announcement-title" style="margin-top: 0;">{{ $announcement->title }}</h5>
                                         <p>{{ $announcement->content }}</p>
                                         <p class="text-muted">Updated at: {{ $announcement->updated_at->format('d M Y H:i:s') }}</p>
+                                        <p class="text-muted">Created by: {{ $announcement->creator->name ?? 'Unknown' }}</p>
+                                        <p class="text-muted">Updated by: {{ $announcement->updater->name ?? 'Unknown' }}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
+
             </div>
         </div>
         <!-- Announcements End -->
@@ -67,40 +81,52 @@
 
     <!-- JavaScript Libraries -->
     @include('partial.js')
-</body>
 
-<style>
-    .announcement-image {
-        max-width: 70%;
-        width: auto;
-        height: auto;
-    }
-    .announcement-title {
-        margin-top: 0;
-    }
-</style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById('searchInput');
 
-<script>
-    function showAllAnnouncements() {
-        // Show all announcements
-        document.querySelectorAll('#announcementContainer .col-lg-12').forEach(function (el) {
-            el.style.display = 'flex';
-        });
-    }
-
-    function showAnnouncementsByCategory(categoryId) {
-        // Hide all announcements
-        document.querySelectorAll('#announcementContainer .col-lg-12').forEach(function (el) {
-            el.style.display = 'none';
+            // Menambahkan event listener input ke elemen pencarian
+            searchInput.addEventListener('input', function() {
+                const searchTerm = searchInput.value.trim().toLowerCase();
+                filterAnnouncements(searchTerm);
+            });
         });
 
-        // Show announcements based on category
-        document.querySelectorAll('#announcementContainer .col-lg-12').forEach(function (el) {
-            if (el.dataset.category == categoryId) {
+        function filterAnnouncements(searchTerm) {
+            const announcements = document.querySelectorAll('#announcementContainer .col-lg-12');
+
+            announcements.forEach(function(announcement) {
+                const title = announcement.querySelector('.announcement-title').textContent.toLowerCase();
+                const content = announcement.querySelector('p').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                    announcement.style.display = 'flex';
+                } else {
+                    announcement.style.display = 'none';
+                }
+            });
+        }
+
+        function showAllAnnouncements() {
+            document.querySelectorAll('#announcementContainer .col-lg-12').forEach(function (el) {
                 el.style.display = 'flex';
-            }
-        });
-    }
-</script>
+            });
+        }
+
+        function showAnnouncementsByCategory(categoryId) {
+            document.querySelectorAll('#announcementContainer .col-lg-12').forEach(function (el) {
+                el.style.display = 'none';
+            });
+
+            document.querySelectorAll('#announcementContainer .col-lg-12').forEach(function (el) {
+                if (el.dataset.category == categoryId) {
+                    el.style.display = 'flex';
+                }
+            });
+        }
+    </script>
+
+</body>
 
 </html>

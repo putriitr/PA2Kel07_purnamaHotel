@@ -26,16 +26,14 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="header-logo">
-                        <img src="{{ asset('images/rooms/' . $room->image) }}" alt="Hotel Room"
-                            class="img-fluid rounded">
+                        <img src="{{ asset('images/rooms/' . $room->image) }}" alt="Hotel Room" class="img-fluid rounded">
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-all">
                         <div class="header-text text-center mb-4">
                             <h1>Hotel Booking</h1>
-                            <h5 class="section-title ff-secondary text-primary fw-normal">Nikmati pengalaman menginap di
-                                hotel kami</h5>
+                            <h5 class="section-title ff-secondary text-primary fw-normal">Nikmati pengalaman menginap di hotel kami</h5>
                         </div>
 
                         <!-- Display Error Messages -->
@@ -51,74 +49,69 @@
 
                         <form action="{{ route('bookings.store') }}" method="POST" id="bookingForm">
                             @csrf
+
+                            <!-- First Name Field -->
                             <div class="mb-3">
                                 <label for="first_name">First Name</label>
-                                <input type="text" id="first_name" name="first_name" placeholder="First Name"
-                                    class="form-control" required>
-                                @error('first_name')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <input type="text" id="first_name" name="first_name" placeholder="First Name" class="form-control" required value="{{ old('first_name', Auth::guard('customers')->check() ? Auth::guard('customers')->user()->first_name : '') }}">
                             </div>
+
+                            <!-- Last Name Field -->
                             <div class="mb-3">
                                 <label for="last_name">Last Name</label>
-                                <input type="text" id="last_name" name="last_name" placeholder="Last Name"
-                                    class="form-control" required>
-                                @error('last_name')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <input type="text" id="last_name" name="last_name" placeholder="Last Name" class="form-control" required value="{{ old('last_name', Auth::guard('customers')->check() ? Auth::guard('customers')->user()->last_name : '') }}">
                             </div>
+
+                            <!-- Email Field -->
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="email">E-mail</label>
-                                    <input type="email" id="email" name="email"
-                                        placeholder="example@example.com" class="form-control" required>
-                                    @error('email')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                    <input type="email" id="email" name="email" placeholder="example@example.com" class="form-control" required value="{{ old('email', Auth::guard('customers')->check() ? Auth::guard('customers')->user()->email : '') }}">
                                 </div>
+
+                                <!-- Phone Number Field -->
                                 <div class="col-md-6">
                                     <label for="phone">Phone Number</label>
-                                    <input type="tel" id="phone" name="phone" placeholder="Phone Number"
-                                        class="form-control" required>
-                                    @error('phone')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                    <input type="tel" id="phone" name="phone" placeholder="Phone Number" class="form-control" required value="{{ old('phone', Auth::guard('customers')->check() ? Auth::guard('customers')->user()->phone : '') }}">
                                 </div>
                             </div>
+
+                            <!-- Room ID (Hidden) -->
                             <div class="mb-3">
                                 <label for="room_id">Room</label>
-                                <input type="text" id="room_id" name="room_id" value="{{ $room->id }}"
-                                    class="form-control" readonly>
+                                <input type="text" id="room_id" name="room_id" value="{{ $room->id }}" class="form-control" readonly>
                             </div>
+
+                            <!-- Number of Guests Field -->
                             <div class="mb-3">
                                 <label for="number_of_guests">Number of Guests</label>
-                                <input type="number" id="number_of_guests" name="number_of_guests"
-                                    placeholder="Number of Guests" class="form-control" required min="1">
+                                <input type="number" id="number_of_guests" name="number_of_guests" placeholder="Number of Guests" class="form-control" required min="1" value="{{ old('number_of_guests') }}">
                             </div>
+
+                            <!-- Check-in and Check-out Dates -->
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="checkin_date">Check-in Date</label>
-                                    <input type="date" id="checkin_date" name="checkin_date" class="form-control"
-                                        required min="{{ now()->format('Y-m-d') }}">
-                                    @error('checkin_date')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                    <input type="date" id="checkin_date" name="checkin_date" class="form-control" required min="{{ now()->format('Y-m-d') }}" value="{{ old('checkin_date') }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="checkout_date">Check-out Date</label>
-                                    <input type="date" id="checkout_date" name="checkout_date" class="form-control"
-                                        required>
-                                    @error('checkout_date')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
+                                    <input type="date" id="checkout_date" name="checkout_date" class="form-control" required value="{{ old('checkout_date') }}">
                                 </div>
                             </div>
+
+                            <!-- Total Payment (Calculated) -->
                             <div class="mb-3">
                                 <label for="total_payment">Total Payment</label>
-                                <input type="text" id="total_payment" class="form-control" readonly>
+                                <input type="text" id="total_payment" name="total_payment" class="form-control" readonly value="{{ old('total_payment') }}">
+                                <input type="hidden" id="room_price" name="room_price" value="{{ $room->price }}">
+                                <input type="hidden" id="total_payment" data-initial-value="{{ old('total_payment') }}">
                             </div>
+
+                            <!-- User ID (Hidden) -->
                             <input type="hidden" name="user_id" value="{{ Auth::guard('customers')->user()->id }}">
-                            <input type="hidden" id="room_price" value="{{ $room->price }}">
+
+                            <!-- Submit Button -->
                             <div class="form-buttons-wrapper text-center mt-4">
                                 <button type="submit" class="btn btn-primary submit-button">Submit</button>
                             </div>
@@ -150,15 +143,18 @@
             document.getElementById('checkin_date').addEventListener('change', function() {
                 var checkinDate = document.getElementById('checkin_date').value;
                 document.getElementById('checkout_date').setAttribute('min', checkinDate);
+                calculateTotal();
             });
 
             document.getElementById('checkout_date').addEventListener('change', function() {
                 calculateTotal();
             });
 
-            document.getElementById('checkin_date').addEventListener('change', function() {
-                calculateTotal();
-            });
+            calculateTotal();
+
+            // Initialize hidden inputs with form values
+            document.getElementById('total_payment').value = document.getElementById('total_payment').getAttribute('data-initial-value');
+
         });
 
         function calculateTotal() {
@@ -179,4 +175,3 @@
 </body>
 
 </html>
-

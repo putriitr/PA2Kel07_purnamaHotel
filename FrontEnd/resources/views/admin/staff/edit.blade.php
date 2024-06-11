@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @section('title')
-    Gallery
+Staff Hotel
 @endsection
 
 @section('content')

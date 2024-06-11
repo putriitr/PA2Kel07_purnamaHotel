@@ -7,9 +7,12 @@ use App\Models\AnnouncementCategory;
 use App\Models\Booking;
 use App\Models\Facility;
 use App\Models\Gallery;
+use App\Models\Payment;
 use App\Models\Room;
 use App\Models\RoomCategory;
 use App\Models\Staff;
+use App\Notifications\AnnouncementNotification;
+use App\Notifications\ApprovePaymentNotification;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Auth;
@@ -18,8 +21,51 @@ class FrontController extends Controller
 {
     public function dashboard()
     {
+        // Mendapatkan pelanggan yang sedang login
+        $customer = Auth::guard('customers')->user();
+
+        // Jika ada pelanggan yang login
+        if ($customer) {
+            // Mendapatkan semua pengumuman
+            $announcements = Announcement::all();
+
+            // Loop melalui setiap pengumuman
+            foreach ($announcements as $announcement) {
+                // Periksa apakah pelanggan sudah menerima notifikasi untuk pengumuman ini
+                $existingNotification = $customer->notifications()
+                    ->where('data->announcement_id', $announcement->id)
+                    ->first();
+
+                // Jika belum ada notifikasi, kirimkan notifikasi
+                if (!$existingNotification) {
+                    $notification = new AnnouncementNotification($announcement);
+                    $customer->notify($notification);
+                }
+            }
+        }
+
+        if ($customer) {
+            // Ambil semua pembayaran yang belum disetujui
+            $unapprovedPayments = Payment::where('status', 'pending')->get();
+
+            // Loop melalui setiap pembayaran yang belum disetujui
+            foreach ($unapprovedPayments as $payment) {
+                // Kirim notifikasi pembayaran disetujui
+                $payment->status = 'approved'; // Ubah status pembayaran menjadi disetujui
+                $payment->save();
+
+                // Kirim notifikasi pembayaran disetujui ke pelanggan
+                $paymentOwner = $payment->customer; // Anda harus menyesuaikan ini dengan relasi pada model Payment
+                $paymentOwner->notify(new ApprovePaymentNotification($payment));
+            }
+        }
+
+
+        // Tampilkan tampilan dashboard
         return view('layout.home');
     }
+
+
     public function gallery()
     {
         $buildingViews = Gallery::where('category_id', 1)
@@ -52,16 +98,20 @@ class FrontController extends Controller
     }
 
     public function announcement(Request $request)
-    {
-        $announcements = Announcement::all();
+{
+    $announcements = Announcement::orderBy('created_at', 'desc')
+                                  ->take(10)
+                                  ->get();
 
-        $announcementCategories = AnnouncementCategory::all();
+    $announcementCategories = AnnouncementCategory::all();
 
-        return view('layout.event', [
-            'announcements' => $announcements,
-            'announcementCategories' => $announcementCategories,
-        ]);
-    }
+    return view('layout.event', [
+        'announcements' => $announcements,
+        'announcementCategories' => $announcementCategories,
+    ]);
+}
+
+
 
     public function room(Request $request)
     {
@@ -117,9 +167,11 @@ class FrontController extends Controller
     public function showBookings()
     {
         $userId = Auth::guard('customers')->user()->id;
-
-        $bookings = Booking::where('user_id', $userId)->get();
-
+        $bookings = Booking::where('user_id', $userId)->with('payments')->get();
+        foreach ($bookings as $booking) {
+            error_log('Booking ID: ' . $booking->id);
+            error_log('Is Paid: ' . $booking->isPaid());
+        }
         return view('layout.history', compact('bookings'));
     }
 

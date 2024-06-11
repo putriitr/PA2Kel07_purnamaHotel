@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use File;
 use App\Models\Staff;
 use Illuminate\Http\Request;
+use Auth;
 
 class StaffController extends Controller
 {
@@ -43,6 +44,10 @@ class StaffController extends Controller
             'image.mimes' => 'Harus Berupa JPG,PNG,JPEG',
         ];
         $this->validate($request, $alert, $message);
+        $adminId = Auth::guard('admin')->id();
+        if (!$adminId) {
+            return redirect()->route('staff.create')->with('error', 'Anda harus login sebagai admin.');
+        }
         $file = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images/staff'),$file);
 
@@ -52,7 +57,9 @@ class StaffController extends Controller
         $staffs->role = $request->role;
         $staffs->last_education = $request->last_education;
         $staffs->image = $file;
-
+        $staffs->admin_id = $adminId; // Set admin_id dengan ID admin yang sedang login
+        $staffs->created_by = $adminId;
+        $staffs->updated_by = $adminId;
         $staffs->save();
         return redirect('/admin/staff')->with('flash_message', 'Data Sudah Ditambah!');
     }

@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @section('title')
-    Announcement Category
+    Create Kategori Pengumuman
 @endsection
 
 @section('content')

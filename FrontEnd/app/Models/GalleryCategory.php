@@ -18,4 +18,13 @@ class GalleryCategory extends Model
     {
         return $this->hasMany(Gallery::class);
     }
+    public function creator()
+    {
+        return $this->belongsTo(Admin::class, 'created_by');
+    }
+
+    public function updater()
+    {
+        return $this->belongsTo(Admin::class, 'updated_by');
+    }
 }

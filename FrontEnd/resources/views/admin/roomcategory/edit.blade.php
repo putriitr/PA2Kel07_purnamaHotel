@@ -1,36 +1,38 @@
 @extends('admin.master')
 
-@section('title', 'Edit Room Category')
+@section('title')
+    Edit Kategori Kamar
+@endsection
 
 @section('content')
-    <div class="card">
-        <div class="card-body">
-            <form action="{{ route('roomcategory.update', $roomcategories->id) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-                <label for="name">Judul</label><br>
-                <input type="text" name="name" id="name" value="{{ old('name', $roomcategories->name) }}" class="form-control"><br>
-                @error('name')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+<div class="card">
+    <div class="card-body">
+        <form action="{{ route('roomcategory.update', $roomcategory->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <label for="name">Judul</label><br>
+            <input type="text" name="name" id="name" value="{{ old('name', $roomcategory->name) }}" class="form-control"><br>
+            @error('name')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
 
-                <label for="description">Isi</label><br>
-                <textarea name="description" id="editor" class="form-control" cols="30" rows="10">{{ old('description', $roomcategories->description) }}</textarea><br>
-                @error('description')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
+            <label for="description">Isi</label><br>
+            <textarea name="description" id="editor" class="form-control" cols="30" rows="10">{{ old('description', $roomcategory->description) }}</textarea><br>
+            @error('description')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
 
-                <button type="submit" class="btn btn-success my-3">Save</button>
-            </form>
-        </div>
+            <button type="submit" class="btn btn-success my-3">Save</button>
+        </form>
     </div>
+</div>
 
-    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#editor'))
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
+<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 @endsection

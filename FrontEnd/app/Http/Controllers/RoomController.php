@@ -37,6 +37,11 @@ class RoomController extends Controller
             'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
         ]);
 
+        $adminId = Auth::guard('admin')->id();
+        if (!$adminId) {
+            return redirect()->route('room.create')->with('error', 'Anda harus login sebagai admin.');
+        }
+
         $file = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images/rooms'), $file);
 
@@ -49,6 +54,9 @@ class RoomController extends Controller
         $room->size = $request->size;
         $room->room_category_id = $request->room_category_id;
         $room->image = $file;
+        $room->admin_id = $adminId; // Set admin_id dengan ID admin yang sedang login
+        $room->created_by = $adminId;
+        $room->updated_by = $adminId;
         $room->save();
 
         return redirect()->route('room.index')->with('success', 'Room created successfully.');
@@ -74,7 +82,7 @@ class RoomController extends Controller
             'image' => 'sometimes|image|mimes:jpg,png,jpeg|max:2048',
         ]);
 
-        $room = Room::find($id);
+        $room = Room::findOrFail($id);
 
         if ($request->hasFile('image')) {
             $path = public_path('images/rooms/');
@@ -139,8 +147,6 @@ class RoomController extends Controller
 
             return redirect()->back()->with('success', 'Thank you for your review!');
         }
-
-
     }
 
     public function show($roomId)

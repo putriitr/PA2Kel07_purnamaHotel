@@ -35,4 +35,8 @@ class Booking extends Model
     {
         return $this->hasMany(Payment::class);
     }
+    public function isPaid()
+    {
+        return $this->payments()->where('paid', true)->exists();
+    }
 }

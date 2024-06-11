@@ -26,14 +26,8 @@
             <form action="{{ route('customer.register') }}" method="POST">
                 @csrf
                 <h1>Create Account</h1>
-                <div class="social-icons">
-                    <a href="#" class="icon"><i class="fab fa-google fa-2x" style="color: #DB4437;"></i></a>
-                    <a href="#" class="icon"><i class="fab fa-whatsapp fa-2x" style="color: #00bb00;"></i></a>
-                    <a href="#" class="icon"><i class="fab fa-facebook-f fa-2x" style="color: #3b5998;"></i></a>
-                    <a href="#" class="icon"><i class="fab fa-instagram fa-2x" style="color: #C13584;"></i></a>
-                </div>
-                <span>or use your email for registration</span>
-                <input type="text" name="name" placeholder="Name" value="{{ old('name') }}">
+                <input type="text" name="first_name" placeholder="First Name" value="{{ old('first_name') }}">
+                <input type="text" name="last_name" placeholder="Name" value="{{ old('last_name') }}">
                 <input type="email" name="email" placeholder="Email" value="{{ old('email') }}">
                 <input type="password" name="password" placeholder="Password">
                 <input type="password" name="password_confirmation" placeholder="Confirm Password">
@@ -55,13 +49,6 @@
             <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <h1>Sign In</h1>
-                <div class="social-icons">
-                    <a href="#" class="icon"><i class="fab fa-google fa-2x" style="color: #DB4437;"></i></a>
-                    <a href="#" class="icon"><i class="fab fa-whatsapp fa-2x" style="color: #00bb00;"></i></a>
-                    <a href="#" class="icon"><i class="fab fa-facebook-f fa-2x" style="color: #3b5998;"></i></a>
-                    <a href="#" class="icon"><i class="fab fa-instagram fa-2x" style="color: #C13584;"></i></a>
-                </div>
-                <span>or use your email account</span>
                 <input type="email" name="email" placeholder="Email" value="{{ old('email') }}">
                 <input type="password" name="password" placeholder="Password">
                 @if (session('success'))
@@ -69,7 +56,6 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <a href="#">Forgot Your Password?</a>
                 <button type="submit">Sign In</button>
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -92,12 +78,12 @@
         <div class="toggle-container">
             <div class="toggle">
                 <div class="toggle-panel toggle-left">
-                    <h1>Welcome Back!</h1>
+                    <h1>Hello, Friend!</h1>
                     <p>Login to the system with an account to be able to use all website features.</p>
                     <button class="hidden" id="login">Login</button>
                 </div>
                 <div class="toggle-panel toggle-right">
-                    <h1>Hello, Friend!</h1>
+                    <h1>Welcome Back!</h1>
                     <p>Register an account to log in to the system and be able to use all website features.</p>
                     <button class="hidden" id="register">Make Account</button>
                 </div>

@@ -5,6 +5,7 @@ use App\Models\GalleryCategory;
 use File;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
+use Auth;
 
 class GalleryController extends Controller
 {
@@ -46,6 +47,11 @@ class GalleryController extends Controller
             'image.mimes' => 'Harus Berupa JPG,PNG,JPEG',
         ];
         $this->validate($request, $alert, $message);
+
+        $adminId = Auth::guard('admin')->id();
+        if (!$adminId) {
+            return redirect()->route('gallery.create')->with('error', 'Anda harus login sebagai admin.');
+        }
         $file = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images/gallery'),$file);
 
@@ -53,6 +59,9 @@ class GalleryController extends Controller
 
         $galeries->name = $request->name;
         $galeries->category_id = $request->category_id;
+        $galeries->admin_id = $adminId; // Set admin_id dengan ID admin yang sedang login
+        $galeries->created_by = $adminId;
+        $galeries->updated_by = $adminId;
         $galeries->description = $request->description;
         $galeries->image = $file;
 

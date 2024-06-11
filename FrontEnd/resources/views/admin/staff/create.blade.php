@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @section('title')
-    Fasilitas
+    Staff Hotel
 @endsection
 
 @section('content')

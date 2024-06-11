@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\GalleryCategory;
 use Illuminate\Http\Request;
+use Auth;
 
 class GalleryCategoryController extends Controller
 {
@@ -36,13 +37,20 @@ class GalleryCategoryController extends Controller
             'name.required' => 'Kolom nama Harus Di Isi',
         ];
         $this->validate($request, $alert, $message);
-
+        $adminId = Auth::guard('admin')->id();
+        if (!$adminId) {
+            return redirect()->route('gallerycategory.create')->with('error', 'Anda harus login sebagai admin.');
+        }
         $gallerycategory = new GalleryCategory;
         $gallerycategory->name = $request->name;
+        $gallerycategory->admin_id = $adminId; // Set admin_id dengan ID admin yang sedang login
+        $gallerycategory->created_by = $adminId;
+        $gallerycategory->updated_by = $adminId;
         $gallerycategory->save();
 
         return redirect('/admin/gallerycategory')->with('success', 'Pengumuman Sudah Ditambah');
     }
+
 
     /**
      * Display the specified resource.
@@ -67,7 +75,7 @@ class GalleryCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request -> validate([
+        $request->validate([
             'name' => 'required',
         ]);
 

@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Review;
-use Illuminate\Http\Request;
 use App\Models\RoomCategory;
+use Illuminate\Http\Request;
 use Auth;
 
 class RoomCategoryController extends Controller
 {
     public function index()
     {
-        // Mengambil semua kategori pengumuman dari database
+        // Mengambil semua kategori ruangan dari database
         $roomcategories = RoomCategory::all();
 
         // Mengirimkan data ke view
@@ -43,20 +42,20 @@ class RoomCategoryController extends Controller
         ];
         $this->validate($request, $alert, $message);
 
-        $roomcategories = new RoomCategory;
-        $roomcategories->name = $request->name;
-        $roomcategories->description = $request->description;
-        $roomcategories->save();
+        $adminId = Auth::guard('admin')->id();
+        if (!$adminId) {
+            return redirect('/admin/roomcategory')->with('error', 'Anda harus login sebagai admin.');
+        }
 
-        return redirect('/admin/roomcategory')->with('success', 'Pengumuman Sudah Ditambah');
-    }
+        $roomcategory = new RoomCategory;
+        $roomcategory->name = $request->name;
+        $roomcategory->description = $request->description;
+        $roomcategory->admin_id = $adminId;
+        $roomcategory->created_by = $adminId;
+        $roomcategory->updated_by = $adminId;
+        $roomcategory->save();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        return redirect('/admin/roomcategory')->with('success', 'Kategori ruangan sudah ditambah.');
     }
 
     /**
@@ -65,7 +64,7 @@ class RoomCategoryController extends Controller
     public function edit(string $id)
     {
         return view('admin.roomcategory.edit')->with([
-            'roomcategories' => RoomCategory::find($id),
+            'roomcategory' => RoomCategory::find($id),
         ]);
     }
 
@@ -74,17 +73,25 @@ class RoomCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request -> validate([
-            'name' => 'required',
-            'description' => 'required',
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|min:20|max:400',
+        ], [
+            'name.required' => 'Kolom Judul Harus Di Isi',
+            'description.required' => 'Deskripsi Harus Di Isi',
+            'description.min' => 'Deskripsi minimal 20 karakter',
+            'description.max' => 'Deskripsi tidak boleh lebih dari 400 karakter'
         ]);
 
-        $roomcategories = RoomCategory::find($id);
-        $roomcategories->name = $request->name;
-        $roomcategories->description = $request->description;
-        $roomcategories->save();
+        $roomcategory = RoomCategory::find($id);
+        if (!$roomcategory) {
+            return redirect()->route('roomcategory.index')->with('error', 'Data tidak ditemukan.');
+        }
+        $roomcategory->name = $request->name;
+        $roomcategory->description = $request->description;
+        $roomcategory->save();
 
-        return redirect()->route('roomcategory.index')->with('success', 'Data Berhasil Diubah');
+        return redirect()->route('roomcategory.index')->with('success', 'Data berhasil diubah.');
     }
 
     /**
@@ -92,11 +99,12 @@ class RoomCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $roomcategories = RoomCategory::find($id);
-        $roomcategories->delete();
+        $roomcategory = RoomCategory::find($id);
+        if (!$roomcategory) {
+            return redirect('/admin/roomcategory')->with('error', 'Data tidak ditemukan.');
+        }
+        $roomcategory->delete();
 
-        return redirect('/admin/roomcategory')->with('success', 'Data Berhasil Dihapus');
+        return redirect('/admin/roomcategory')->with('success', 'Data berhasil dihapus.');
     }
-
-    
 }

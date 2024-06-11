@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     @include('partial.head')
     <style>
@@ -14,6 +15,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container bg-white p-0">
         <!-- Navbar & Hero Start -->
@@ -30,17 +32,22 @@
         </div>
         <!-- Navbar & Hero End -->
 
-        <!-- Room Categories Start -->
-        <div class="text-center">
-            <button class="btn btn-primary mb-3" onclick="showAllRooms()">Show All</button>
-            <!-- Buttons to filter rooms by category -->
-            @foreach ($roomCategories as $category)
-                <button class="btn btn-primary mb-3 ms-3" onclick="showRoomsByCategory({{ $category->id }})">{{ $category->name }}</button>
-            @endforeach
-            <!-- Button to view booking history -->
-            <a href="{{ route('user.bookings') }}" class="btn btn-secondary mb-3 ms-3">View Booking History</a>
+        <div class="row align-items-center">
+            <div class="col" style="margin-left: 50px">
+                <!-- Search input -->
+                <div class="input-group">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search rooms...">
+                    <button class="btn" type="button">
+                        <i class="bi bi-search" style="color: orange;"></i>
+                    </button>
+                </div>
+            </div>
+            @if (auth()->guard('customers')->check())
+                <div class="col-auto" style="margin-right: 50px;">
+                    <a href="{{ route('user.bookings') }}" class="btn btn-secondary mb-3 ms-3">View Booking History</a>
+                </div>
+            @endif
         </div>
-        <!-- Room Categories End -->
 
         <!-- Room Booking Start -->
         <div class="container-xxl py-5">
@@ -54,7 +61,7 @@
                         <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" data-category="{{ $room->category_id }}">
                             <div class="room-item shadow rounded overflow-hidden">
                                 <div class="position-relative">
-                                    <img class="img-fluid" src="{{ asset('images/rooms/' . $room->image) }}" alt="{{ $room->name }}" style="height: 250px", width="100%">
+                                    <img class="img-fluid" src="{{ asset('images/rooms/' . $room->image) }}" alt="{{ $room->name }}" style="height: 250px; width: 100%;">
                                     <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
                                         Rp {{ number_format($room->price, 0, ',', '.') }} / Night
                                     </small>
@@ -62,15 +69,6 @@
                                 <div class="p-4 mt-2">
                                     <div class="d-flex justify-content-between mb-3">
                                         <h5 class="mb-0">{{ $room->name }}</h5>
-                                        <div class="ps-2">
-                                            @for ($i = 0; $i < 5; $i++)
-                                                @if ($i < $room->rating)
-                                                    <small class="fa fa-star text-primary"></small>
-                                                @else
-                                                    <small class="fa fa-star text-secondary"></small>
-                                                @endif
-                                            @endfor
-                                        </div>
                                     </div>
                                     <div class="d-flex mb-3">
                                         <small class="border-end me-3 pe-3">
@@ -83,12 +81,23 @@
                                             <i class="fa fa-wifi text-primary me-2"></i>Wifi
                                         </small>
                                     </div>
+                                    <div class="d-flex mb-3">
+                                        <small>
+                                            <i class="fa fa-ban text-primary me-2"></i>No Refund
+                                        </small>
+                                    </div>
                                     <p class="text-body mb-3">{{ $room->description }}</p>
                                     <div class="d-flex justify-content-between">
                                         <a class="btn btn-sm btn-primary rounded py-2 px-4" href="{{ route('room.show', $room->id) }}">View Detail</a>
-                                        <a class="btn btn-sm btn-dark rounded py-2 px-4" href="{{ route('book.room', ['roomId' => $room->id]) }}">
-                                            Book Now
-                                        </a>
+                                        @if (auth()->guard('customers')->check())
+                                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="{{ route('book.room', ['roomId' => $room->id]) }}">
+                                                Book Now
+                                            </a>
+                                        @else
+                                            <a class="btn btn-sm btn-dark rounded py-2 px-4" href="{{ route('login') }}">
+                                                Login to Book
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -110,22 +119,27 @@
     <!-- JavaScript Libraries -->
     @include('partial.js')
     <script>
-        function showAllRooms() {
-            document.querySelectorAll('.room-item').forEach(card => {
-                card.style.display = 'block';
-            });
-        }
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById('searchInput');
+            const roomList = document.getElementById('roomList');
 
-        function showRoomsByCategory(categoryId) {
-            document.querySelectorAll('.room-item').forEach(card => {
-                const cardCategory = card.getAttribute('data-category');
-                if (categoryId === 'all' || cardCategory === categoryId.toString()) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+            searchInput.addEventListener('input', function() {
+                const searchValue = searchInput.value.toLowerCase();
+
+                // Loop through room items and hide/show based on search input
+                const roomItems = roomList.querySelectorAll('.room-item');
+                roomItems.forEach(function(roomItem) {
+                    const roomName = roomItem.querySelector('h5').innerText.toLowerCase();
+                    if (roomName.includes(searchValue)) {
+                        roomItem.style.display = 'block';
+                    } else {
+                        roomItem.style.display = 'none';
+                    }
+                });
             });
-        }
+        });
     </script>
+
 </body>
+
 </html>

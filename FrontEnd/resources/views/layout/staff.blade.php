@@ -4,14 +4,43 @@
 <head>
     @include('partial.head')
     <style>
-        .staff-image {
-            max-height: 200px;
-            object-fit: cover;
-        }
-        .staff-details {
+        .staff-card {
+            height: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .staff-image {
+            height: 300px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .staff-details {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            padding: 16px;
+            position: relative;
+        }
+
+        .social-links {
+            margin-top: 16px;
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .social-links a {
+            margin: 0 5px;
         }
     </style>
 </head>
@@ -26,7 +55,7 @@
 
             <div class="container py-5 bg-dark hero-header mb-5">
                 <div class="container text-center my-5 pt-5 pb-4">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown">Met Our</h1>
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Our Team</h1>
                 </div>
             </div>
         </div>
@@ -36,24 +65,25 @@
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="section-title text-center text-primary text-uppercase">Our Team</h6>
-                    <h1 class="mb-5">Explore Our <span class="text-primary text-uppercase">Staffs</span></h1>
+                    <h6 class="section-title text-center text-primary text-uppercase">Team</h6>
+                    <h1 class="mb-5">Meet Our <span class="text-primary text-uppercase">Staffs</span></h1>
                 </div>
                 <div class="row g-4 justify-content-center">
                     @foreach ($staffMembers as $staff )
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="rounded shadow overflow-hidden">
+                    <div class="col-lg-4 col-md-6 mb-4 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="staff-card rounded shadow mx-auto"> <!-- Tambahkan kelas mx-auto di sini -->
                             <div class="position-relative">
-                                <img class="img-fluid" src="{{ asset('images/staff/' . $staff->image) }}" alt="">
-                                <div class="position-absolute start-50 top-100 translate-middle d-flex align-items-center">
+                                <img class="img-fluid staff-image" src="{{ asset('images/staff/' . $staff->image) }}" alt="">
+                            </div>
+                            <div class="staff-details">
+                                <h5 class="fw-bold mb-0">{{$staff->name}}</h5>
+                                <small>{{$staff->role}}</small>
+                                <br><br>
+                                <div class="social-links">
                                     <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
                                     <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
                                     <a class="btn btn-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
                                 </div>
-                            </div>
-                            <div class="text-center p-4 mt-3">
-                                <h5 class="fw-bold mb-0">{{$staff->name}}</h5>
-                                <small>{{$staff->role}}</small>
                             </div>
                         </div>
                     </div>

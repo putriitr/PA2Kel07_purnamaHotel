@@ -10,7 +10,7 @@
 
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
                 <div class="container text-center my-5 pt-5 pb-4">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown">Facility</h1>
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Pembayaran</h1>
                 </div>
             </div>
         </div>
@@ -20,6 +20,16 @@
 
             @if(session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
 
             <form action="{{ route('payment.process', ['bookingId' => $booking->id]) }}" method="POST" enctype="multipart/form-data">
@@ -46,7 +56,8 @@
 
                 <div class="form-group mt-3">
                     <label for="total_amount">Total Amount to Pay:</label>
-                    <input type="text" id="total_amount" name="total_amount" class="form-control" value="{{ 'Rp ' . number_format($booking->room->price * ((new DateTime($booking->checkout_date))->diff(new DateTime($booking->checkin_date))->days), 0, ',', '.') }}" readonly>
+                    <input type="text" id="total_amount" class="form-control" value="{{ 'Rp ' . number_format($booking->room->price * ((new DateTime($booking->checkout_date))->diff(new DateTime($booking->checkin_date))->days), 0, ',', '.') }}" readonly>
+                    <input type="hidden" id="total_amount" name="total_amount" class="form-control" value="{{ ($booking->room->price * ((new DateTime($booking->checkout_date))->diff(new DateTime($booking->checkin_date))->days)) }}" readonly>
                 </div>
 
                 <div class="form-group mt-3">

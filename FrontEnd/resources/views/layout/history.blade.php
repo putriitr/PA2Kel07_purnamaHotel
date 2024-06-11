@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     @include('partial.head')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
     <style>
         .hero-header-custom {
-            background-color: #ff6347; /* Change this color to whatever you prefer */
+            background-color: #ff6347;
+            /* Change this color to whatever you prefer */
         }
 
         /* Style for the first row of the table */
         .table thead th {
-            background-color: #ff8c00; /* Orange color */
-            color: white; /* Text color */
+            background-color: #ff8c00;
+            /* Orange color */
+            color: white;
+            /* Text color */
         }
     </style>
 </head>
+
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Navbar & Hero Start -->
@@ -31,6 +36,7 @@
         <!-- Navbar & Hero End -->
 
         <!-- Booking History Start -->
+        <!-- Booking History Start -->
         <div class="container">
             @if (Auth::guard('customers')->check())
                 @if ($bookings->isEmpty())
@@ -45,6 +51,7 @@
                                 <th>Tanggal Check-out</th>
                                 <th>Jumlah Tamu</th>
                                 <th>Aksi</th>
+                                <th>Cancel</th> <!-- Kolom baru untuk tombol Cancel -->
                             </tr>
                         </thead>
                         <tbody>
@@ -56,8 +63,28 @@
                                     <td>{{ $booking->checkout_date }}</td>
                                     <td>{{ $booking->number_of_guests }}</td>
                                     <td>
-                                        @if ($booking->status == 'pending')
-                                            <a href="{{ route('payment.form', ['bookingId' => $booking->id]) }}" class="btn btn-sm btn-primary">Bayar Sekarang</a>
+                                        <!-- Debugging output -->
+                                        @if ($booking->isPaid())
+                                            <p>Booking is paid</p>
+                                        @else
+                                            <p>Booking is not paid</p>
+                                        @endif
+
+                                        <!-- Tombol Bayar Sekarang -->
+                                        @if ($booking->status == 'pending' && !$booking->isPaid())
+                                            <a href="{{ route('payment.form', ['bookingId' => $booking->id]) }}"
+                                                class="btn btn-sm btn-primary">Bayar Sekarang</a>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <!-- Tombol Cancel -->
+                                        @if ($booking->status != 'cancelled' && $booking->status != 'confirmed' && !$booking->isPaid())
+                                            <form action="{{ route('booking.cancel', ['bookingId' => $booking->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                                            </form>
                                         @endif
                                     </td>
                                 </tr>
@@ -71,6 +98,8 @@
         </div>
         <!-- Booking History End -->
 
+        <!-- Booking History End -->
+
         <!-- Footer Start -->
         @include('partial.footer')
         <!-- Footer End -->
@@ -82,4 +111,5 @@
     <!-- JavaScript Libraries -->
     @include('partial.js')
 </body>
+
 </html>

@@ -53,7 +53,6 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
-                    <th>Rent Price</th>
                     <th>Image</th>
                     <th>Actions</th>
                 </tr>
@@ -63,7 +62,6 @@
                 <tr>
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->description }}</td>
-                    <td>{{ $item->rent_price }}</td>
                     <td><img src="{{ asset('images/facility/'.$item->image) }}" alt="{{ $item->name }}" height="100px"></td>
                     <td>
                         <form action="{{ route('facility.destroy', $item->id) }}" method="POST">

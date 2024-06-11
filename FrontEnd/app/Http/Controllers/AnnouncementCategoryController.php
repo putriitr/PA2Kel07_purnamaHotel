@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AnnouncementCategory;
+use Auth;
 
 class AnnouncementCategoryController extends Controller
 {
@@ -29,25 +30,39 @@ class AnnouncementCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $alert = [
+        // Validasi input
+        $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|min:20|max:400',
-        ];
-        $message = [
+        ], [
             'name.required' => 'Kolom Judul Harus Di Isi',
             'description.required' => 'Isi Pengumuman Harus Di Isi',
             'description.min' => 'Isi Pengumuman minimal 20 karakter',
             'description.max' => 'Isi Pengumuman tidak boleh lebih dari 400 karakter'
-        ];
-        $this->validate($request, $alert, $message);
+        ]);
 
+        // Pastikan admin sedang login
+        $adminId = Auth::guard('admin')->id();
+        if (!$adminId) {
+            return redirect('/admin/announcementcategory')->with('error', 'Anda harus login sebagai admin');
+        }
+
+        // Buat instance baru AnnouncementCategory
         $announcementcategory = new AnnouncementCategory;
         $announcementcategory->name = $request->name;
         $announcementcategory->description = $request->description;
+        $announcementcategory->admin_id = $adminId;
+        $announcementcategory->created_by = $adminId;
+        $announcementcategory->updated_by = $adminId;
+
+        // Simpan data ke database
         $announcementcategory->save();
 
+        // Redirect dengan pesan sukses
         return redirect('/admin/announcementcategory')->with('success', 'Pengumuman Sudah Ditambah');
     }
+
+
 
     /**
      * Display the specified resource.
@@ -72,7 +87,7 @@ class AnnouncementCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request -> validate([
+        $request->validate([
             'name' => 'required',
             'description' => 'required',
         ]);

@@ -47,7 +47,7 @@
             </div>
             <div class="mb-3">
                 <label for="room_number" class="form-label">Room number</label>
-                <input type="string" name="room_number" class="form-control" id="room_number" value="{{ old('room_number') }}">
+                <input type="text" name="room_number" class="form-control" id="room_number" value="{{ old('room_number') }}">
                 @error('room_number')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror

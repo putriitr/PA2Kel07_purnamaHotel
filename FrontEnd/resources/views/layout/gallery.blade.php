@@ -1,7 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     @include('partial.head')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <style>
+        .image-wrapper {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, z-index 0.3s ease;
+        }
+
+        .image-wrapper:hover {
+            transform: scale(1.2);
+            /* Zoom effect */
+            z-index: 10;
+        }
+
+        .square-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,57 +46,6 @@
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                     <h1 class="mb-5">Beauty of Hotel Purnama Balige</h1>
                 </div>
-                <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill"
-                                href="#tab-1">
-                                <i class="fa fa-home fa-x text-primary"></i>
-                                <div class="ps-3">
-                                    <h5 class="mt-n1 mb-0">Building View</h5>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 me-0 pb-3 active" data-bs-toggle="pill"
-                                href="#tab-2">
-                                <i class="fa fa-home fa-x text-primary"></i>
-                                <div class="ps-3">
-                                    <h5 class="mt-n1 mb-0">Restaurant</h5>
-                                </div>
-                            </a>
-                        </li>
-                        <ul></ul>
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill"
-                                href="#tab-3">
-                                <i class="fa fa-home fa-x text-primary"></i>
-                                <div class="ps-3">
-                                    <h5 class="mt-n1 mb-0">Outdoor</h5>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 me-0 pb-3 active" data-bs-toggle="pill"
-                                href="#tab-4">
-                                <i class="fa fa-home fa-x text-primary"></i>
-                                <div class="ps-3">
-                                    <h5 class="mt-n1 mb-0">Spa & Sauna</h5>
-                                </div>
-                            </a>
-                        </li>
-                        <ul></ul>
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill"
-                                href="#tab-5">
-                                <i class="fa fa-home fa-x text-primary"></i>
-                                <div class="ps-3">
-                                    <h5 class="mt-n1 mb-0">Sport</h5>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
         <!-- Menu End -->
@@ -94,10 +65,10 @@
                 <div class="row g-4">
                     @foreach ($buildingViews as $gallery)
                         <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                            <div class="overflow-hidden m-10">
+                            <div class="image-wrapper">
                                 <a href="{{ asset('images/gallery/' . $gallery->image) }}" data-lightbox="hotel-photos">
-                                    <img class="img-fluid square-img" src="{{ asset('images/gallery/' . $gallery->image) }}"
-                                        alt="">
+                                    <img class="img-fluid square-img"
+                                        src="{{ asset('images/gallery/' . $gallery->image) }}" alt="">
                                 </a>
                             </div>
                         </div>
@@ -116,9 +87,10 @@
                 <div class="row g-4">
                     @foreach ($restaurant as $gallery)
                         <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                            <div class="overflow-hidden m-10">
+                            <div class="image-wrapper">
                                 <a href="{{ asset('images/gallery/' . $gallery->image) }}" data-lightbox="hotel-photos">
-                                    <img class="img-fluid square-img" src="{{ asset('images/gallery/' . $gallery->image) }}"
+                                    <img class="img-fluid square-img"
+                                        src="{{ asset('images/gallery/' . $gallery->image) }}"
                                         alt="">
                                 </a>
                             </div>
@@ -138,10 +110,10 @@
                 <div class="row g-4">
                     @foreach ($outdoor as $gallery)
                         <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                            <div class="overflow-hidden m-10">
+                            <div class="image-wrapper">
                                 <a href="{{ asset('images/gallery/' . $gallery->image) }}" data-lightbox="hotel-photos">
-                                    <img class="img-fluid square-img" src="{{ asset('images/gallery/' . $gallery->image) }}"
-                                        alt="">
+                                    <img class="img-fluid square-img"
+                                        src="{{ asset('images/gallery/' . $gallery->image) }}" alt="">
                                 </a>
                             </div>
                         </div>
@@ -160,10 +132,10 @@
                 <div class="row g-4">
                     @foreach ($spaAndSauna as $gallery)
                         <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                            <div class="overflow-hidden m-10">
+                            <div class="image-wrapper">
                                 <a href="{{ asset('images/gallery/' . $gallery->image) }}" data-lightbox="hotel-photos">
-                                    <img class="img-fluid square-img" src="{{ asset('images/gallery/' . $gallery->image) }}"
-                                        alt="">
+                                    <img class="img-fluid square-img"
+                                        src="{{ asset('images/gallery/' . $gallery->image) }}" alt="">
                                 </a>
                             </div>
                         </div>
@@ -182,10 +154,10 @@
                 <div class="row g-4">
                     @foreach ($sports as $gallery)
                         <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                            <div class="overflow-hidden m-10">
+                            <div class="image-wrapper">
                                 <a href="{{ asset('images/gallery/' . $gallery->image) }}" data-lightbox="hotel-photos">
-                                    <img class="img-fluid square-img" src="{{ asset('images/gallery/' . $gallery->image) }}"
-                                        alt="">
+                                    <img class="img-fluid square-img"
+                                        src="{{ asset('images/gallery/' . $gallery->image) }}" alt="">
                                 </a>
                             </div>
                         </div>
@@ -193,8 +165,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <div id="myModal" class="modal">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -212,10 +182,5 @@
     </div>
     @include('partial.js')
 </body>
-<style>
-    .square-img {
-        width: 450px;
-        height: 250px;
-        object-fit: cover;
-    }
-</style>
+
+</html>

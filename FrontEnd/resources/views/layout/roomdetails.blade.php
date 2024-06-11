@@ -71,26 +71,24 @@
                                 <p class="text-body mb-3">Capacity: {{ $room->capacity }} persons</p>
                                 <p class="text-body mb-3">Facilities: {{ $room->facility }}</p>
                             </div>
-                            <a class="btn btn-sm btn-dark rounded py-2 px-4 {{ $room->is_booked ? 'disabled' : '' }}" href="{{ route('book.room', ['roomId' => $room->id]) }}">
-                                {{ $room->is_booked ? 'Not Available' : 'Book Now' }}
-                            </a>
+                            @if (auth()->guard('customers')->check())
+                                            <a class="btn btn-sm btn-dark rounded py-2 px-4"
+                                                href="{{ route('book.room', ['roomId' => $room->id]) }}">
+                                                Book Now
+                                            </a>
+                                        @else
+                                            <a class="btn btn-sm btn-dark rounded py-2 px-4"
+                                                href="{{ route('login') }}">
+                                                Login to Book
+                                            </a>
+                                        @endif
                         </div>
                         <div class="bg-light rounded p-4 mt-4">
                             <h5 class="mb-4">Room Information</h5>
                             <p><strong>Room Number:</strong> {{ $room->room_number }}</p>
                             <p><strong>Size:</strong> {{ $room->size }} m²</p>
                             <p><strong>Category:</strong> {{ $room->category->name }}</p>
-                            <p><strong>Rating:</strong>
-                                <span class="star-rating">
-                                    @for ($i = 0; $i < 5; $i++)
-                                        @if ($i < $room->rating)
-                                            <small class="fa fa-star"></small>
-                                        @else
-                                            <small class="fa fa-star-o"></small>
-                                        @endif
-                                    @endfor
-                                </span>
-                            </p>
+
                         </div>
                     </div>
                 </div>

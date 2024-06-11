@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', 'Edit Announcement Category')
+@section('title', 'Edit Kategori Pengumuman')
 
 @section('content')
     <div class="card">

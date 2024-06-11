@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use File;
 use App\Models\Facility;
 use Illuminate\Http\Request;
+use Auth;
 
 class FacilityController extends Controller
 {
@@ -43,6 +44,10 @@ class FacilityController extends Controller
             'image.mimes' => 'Harus Berupa JPG,PNG,JPEG',
         ];
         $this->validate($request, $alert, $message);
+        $adminId = Auth::guard('admin')->id();
+        if (!$adminId) {
+            return redirect()->route('facility.create')->with('error', 'Anda harus login sebagai admin.');
+        }
         $file = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images/facility'),$file);
 
@@ -50,9 +55,10 @@ class FacilityController extends Controller
 
         $facilities->name = $request->name;
         $facilities->description = $request->description;
-        $facilities->rent_price = $request->rent_price;
         $facilities->image = $file;
-
+        $facilities->admin_id = $adminId; // Set admin_id dengan ID admin yang sedang login
+        $facilities->created_by = $adminId;
+        $facilities->updated_by = $adminId;
         $facilities->save();
         return redirect('/admin/facility')->with('flash_message', 'Data Sudah Ditambah!');
     }
@@ -84,7 +90,6 @@ class FacilityController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'rent_price' => 'required',
             'image' => 'required',
         ]);
 
@@ -102,7 +107,6 @@ class FacilityController extends Controller
 
         $facilities->name = $request['name'];
         $facilities->description = $request['description'];
-        $facilities->rent_price = $request['rent_price'];
         $facilities->update();
 
         return redirect()->route('facility.index')->with('success', 'Data Berhasil Diubah');

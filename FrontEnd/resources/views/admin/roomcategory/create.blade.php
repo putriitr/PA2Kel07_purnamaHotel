@@ -1,7 +1,7 @@
 @extends('admin.master')
 
 @section('title')
-    Announcement Category
+    Kategori Kamar
 @endsection
 
 @section('content')
@@ -10,13 +10,13 @@
         <form action="{{ route('roomcategory.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <label>Nama Kategori</label>
-            <input type="text" name="name" id="name" class="form-control">
+            <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}">
             @error('name')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
 
             <label>Deskripsi Kategori</label>
-            <textarea name="description" id="editor" class="form-control" cols="30" rows="10"></textarea>
+            <textarea name="description" id="editor" class="form-control" cols="30" rows="10">{{ old('description') }}</textarea>
             @error('description')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
@@ -34,5 +34,4 @@
             console.error(error);
         });
 </script>
-
 @endsection

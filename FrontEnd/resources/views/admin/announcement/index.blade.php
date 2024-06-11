@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', 'Announcements')
+@section('title', 'Pengumuman')
 
 @section('content')
     <div class="container">

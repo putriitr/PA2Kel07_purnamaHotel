@@ -13,11 +13,22 @@ class Payment extends Model
         'booking_id',
         'payment_method',
         'proof_of_payment',
-        'amount'
+        'paid',
+        'amount',
+        'status'
     ];
 
     public function booking()
     {
         return $this->belongsTo(Booking::class);
+    }
+    public function approve()
+    {
+        return $this->belongsTo(Admin::class, 'approve_by');
+    }
+
+    public function reject()
+    {
+        return $this->belongsTo(Admin::class, 'reject_by');
     }
 }
